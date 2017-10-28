@@ -1,1 +1,0 @@
-var lang=[],uc_name={},uc_status={},uc_avatar={},uc_link={},barLinks=[],unfocus_chat=[],apps=[],Themes=[],blockList=[],Smiley=[];<?php echo $settings; ?>
