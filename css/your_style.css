@@ -1,0 +1,182 @@
+/*
+ * It is advised not to edit the smartadmin_production.css
+ * as this will override any changes you make in the 
+ * later versions of this theme. 
+ * 
+ * We advise that you use use this CSS to override 
+ * SmartAdmin styles. 
+ * 
+ * Rename the stylesheet to whatever your liking so it will stay
+ * unique to you with each update of SmartAdmin.
+ */
+
+/*
+ * INDEX
+ * 
+ * - HTML
+ * - BODY
+ * - CUSTOM STYLES
+ */
+ .fb-follow.fb_iframe_widget {
+    position: fixed;
+    left: 20px;
+    bottom: 10px;
+    z-index: 999;
+}
+span.mDate {
+    font-style: italic;
+    margin-left: 10px;
+    color: darkred;
+    text-decoration: underline;
+}
+div#empty-block-condition {
+    border: 3px dotted #dddddd;
+	    margin: 10px 0;
+    padding: 3%;
+}
+div#empty-block-condition:hover {
+    background: #f6f6f6;
+    cursor: pointer;
+}
+div#empty-block-condition i {
+    position: relative;
+    top: 3px;
+    margin-right: 10px;
+}
+div#empty-block-condition span {
+    font-size: 20px;
+}
+.print-action {
+    position: absolute;
+    right: 10px;
+    visibility: hidden;
+}
+label.qty {
+    margin-left: 35px;
+}
+ul.list-group.medication_block li:hover .print-action {
+    visibility: visible;
+}
+li.list-group-item.maintainable {
+    background: #3276b1;
+    color: #fff;
+}
+ul.list-group.medication_block li {
+    padding: 4px 15px;
+}
+.record-item {
+    min-height: 150px;
+    border: 1px solid #c2c2c2;
+    margin-bottom: 18px;
+	    position: relative;
+}
+.record-item span.record-icon {
+    font-size: 8em;
+    padding-left: 16px;
+    opacity: .1;
+}
+.record-item .record-details {
+    position: absolute;
+    top: 6px;
+    right: 5px;
+    width: 100%;
+    text-align: center;
+}
+.record-details span.record-title {
+    font-size: 20px;
+}
+.record-details p {
+    font-size: 3em;
+    margin: 6px 0;
+}
+.user {
+	width: 45% !important;
+}
+div#future-updates {
+	opacity: .2;
+	cursor: help;
+}
+div#empty-content {
+	text-align: center;
+		padding: 10%;
+}
+div#details-bottom {
+	background: #fafafa;
+	margin: 10px auto;
+	padding: 18px 0px 0px 0px;
+	border: 1px solid #c2c2c2;
+}
+div#details-top img {
+	margin-right: 10px;
+}
+div#details-top h1 {
+	margin-bottom: 10px;
+}
+div#details-top span {
+	color: darkred;
+	font-size: 22px;
+}
+li.list-group-item label.medicine,
+li.list-group-item label.prep,
+li.list-group-item label.sig{
+	width: 31%;
+	margin: 0px !important;
+}
+.table>tbody>tr>td:last-child, .table>tbody>tr>th:last-child, .table>thead>tr>td:last-child, .table>thead>tr>th:last-child {
+	text-align: right;
+}
+#table-patients>thead, #table-role>thead, #table-appointment>thead, #table-templates>thead{
+	display: none;
+}
+.table {
+	width: 100%;
+}
+.dt-toolbar .dataTables_length {
+	float: right;
+}
+.dataTables_wrapper .dataTables_processing {
+	position: absolute;
+	top: 100%;
+	left: 50%;
+	width: 30%;
+	height: 65px;
+	margin-left: -20%;
+	margin-top: -25px;
+	padding-top: 20px;
+	text-align: center;
+	font-size: 1.2em;
+	background: #3a3633;
+	color: #fff;
+}
+td.dataTables_empty {
+	text-align: center !important;
+}
+.profile-pic a {
+	visibility: hidden;
+	position: absolute;
+	top: -24px;
+	right: 9px;
+	z-index: 4;
+	background: white;
+	padding: 1px 4px;
+}
+.profile-pic:hover a {
+	visibility: visible;
+}
+span#logo {
+    font-size: 18px;
+    font-weight: bold;
+    padding-left: 5px;
+}
+div#details-top img {
+    width: 100px;
+    height: auto;
+}
+p.print-size-info {
+    position: absolute;
+    z-index: 999;
+    background: #000;
+    width: 95.5%;
+    padding: 3px 10px 5px;
+    color: #fff;
+}

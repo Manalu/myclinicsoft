@@ -1,0 +1,35 @@
+<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+
+function encode($string, $key="", $url_safe=true)
+{
+	$ret = parent::encode($string, $key);
+
+	if ($url_safe)
+	{
+		$ret = strtr(
+				$ret,
+				array(
+					'+' => '.',
+					'=' => '-',
+					'/' => '~'
+				)
+			);
+	}
+
+	return $ret;
+}
+
+
+function decode($string, $key="")
+{
+	$string = strtr(
+			$string,
+			array(
+				'.' => '+',
+				'-' => '=',
+				'~' => '/'
+			)
+		);
+
+	return parent::decode($string, $key);
+}
