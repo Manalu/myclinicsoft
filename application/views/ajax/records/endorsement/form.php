@@ -9,15 +9,9 @@
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="col-md-3 control-label">Endorse to </label>
+					<label class="col-md-3 control-label">Description </label>
 					<div class="col-md-9">
-						<input name="endorse_to" id="endorse_to" class="form-control input-medium " type="text" value=""/>
-					</div>
-				</div>
-				<div class="form-group">
-					<label class="col-md-3 control-label">Reason </label>
-					<div class="col-md-9">
-						<textarea name="reasons" class="form-control" id="reasons" ></textarea>
+						<textarea name="endorsement" class="form-control" id="endorsement" ></textarea>
 					</div>
 				</div>
 				

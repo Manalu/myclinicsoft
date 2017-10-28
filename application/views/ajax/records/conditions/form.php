@@ -1,6 +1,12 @@
+<style>
+textarea#conditions {
+    resize: vertical;
+    min-height: 200px;
+}
+</style>
 <?php echo form_open('records/save/-1/'.$type,array('id'=>'record_form', 'class'=>'form-horizontal', 'role'=>'form')); ?>
 <fieldset>
-            <input type="hidden" name="user_id" value="<?php echo $user_id;?>"/>
+            <input type="hidden" name="user_id" id="user_id" value="<?php echo $user_id;?>"/>
 			<div class="form-body">
 				<div class="form-group">
 					<label class="col-md-3 control-label"><?php echo $this->lang->line('records_date');?></label>
@@ -11,11 +17,7 @@
 				<div class="form-group">
 					<label class="col-md-3 control-label"><?php echo $this->lang->line('records_conditions');?></label>
 					<div class="col-md-9">
-						<?php echo form_input(array(
-				'name'=>'conditions',
-				'id'=>'conditions',
-				'class'=>'form-control')
-			);?>
+						<textarea name="conditions" id="conditions" class="form-control"></textarea>
 					</div>
 				</div>
 			</div>
@@ -29,12 +31,6 @@
 $(document).ready(function()
 {
 	
-	
-	//$("#conditions").autocomplete("<?php echo site_url('conditions/suggest');?>", {
-    //    	max: 100,
-    //    	minChars: 0,
-    //    	delay: 10
-    //	});
     runAllForms();
 	var validatefunction = function() {
 		$('#record_form').validate({
@@ -83,7 +79,25 @@ $(document).ready(function()
 								iconSmall : "fa fa-check",
 								timeout : 3000
 							});
-							checkURL();
+							//checkURL();
+							var _date = $('#condition_date').val();
+							var _condition = $('#conditions').val();
+							var _user_id = $('#user_id').val();
+							
+							if(_condition.length > 150) _condition = _condition.substring(0,150)+'...';
+							var complain_temp = '<div class="complaints-row group-'+_date+'">'+
+													'<p><strong>'+_condition+'</strong></p>'+
+													'<div class="btn-group  pull-right">'+
+														'<a title="Add Medication" href="'+BASE_URL+'records/create/medications/'+_user_id+'/'+_date+'" class="ajax-btn pull-right btn btn-success btn-xs"><i class="fa fa-plus"></i> Add Medication</a>'+
+													'</div>'+			
+													'<div id="complaints-'+_date+'"><ul class="list-group medication_block">'+
+														'<div class="alert alert-info text-center empty-post">Add prescription.</div>'+
+													'</ul></div>'+
+												'</div>';
+	
+							$(complain_temp).prependTo('#complain-table');
+							
+							
 						}
 						else
 						{
@@ -109,5 +123,6 @@ $(document).ready(function()
 	loadScript(BASE_URL+"js/plugin/jquery-validate/jquery.validate.min.js", function(){
 		loadScript(BASE_URL+"js/plugin/jquery-form/jquery-form.min.js", validatefunction);
 	});
+	
 });
 </script>

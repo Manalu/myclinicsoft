@@ -107,7 +107,7 @@ class Templates extends Secure {
 			'tname'			=>$this->input->post('name'),
 			'tcontent'		=>$this->input->post('content'),
 			'ttype'			=>$this->input->post('types'),
-			'tstatus'		=>$this->input->post('status') ? 1 : 0,
+			'tstatus'		=>1,//$this->input->post('status') ? 1 : 0,
 			'license_key'	=>$this->license_id
 		);
 		

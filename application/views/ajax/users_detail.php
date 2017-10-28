@@ -36,11 +36,18 @@
 		</address>
 	</div>
 	<div class="col-md-3">
-		<?php if($info->avatar){
-			echo '<img src="'.$info->avatar.'">';
-		}else{
-			echo '<img src="' . $this->gravatar->get($info->email) . '" />';
-		}?>
+
+		<?php if(!empty($info->avatar))
+		{
+			$img = base_url().'/uploads/'.$this->license_id.'/profile-picture/'.$info->avatar;
+		}
+		else
+		{ 
+			$img = $this->gravatar->get($info->email);
+		} ?>
+		
+
+		<img src="<?php echo $img;?>" alt="Profile Picture" style="width:100px; height:100px;">
 	</div>
 </div>
 <script type="text/javascript">

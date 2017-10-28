@@ -62,10 +62,31 @@ class Records extends Secure {
 		$this->load->view('ajax/records/'.$type.'/manage', $data);
 	}
 	
-	function create($type, $user_id){ //$id=-1, 
+	function get_all_complaints(){
+		$user_id = $this->encrypt->decode($this->input->post('id'));
+		echo json_encode($this->Record->get_all_data('conditions', $user_id));
+		
+	}
+	
+	function get_complaints(){
+		$user_id = $this->input->post('id');
+		echo json_encode($this->Record->get_all_data('conditions', $user_id));
+		
+	}
+	
+	
+	function get_all_medications(){
+		$complaint_date = $this->input->post('complaint_date');
+		$user_id = $this->input->post('user_id');
+		
+		echo json_encode($this->Record->get_current_data('medications', $user_id, $complaint_date));
+	}
+	
+	function create($type, $user_id, $cdate = null){ //$id=-1, 
 		$data['user_id'] = $user_id;
 		$data['title'] = sprintf($this->lang->line('records_title'), $type);
 		$data['type'] = $type;
+		$data['cdate'] = $cdate;
 		
 		$this->load->model('Vaccine');
 		$this->load->model('Dose');
@@ -217,7 +238,34 @@ class Records extends Secure {
 	function save($id=-1, $type){
 		$return_array = array();
 		switch ($type) {
+			case 'lab_test_results'://
 
+				$id 	= $this->input->post('id');
+				$record_data=array(
+					'date'		=>$this->input->post('lab_date'),
+					'test'	=>$this->input->post('test'),
+					'specimen'	=>$this->input->post('specimen'),
+					'conventional_units'	=>$this->input->post('conventional_units'),
+					'si_units'	=>$this->input->post('si_units'),
+					'user_id'	=>$this->input->post('user_id')
+				);
+				
+				$date_formated = date($this->config->item('dateformat'), strtotime($record_data['date']));
+				$return_array = array('success'=>true,'message'=>sprintf($this->lang->line('records_response_success_message'), $this->lang->line('records_'.strtolower(str_replace(' ', '_', $type)))),'test_date'=>$date_formated);
+			break;
+			case 'immunisation'://
+
+				$id 	= $this->input->post('id');
+				$record_data=array(
+					'date'		=>$this->input->post('immunization_date'),
+					'immunisation'	=>$this->input->post('immunization'),
+					'doses'	=>$this->input->post('doses'),
+					'user_id'	=>$this->input->post('user_id')
+				);
+				
+				$date_formated = date($this->config->item('dateformat'), strtotime($record_data['date']));
+				$return_array = array('success'=>true,'message'=>sprintf($this->lang->line('records_response_success_message'), $this->lang->line('records_'.strtolower(str_replace(' ', '_', $type)))),'immunization_date'=>$date_formated);
+			break;
 			case 'conditions'://
 
 				$id 	= $this->input->post('id');
@@ -233,7 +281,7 @@ class Records extends Secure {
 			case 'endorsement'://
 				$id 	= $this->input->post('id');
 				$record_data=array(
-					'date'		=>date('Y-m-d'),
+					'date'		=>$this->input->post('endorsement_date'),
 					'endorsement'	=>$this->input->post('endorsement'),
 					'user_id'	=>$this->input->post('user_id')
 				);
@@ -245,13 +293,14 @@ class Records extends Secure {
 
 				$id 	= $this->input->post('id');
 				$record_data=array(
-					'date'		=>date('Y-m-d'),
-					'family_history'	=>$this->input->post('family_history'),
+					'date'		=> $this->input->post('history_date'), //date('Y-m-d'),
+					'relation_ship'	=>$this->input->post('relation_ship'),
+					'family_history'	=>$this->input->post('condition'),
 					'user_id'	=>$this->input->post('user_id')
 				);
 				
 				$date_formated = date($this->config->item('dateformat'), strtotime($record_data['date']));
-				$return_array = array('success'=>true,'message'=>sprintf($this->lang->line('records_response_success_message'), $this->lang->line('records_'.strtolower(str_replace(' ', '_', $type)))), 'history'=>$record_data['history'], 'history_date'=>$date_formated);
+				$return_array = array('success'=>true,'message'=>sprintf($this->lang->line('records_response_success_message'), $this->lang->line('records_'.strtolower(str_replace(' ', '_', $type)))), 'history'=>$record_data['family_history'], 'history_date'=>$date_formated);
 			break;
 			case 'files'://
 			
@@ -296,7 +345,8 @@ class Records extends Secure {
 					'preparation'	=>$this->input->post('preparation'),
 					'sig'		=>$this->input->post('sig'),
 					'qty'		=>$this->input->post('qty'),
-					'user_id'	=>$this->input->post('user_id')
+					'user_id'	=>$this->input->post('user_id'),
+					'is_mainteinable'	=>($this->input->post('is_mainteinable') == 1) ? 'yes' : 'no',
 				);
 				
 				$date_formated = date($this->config->item('dateformat'), strtotime($record_data['date']));
@@ -342,17 +392,17 @@ class Records extends Secure {
 
 				$id 	= $this->input->post('id');
 				$record_data=array(
-					'date'		=>date('Y-m-d'),
-					'allergies'	=>$this->input->post('allergies'),
+					'date'		=>$this->input->post('allergy_date'),
+					'allergies'	=>$this->input->post('allergy'),
 					'user_id'	=>$this->input->post('user_id')
 				);
 				
 				$date_formated = date($this->config->item('dateformat'), strtotime($record_data['date']));
-				$return_array = array('success'=>true,'message'=>sprintf($this->lang->line('records_response_success_message'), $this->lang->line('records_'.strtolower(str_replace(' ', '_', $type)))), 'allergy'=>$record_data['name'], 'allergy_date'=>$date_formated);
+				$return_array = array('success'=>true,'message'=>sprintf($this->lang->line('records_response_success_message'), $this->lang->line('records_'.strtolower(str_replace(' ', '_', $type)))), 'allergy'=>$record_data['allergies'], 'allergy_date'=>$date_formated);
 			break;
 		}
 
-		if($this->Record->save($record_data, $type, $id))
+		if($res = $this->Record->save($record_data, $type, $id))
 		{
 		
 			echo json_encode($return_array);
@@ -360,7 +410,53 @@ class Records extends Secure {
 		}
 		else//failure
 		{	
-			echo json_encode(array('success'=>false,'message'=>sprintf($this->lang->line('records_response_failed_message'), $this->lang->line('records_'.strtolower(str_replace(' ', '_', $type))))));
+			echo json_encode(array('success'=>false, 'id'=>$res['id'], 'message'=>sprintf($this->lang->line('records_response_failed_message'), $this->lang->line('records_'.strtolower(str_replace(' ', '_', $type))))));
+		}
+	}
+	
+	function get_all_test(){
+		
+		echo json_encode($this->Record->get_test($this->license_id)->result_array());
+	}
+	
+	function view_test(){
+		
+		$data['title'] = sprintf($this->lang->line('records_title'), 'Test');
+		
+		$this->load->view('ajax/records/lab_test_results/request', $data);
+		
+	}
+	
+	function create_test(){
+		
+		$test_data = array(
+			'name'			=> $this->input->post('lab_test'),
+			'license_key'	=> $this->license_id
+		);
+		
+		if($res = $this->Record->save_test($test_data))
+		{
+		
+			echo json_encode(array('success'=>true, 'id'=>$res['test_id'], 'message'=>'Created'));
+			
+		}
+		else//failure
+		{	
+			echo json_encode(array('success'=>false, 'id'=>$res['test_id'], 'message'=>'Created'));
+		}
+	}
+	
+	function delete_test($id){
+		
+		if($this->Record->delete_test($id))
+		{
+		
+			echo json_encode(array('success'=>true, 'message'=>'deleted'));
+			
+		}
+		else//failure
+		{	
+			echo json_encode(array('success'=>false, 'message'=>'deleted'));
 		}
 	}
 	
@@ -404,4 +500,22 @@ class Records extends Secure {
 			echo json_encode($doses_sources);
 
     }
+	
+	function get_suggest_records($type, $fields){
+		echo json_encode($this->Record->get_suggest_record($type, $fields)->result_array());
+	}
+	
+	function docs($id){
+		
+		$templates = array('' => 'Select');
+		$array = array($this->license_id, 'system');
+
+		foreach ($this->Template->get_all_forms($array)->result_array() as $row) {
+			$templates[$row['tid']] = $row['tname'];
+		}
+
+		$data['templates'] = $templates;
+
+		$this->load->view('ajax/print', $data);
+	}
 }

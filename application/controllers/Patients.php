@@ -57,7 +57,7 @@ class Patients extends Secure {
 			$this->load->library('datatables');
 	        $isfiltered = $this->input->post('filter');
 
-	        $this->datatables->select("users.id as id, CONCAT(IF(up.lastname != '', up.lastname, ''),',',IF(up.firstname != '', up.firstname, '')) as fullname, username, email, r.role_name as rolename, DATE_FORMAT(users.created, '%M %d, %Y') as created, avatar, DATE_FORMAT(CONCAT(IF(up.bYear != '', up.bYear, ''),'-',IF(up.bMonth != '', up.bMonth, ''),'-',IF(up.bDay != '', up.bDay, '')), '%M %d, %Y') as birthday, address, mobile, blood_type, DATE_FORMAT(users.last_login, '%M %d, %Y') as last_login", false);
+	        $this->datatables->select("users.id as id, CONCAT(IF(up.lastname != '', up.lastname, ''),',',IF(up.firstname != '', up.firstname, '')) as fullname, username, email, r.role_name as rolename, DATE_FORMAT(users.created, '%M %d, %Y') as created, avatar, DATE_FORMAT(CONCAT(IF(up.bYear != '', up.bYear, ''),'-',IF(up.bMonth != '', up.bMonth, ''),'-',IF(up.bDay != '', up.bDay, '')), '%M %d, %Y') as birthday, address, mobile, blood_type, DATE_FORMAT(users.last_login, '%M %d, %Y') as last_login, users.license_key as lic", false);
 	        
 			$this->datatables->where('users.deleted', 0);
 			$this->datatables->where('users.role_id', 82);
@@ -88,7 +88,7 @@ class Patients extends Secure {
 				$roles[$row['role_id']] = $row['role_name'];
 			}
 			$data['roles'] = $roles;
-		
+			$data['option'] = $this->session->userdata('option');
 	        $this->load->view("ajax/patients_form", $data);
 	    }else{
 	    	$this->session->set_flashdata('alert_error', 'Sorry! Page cannot open by new tab');
@@ -105,18 +105,15 @@ class Patients extends Secure {
 			$user_data=array(
 				'username'      =>str_replace(' ', '', $this->input->post('first_name').'_'.$clearpass),        
 				'email'         =>strtolower(str_replace(' ', '', $this->input->post('first_name').'_'.$clearpass.'@sample.com')),
-				'password'      =>$this->pass_secured->encrypt($clearpass),
-				'role_id'		=>($this->input->post('role_id')) ? $this->input->post('role_id') : 82,
+				'password'      =>$this->pass_secured->encrypt(date('Ymd')),
+				'role_id'		=>82,
 				'license_key'	=>$this->license_id,
 				'last_ip'       =>$this->input->ip_address(),
-				'created'       => date('Y-m-d H:i:s')
+				'created'       => date('Y-m-d H:i:s'),
+				'token'			=> date('Ymd').'-'.random_string('numeric',8)
 			);
 		} else {
-			$user_data=array(
-				'username'      =>str_replace(' ', '', $this->input->post('first_name').'_'.$clearpass),   
-				'email'         =>strtolower(str_replace(' ', '', $this->input->post('first_name').'_'.$clearpass.'@sample.com')),
-				'role_id'		=>($this->input->post('role_id')) ? $this->input->post('role_id') : 82
-			);
+			$user_data=array();
 		}
 
 		$profile_data = array(
@@ -132,9 +129,9 @@ class Patients extends Secure {
 			'mobile'		=>$this->input->post('mobile'),
 			'address'		=>$this->input->post('address'),
 			'zip'			=>$this->input->post('zip'),
-			'city'			=>($this->input->post('city')) ? $this->input->post('city') : $this->config->item('default_city'),
-			'state'			=>($this->input->post('state')) ? $this->input->post('state') : $this->config->item('default_state'),
-			'country'		=>($this->input->post('country')) ? $this->input->post('country') : $this->config->item('default_country')
+			'city'			=>$this->input->post('city'),
+			'state'			=>$this->input->post('state'),
+			'country'		=>$this->input->post('country')
 		);
 
 		$extend_data = array(
@@ -241,7 +238,9 @@ class Patients extends Secure {
 			$data['id'] = $this->encrypt->decode($this->input->post('id'));
 			$data['type'] = $type;
 			$data['latest'] = $this->Record->get_current_data($type, $data['id'], date('Y-m-d'));
-			$data['result'] = $this->Record->get_all_data($type, $data['id']);//segment 3 
+			$data['pr_result'] = $this->Record->get_all_data($type, $data['id'], 'no');//segment 3 
+			$data['m_result'] = $this->Record->get_all_data($type, $data['id'], 'yes');//segment 3 
+			
 			$this->load->view('ajax/records/'.$type.'/manage', $data);
 		}
 	}

@@ -1,7 +1,7 @@
 <div class="page-footer">
 	<div class="row">
 		<div class="col-xs-12 col-sm-6">
-			<span class="txt-color-white">myclinicsoft 1.8.2 <span class="hidden-xs"> - Web Application</span> © 2017</span>
+			<span class="txt-color-white"><?php echo $this->config->item('app_name').' '.$this->config->item('app_version');?> <span class="hidden-xs"> - <?php echo $this->lang->line('__common_web_application');?></span> <?php echo $this->config->item('app_copyright');?></span>
 		</div>
 
 		<div class="col-xs-6 col-sm-6 text-right hidden-xs">

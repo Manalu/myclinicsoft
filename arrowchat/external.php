@@ -297,7 +297,8 @@
 					else
 					{
 						$link = get_link($chat['link'], $chat['userid']);
-						$avatar = get_avatar($chat['avatar'], $chat['userid']);
+						//$license = get_license($chat['userid']); 
+						$avatar = get_avatar($chat['avatar'], $chat['license']);
 					}
 				}
 				// End Receive User Details
@@ -322,6 +323,7 @@
 		{
 			$user_is_guest = 0;
 			$user_username = get_username($userid);
+			//$license = get_license($userid);
 			
 			$sql = get_user_details($userid);
 			$result = $db->execute($sql);
@@ -329,8 +331,9 @@
 			if ($result AND $db->count_select() > 0) 
 			{
 				$row = $db->fetch_array($result);
-				$user_avatar = $row['avatar'];
-				$user_avatar = get_avatar($user_avatar, $userid);
+				//$user_avatar = $row['avatar'];
+				//$license = $row['license'];
+				$user_avatar = get_avatar($row['avatar'], $row['license']);
 			}
 			else
 			{
@@ -428,8 +431,7 @@
 		$settings .= 'c_max_chatroom_msg="' . $chatroom_message_length . '",';
 		$settings .= 'c_enable_moderation="' . $enable_moderation . '",';
 		$settings .= 'c_push_ssl="' . $push_ssl . '",';
-		$settings .= 'c_ac_path="' . $base_url . '";';		
-			
+		$settings .= 'c_ac_path="' . $base_url . '";';	
 		require_once (dirname(__FILE__) . DIRECTORY_SEPARATOR . AC_FOLDER_INCLUDES . DIRECTORY_SEPARATOR . 'js/arrowchat_dynamic.js');	
 		
 		close_session();

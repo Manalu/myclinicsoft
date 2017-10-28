@@ -88,24 +88,16 @@ class Tank_auth
 						'username'	=> $user->username,
 						'role_id'	=> $user->role_id,
 						'license_key' 	=> $user->license_key,
-						'status'	=> ($user->activated == 1) ? STATUS_ACTIVATED : STATUS_NOT_ACTIVATED,
+						'status'	=> 1,
 					));
-			
-					if ($user->activated == 0) {
-												// fail - not activated
-						$this->error = array('not_activated' => 'not activated');
-			
-					} else {												// success
-			
-						$this->ci->users->update_login_info(
-								$user->id,
-								$this->ci->config->item('login_record_ip', 'tank_auth'),
-								$this->ci->config->item('login_record_time', 'tank_auth'));
-			
-						$this->update_status($user->id, 1);
-						return TRUE;
-					}											// fail - wrong password
-					//$this->get_user_data($user->id, $user->username, $user->role_id, $user->license_key, $user->activated, $login, $remember);
+
+					$this->ci->users->update_login_info(
+							$user->id,
+							$this->ci->config->item('login_record_ip', 'tank_auth'),
+							$this->ci->config->item('login_record_time', 'tank_auth'));
+		
+					$this->update_status($user->id, 1);
+					return TRUE;
 					
 				}
 				

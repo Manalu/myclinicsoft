@@ -10,7 +10,7 @@
 				if($user_info->avatar){
 					echo '<img src="'.base_url().'uploads/'.$this->license_id.'/profile-picture/'.$user_info->avatar.'" alt="me" class="online" />';
 				}else{
-					echo '<img src="' . $this->gravatar->get($user_info->email) . '" alt="me" class="online" />';
+					echo '<img src="'.base_url().'img/avatars/blank.png" alt="me" class="online" />';
 				}?>
 				
 				<span>
@@ -39,42 +39,52 @@
 			<ul>
 				<?php if(($this->admin_role_id != $this->role_id) ? $this->Module->has_permission('dashboard', $this->role_id, 'view',   $this->license_id) : true) { ?>
 				<li>
-					<a title="Dashboard" href="<?php echo site_url('dashboard'); ?>"><i class="fa fa-lg fa-fw fa-home"></i> <span class="menu-item-parent">Dashboard</span></a>
+					<a title="<?php echo $this->lang->line('__dashboard');?>" href="<?php echo site_url('dashboard'); ?>"><i class="fa fa-lg fa-fw fa-home"></i> <span class="menu-item-parent"><?php echo $this->lang->line('__dashboard');?></span></a>
 				</li>
 				<?php } ?>
 				<?php if(($this->admin_role_id != $this->role_id) ? $this->Module->has_permission('patient', $this->role_id, 'view',   $this->license_id) : true) { ?>
 				<li>
-					<a title="My Patients" href="<?php echo site_url('my-patients'); ?>"><i class="fa fa-lg fa-fw fa-users"></i> <span class="menu-item-parent">My Patients</span></a>
+					<a title="<?php echo $this->lang->line('__my_patients');?>" href="<?php echo site_url('my-patients'); ?>"><i class="fa fa-lg fa-fw fa-users"></i> <span class="menu-item-parent"><?php echo $this->lang->line('__my_patients');?></span></a>
 				</li>
 				<?php } ?>
 				<?php if(($this->admin_role_id != $this->role_id) ? $this->Module->has_permission('users', $this->role_id, 'view',   $this->license_id) : true) { ?>
 				<li>
-					<a title="Users" href="<?php echo site_url('user'); ?>"><i class="fa fa-lg fa-fw fa-users"></i> <span class="menu-item-parent">Users</span></a>
+					<a title="<?php echo $this->lang->line('__users');?>" href="<?php echo site_url('user'); ?>"><i class="fa fa-lg fa-fw fa-users"></i> <span class="menu-item-parent"><?php echo $this->lang->line('__users');?></span></a>
 				</li>
 				<?php } ?>
 				<?php if(($this->admin_role_id != $this->role_id) ? $this->Module->has_permission('role', $this->role_id, 'view',   $this->license_id) : true) { ?>
 				<li>
-					<a title="Roles" href="<?php echo site_url('roles'); ?>"><i class="fa fa-lg fa-fw fa-key"></i> <span class="menu-item-parent">Roles</span></a>
+					<a title="<?php echo $this->lang->line('__roles');?>" href="<?php echo site_url('roles'); ?>"><i class="fa fa-lg fa-fw fa-key"></i> <span class="menu-item-parent"><?php echo $this->lang->line('__roles');?></span></a>
 				</li>
 				<?php } ?>
 				<?php if(($this->admin_role_id != $this->role_id) ? $this->Module->has_permission('templates', $this->role_id, 'view',   $this->license_id) : true) { ?>
 				<li>
-					<a title="Templates" href="<?php echo site_url('templates'); ?>"><i class="fa fa-lg fa-fw fa-list"></i> <span class="menu-item-parent">Templates</span></a>
+					<a title="<?php echo $this->lang->line('__templates');?>" href="<?php echo site_url('templates'); ?>"><i class="fa fa-lg fa-fw fa-list"></i> <span class="menu-item-parent"><?php echo $this->lang->line('__templates');?></span></a>
 				</li>
 				<?php } ?>
 				<?php if(($this->admin_role_id != $this->role_id) ? $this->Module->has_permission('reports', $this->role_id, 'view',   $this->license_id) : true) { ?>
-				<!--<li>
-					<a title="Reports" href="<?php echo site_url('reports'); ?>"><i class="fa fa-lg fa-fw fa-bar-chart-o"></i> <span class="menu-item-parent">Reports</span></a>
-				</li>-->
+				<li>
+					<a title="<?php echo $this->lang->line('__reports');?>" href="<?php echo site_url('reports'); ?>"><i class="fa fa-lg fa-fw fa-bar-chart-o"></i> <span class="menu-item-parent"><?php echo $this->lang->line('__reports');?></span></a>
+				</li>
 				<?php } ?>
 				<?php if(($this->admin_role_id != $this->role_id) ? $this->Module->has_permission('appointments', $this->role_id, 'view',   $this->license_id) : true) { ?>
 				<li>
-					<a title="Appointments" href="<?php echo site_url('appointments'); ?>"><i class="fa fa-lg fa-fw fa-calendar"></i> <span class="menu-item-parent">Appointments</span></a>
+					<a title="<?php echo $this->lang->line('__appointments');?>" href="<?php echo site_url('appointments'); ?>"><i class="fa fa-lg fa-fw fa-calendar"></i> <span class="menu-item-parent"><?php echo $this->lang->line('__appointments');?></span></a>
+				</li>
+				<?php } ?>
+				<?php if(($this->admin_role_id != $this->role_id) ? $this->Module->has_permission('countries', $this->role_id, 'view',   $this->license_id) : true) { ?>
+				<li class="hidden">
+					<a title="<?php echo $this->lang->line('__countries');?>" href="<?php echo site_url('countries'); ?>"><i class="fa fa-lg fa-fw fa-map"></i> <span class="menu-item-parent"><?php echo $this->lang->line('__countries');?></span></a>
+				</li>
+				<?php } ?>
+				<?php if(($this->admin_role_id != $this->role_id) ? $this->Module->has_permission('utilities', $this->role_id, 'view',   $this->license_id) : true) { ?>
+				<li class="hidden">
+					<a title="<?php echo $this->lang->line('__utilities');?>" href="<?php echo site_url('utilities'); ?>"><i class="fa fa-lg fa-fw fa-wrench"></i> <span class="menu-item-parent"><?php echo $this->lang->line('__utilities');?></span></a>
 				</li>
 				<?php } ?>
 				<?php if(($this->admin_role_id != $this->role_id) ? $this->Module->has_permission('settings', $this->role_id, 'view',   $this->license_id) : true) { ?>
 				<li>
-					<a title="Settings" href="<?php echo site_url('settings'); ?>"><i class="fa fa-lg fa-fw fa-cogs"></i> <span class="menu-item-parent">Settings</span></a>
+					<a title="<?php echo $this->lang->line('__settings');?>" href="<?php echo site_url('settings'); ?>"><i class="fa fa-lg fa-fw fa-cogs"></i> <span class="menu-item-parent"><?php echo $this->lang->line('__settings');?></span></a>
 				</li>
 				<?php } ?>
 			</ul>

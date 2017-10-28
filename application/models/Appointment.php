@@ -13,9 +13,10 @@ class Appointment extends CI_Model
         
         return ($query->num_rows()==1);
     }
+	//{"app_id":"2","schedule_date":"2017-04-22","schedule_time":"11:45 PM","title":"Follow-Up Checkup","description":"vaccines","patient_name":"474","status":"Approve","doctor_note":"","patient_note":"","token":"","license_key":"KjFh2rEHs5"},
 	
 	function get_all($license_key){
-
+		$this->db->select('app_id as id, title, description, CONCAT(schedule_date, '.', schedule_time) AS start', FALSE);
         $this->db->from($this->table); 
 		$this->db->where('license_key',$license_key);
         $this->db->order_by($this->pk, $this->dOrder);

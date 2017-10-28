@@ -1,0 +1,152 @@
+<?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
+
+ERROR - 2017-07-06 00:12:20 --> Language file contains no data: language/english/invoices_lang.php
+ERROR - 2017-07-06 00:12:20 --> Language file contains no data: language/english/reports_lang.php
+ERROR - 2017-07-06 00:12:20 --> Language file contains no data: language/english/appointments_lang.php
+ERROR - 2017-07-06 00:12:45 --> Language file contains no data: language/english/invoices_lang.php
+ERROR - 2017-07-06 00:12:45 --> Language file contains no data: language/english/reports_lang.php
+ERROR - 2017-07-06 00:12:45 --> Language file contains no data: language/english/appointments_lang.php
+ERROR - 2017-07-06 00:12:45 --> 404 Page Not Found: Auth/sound
+ERROR - 2017-07-06 00:12:51 --> Language file contains no data: language/english/invoices_lang.php
+ERROR - 2017-07-06 00:12:51 --> Language file contains no data: language/english/reports_lang.php
+ERROR - 2017-07-06 00:12:51 --> Language file contains no data: language/english/appointments_lang.php
+ERROR - 2017-07-06 08:12:51 --> Could not find the language line "_full_screen"
+ERROR - 2017-07-06 00:12:57 --> Language file contains no data: language/english/invoices_lang.php
+ERROR - 2017-07-06 00:12:57 --> Language file contains no data: language/english/reports_lang.php
+ERROR - 2017-07-06 00:12:57 --> Language file contains no data: language/english/appointments_lang.php
+ERROR - 2017-07-06 00:12:57 --> Language file contains no data: language/english/invoices_lang.php
+ERROR - 2017-07-06 00:12:57 --> Language file contains no data: language/english/reports_lang.php
+ERROR - 2017-07-06 00:12:57 --> Language file contains no data: language/english/appointments_lang.php
+ERROR - 2017-07-06 00:12:57 --> Language file contains no data: language/english/invoices_lang.php
+ERROR - 2017-07-06 00:12:57 --> Language file contains no data: language/english/reports_lang.php
+ERROR - 2017-07-06 00:12:57 --> Language file contains no data: language/english/appointments_lang.php
+ERROR - 2017-07-06 00:12:57 --> Language file contains no data: language/english/invoices_lang.php
+ERROR - 2017-07-06 00:12:57 --> Language file contains no data: language/english/reports_lang.php
+ERROR - 2017-07-06 00:12:57 --> Language file contains no data: language/english/appointments_lang.php
+ERROR - 2017-07-06 00:12:58 --> Language file contains no data: language/english/invoices_lang.php
+ERROR - 2017-07-06 00:12:58 --> Language file contains no data: language/english/reports_lang.php
+ERROR - 2017-07-06 00:12:58 --> Language file contains no data: language/english/appointments_lang.php
+ERROR - 2017-07-06 00:12:58 --> Language file contains no data: language/english/invoices_lang.php
+ERROR - 2017-07-06 00:12:58 --> Language file contains no data: language/english/reports_lang.php
+ERROR - 2017-07-06 00:12:58 --> Language file contains no data: language/english/appointments_lang.php
+ERROR - 2017-07-06 00:12:58 --> Language file contains no data: language/english/invoices_lang.php
+ERROR - 2017-07-06 00:12:58 --> Language file contains no data: language/english/reports_lang.php
+ERROR - 2017-07-06 00:12:58 --> Language file contains no data: language/english/appointments_lang.php
+ERROR - 2017-07-06 00:12:58 --> Language file contains no data: language/english/invoices_lang.php
+ERROR - 2017-07-06 00:12:58 --> Language file contains no data: language/english/reports_lang.php
+ERROR - 2017-07-06 00:12:58 --> Language file contains no data: language/english/appointments_lang.php
+ERROR - 2017-07-06 00:12:59 --> Language file contains no data: language/english/invoices_lang.php
+ERROR - 2017-07-06 00:12:59 --> Language file contains no data: language/english/reports_lang.php
+ERROR - 2017-07-06 00:12:59 --> Language file contains no data: language/english/appointments_lang.php
+ERROR - 2017-07-06 00:12:59 --> Language file contains no data: language/english/invoices_lang.php
+ERROR - 2017-07-06 00:12:59 --> Language file contains no data: language/english/reports_lang.php
+ERROR - 2017-07-06 00:12:59 --> Language file contains no data: language/english/appointments_lang.php
+ERROR - 2017-07-06 00:12:59 --> Language file contains no data: language/english/invoices_lang.php
+ERROR - 2017-07-06 00:12:59 --> Language file contains no data: language/english/reports_lang.php
+ERROR - 2017-07-06 00:12:59 --> Language file contains no data: language/english/appointments_lang.php
+ERROR - 2017-07-06 00:12:59 --> Language file contains no data: language/english/invoices_lang.php
+ERROR - 2017-07-06 00:12:59 --> Language file contains no data: language/english/reports_lang.php
+ERROR - 2017-07-06 00:12:59 --> Language file contains no data: language/english/appointments_lang.php
+ERROR - 2017-07-06 00:12:59 --> Language file contains no data: language/english/invoices_lang.php
+ERROR - 2017-07-06 00:12:59 --> Language file contains no data: language/english/reports_lang.php
+ERROR - 2017-07-06 00:12:59 --> Language file contains no data: language/english/appointments_lang.php
+ERROR - 2017-07-06 00:12:59 --> Language file contains no data: language/english/invoices_lang.php
+ERROR - 2017-07-06 00:12:59 --> Language file contains no data: language/english/reports_lang.php
+ERROR - 2017-07-06 00:12:59 --> Language file contains no data: language/english/appointments_lang.php
+ERROR - 2017-07-06 00:13:00 --> Language file contains no data: language/english/invoices_lang.php
+ERROR - 2017-07-06 00:13:00 --> Language file contains no data: language/english/reports_lang.php
+ERROR - 2017-07-06 00:13:00 --> Language file contains no data: language/english/appointments_lang.php
+ERROR - 2017-07-06 00:13:00 --> Language file contains no data: language/english/invoices_lang.php
+ERROR - 2017-07-06 00:13:00 --> Language file contains no data: language/english/reports_lang.php
+ERROR - 2017-07-06 00:13:00 --> Language file contains no data: language/english/appointments_lang.php
+ERROR - 2017-07-06 00:13:00 --> Language file contains no data: language/english/invoices_lang.php
+ERROR - 2017-07-06 00:13:00 --> Language file contains no data: language/english/reports_lang.php
+ERROR - 2017-07-06 00:13:00 --> Language file contains no data: language/english/appointments_lang.php
+ERROR - 2017-07-06 00:13:00 --> Language file contains no data: language/english/invoices_lang.php
+ERROR - 2017-07-06 00:13:00 --> Language file contains no data: language/english/reports_lang.php
+ERROR - 2017-07-06 00:13:00 --> Language file contains no data: language/english/appointments_lang.php
+ERROR - 2017-07-06 00:13:00 --> Language file contains no data: language/english/invoices_lang.php
+ERROR - 2017-07-06 00:13:00 --> Language file contains no data: language/english/reports_lang.php
+ERROR - 2017-07-06 00:13:00 --> Language file contains no data: language/english/appointments_lang.php
+ERROR - 2017-07-06 00:13:00 --> Language file contains no data: language/english/invoices_lang.php
+ERROR - 2017-07-06 00:13:00 --> Language file contains no data: language/english/reports_lang.php
+ERROR - 2017-07-06 00:13:00 --> Language file contains no data: language/english/appointments_lang.php
+ERROR - 2017-07-06 00:13:00 --> Language file contains no data: language/english/invoices_lang.php
+ERROR - 2017-07-06 00:13:00 --> Language file contains no data: language/english/reports_lang.php
+ERROR - 2017-07-06 00:13:00 --> Language file contains no data: language/english/appointments_lang.php
+ERROR - 2017-07-06 00:13:00 --> Language file contains no data: language/english/invoices_lang.php
+ERROR - 2017-07-06 00:13:00 --> Language file contains no data: language/english/reports_lang.php
+ERROR - 2017-07-06 00:13:00 --> Language file contains no data: language/english/appointments_lang.php
+ERROR - 2017-07-06 00:13:02 --> 404 Page Not Found: Uploads/187
+ERROR - 2017-07-06 00:13:03 --> Language file contains no data: language/english/invoices_lang.php
+ERROR - 2017-07-06 00:13:03 --> Language file contains no data: language/english/reports_lang.php
+ERROR - 2017-07-06 00:13:03 --> Language file contains no data: language/english/appointments_lang.php
+ERROR - 2017-07-06 00:13:03 --> Language file contains no data: language/english/invoices_lang.php
+ERROR - 2017-07-06 00:13:03 --> Language file contains no data: language/english/reports_lang.php
+ERROR - 2017-07-06 00:13:03 --> Language file contains no data: language/english/appointments_lang.php
+ERROR - 2017-07-06 00:13:06 --> Language file contains no data: language/english/invoices_lang.php
+ERROR - 2017-07-06 00:13:06 --> Language file contains no data: language/english/reports_lang.php
+ERROR - 2017-07-06 00:13:06 --> Language file contains no data: language/english/appointments_lang.php
+ERROR - 2017-07-06 08:13:06 --> 404 Page Not Found: '/home/myclinicsoft/public_html\Dashboard\sound' is not found
+ERROR - 2017-07-06 00:13:06 --> Language file contains no data: language/english/invoices_lang.php
+ERROR - 2017-07-06 00:13:06 --> Language file contains no data: language/english/reports_lang.php
+ERROR - 2017-07-06 00:13:06 --> Language file contains no data: language/english/appointments_lang.php
+ERROR - 2017-07-06 00:13:09 --> Language file contains no data: language/english/invoices_lang.php
+ERROR - 2017-07-06 00:13:09 --> Language file contains no data: language/english/reports_lang.php
+ERROR - 2017-07-06 00:13:09 --> Language file contains no data: language/english/appointments_lang.php
+ERROR - 2017-07-06 00:13:10 --> Language file contains no data: language/english/invoices_lang.php
+ERROR - 2017-07-06 00:13:10 --> Language file contains no data: language/english/reports_lang.php
+ERROR - 2017-07-06 00:13:10 --> Language file contains no data: language/english/appointments_lang.php
+ERROR - 2017-07-06 00:13:10 --> Language file contains no data: language/english/invoices_lang.php
+ERROR - 2017-07-06 00:13:10 --> Language file contains no data: language/english/reports_lang.php
+ERROR - 2017-07-06 00:13:10 --> Language file contains no data: language/english/appointments_lang.php
+ERROR - 2017-07-06 00:13:11 --> Language file contains no data: language/english/invoices_lang.php
+ERROR - 2017-07-06 00:13:11 --> Language file contains no data: language/english/reports_lang.php
+ERROR - 2017-07-06 00:13:11 --> Language file contains no data: language/english/appointments_lang.php
+ERROR - 2017-07-06 02:06:03 --> Language file contains no data: language/english/invoices_lang.php
+ERROR - 2017-07-06 02:06:03 --> Language file contains no data: language/english/reports_lang.php
+ERROR - 2017-07-06 02:06:03 --> Language file contains no data: language/english/appointments_lang.php
+ERROR - 2017-07-06 02:13:20 --> 404 Page Not Found: Robotstxt/index
+ERROR - 2017-07-06 02:13:24 --> 404 Page Not Found: Landing_Page/img
+ERROR - 2017-07-06 04:13:21 --> Language file contains no data: language/english/invoices_lang.php
+ERROR - 2017-07-06 04:13:21 --> Language file contains no data: language/english/reports_lang.php
+ERROR - 2017-07-06 04:13:21 --> Language file contains no data: language/english/appointments_lang.php
+ERROR - 2017-07-06 05:06:05 --> Language file contains no data: language/english/invoices_lang.php
+ERROR - 2017-07-06 05:06:05 --> Language file contains no data: language/english/reports_lang.php
+ERROR - 2017-07-06 05:06:05 --> Language file contains no data: language/english/appointments_lang.php
+ERROR - 2017-07-06 05:25:18 --> Language file contains no data: language/english/invoices_lang.php
+ERROR - 2017-07-06 05:25:18 --> Language file contains no data: language/english/reports_lang.php
+ERROR - 2017-07-06 05:25:18 --> Language file contains no data: language/english/appointments_lang.php
+ERROR - 2017-07-06 05:29:52 --> 404 Page Not Found: Robotstxt/index
+ERROR - 2017-07-06 05:29:56 --> Language file contains no data: language/english/invoices_lang.php
+ERROR - 2017-07-06 05:29:56 --> Language file contains no data: language/english/reports_lang.php
+ERROR - 2017-07-06 05:29:56 --> Language file contains no data: language/english/appointments_lang.php
+ERROR - 2017-07-06 07:54:18 --> 404 Page Not Found: Robotstxt/index
+ERROR - 2017-07-06 09:01:40 --> Language file contains no data: language/english/invoices_lang.php
+ERROR - 2017-07-06 09:01:40 --> Language file contains no data: language/english/reports_lang.php
+ERROR - 2017-07-06 09:01:40 --> Language file contains no data: language/english/appointments_lang.php
+ERROR - 2017-07-06 11:03:15 --> 404 Page Not Found: Robotstxt/index
+ERROR - 2017-07-06 11:03:17 --> Language file contains no data: language/english/invoices_lang.php
+ERROR - 2017-07-06 11:03:17 --> Language file contains no data: language/english/reports_lang.php
+ERROR - 2017-07-06 11:03:17 --> Language file contains no data: language/english/appointments_lang.php
+ERROR - 2017-07-06 11:33:53 --> Language file contains no data: language/english/invoices_lang.php
+ERROR - 2017-07-06 11:33:53 --> Language file contains no data: language/english/reports_lang.php
+ERROR - 2017-07-06 11:33:53 --> Language file contains no data: language/english/appointments_lang.php
+ERROR - 2017-07-06 14:01:21 --> 404 Page Not Found: Robotstxt/index
+ERROR - 2017-07-06 15:37:08 --> Language file contains no data: language/english/invoices_lang.php
+ERROR - 2017-07-06 15:37:08 --> Language file contains no data: language/english/reports_lang.php
+ERROR - 2017-07-06 15:37:08 --> Language file contains no data: language/english/appointments_lang.php
+ERROR - 2017-07-06 15:39:19 --> Language file contains no data: language/english/invoices_lang.php
+ERROR - 2017-07-06 15:39:19 --> Language file contains no data: language/english/reports_lang.php
+ERROR - 2017-07-06 15:39:19 --> Language file contains no data: language/english/appointments_lang.php
+ERROR - 2017-07-06 16:25:46 --> 404 Page Not Found: Robotstxt/index
+ERROR - 2017-07-06 19:17:54 --> Language file contains no data: language/english/invoices_lang.php
+ERROR - 2017-07-06 19:17:54 --> Language file contains no data: language/english/reports_lang.php
+ERROR - 2017-07-06 19:17:54 --> Language file contains no data: language/english/appointments_lang.php
+ERROR - 2017-07-06 19:23:14 --> Language file contains no data: language/english/invoices_lang.php
+ERROR - 2017-07-06 19:23:14 --> Language file contains no data: language/english/reports_lang.php
+ERROR - 2017-07-06 19:23:14 --> Language file contains no data: language/english/appointments_lang.php
+ERROR - 2017-07-06 21:29:55 --> 404 Page Not Found: Robotstxt/index
+ERROR - 2017-07-06 21:29:59 --> Language file contains no data: language/english/invoices_lang.php
+ERROR - 2017-07-06 21:29:59 --> Language file contains no data: language/english/reports_lang.php
+ERROR - 2017-07-06 21:29:59 --> Language file contains no data: language/english/appointments_lang.php

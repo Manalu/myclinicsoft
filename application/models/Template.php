@@ -24,6 +24,16 @@ class Template extends CI_Model
 			
 	}
 	
+	function get_all_forms($array)
+	{
+		$this->db->from($this->table);
+		$this->db->where_in('ttype','form');			
+		$this->db->where_in('license_key',$array);		
+		$this->db->order_by($this->order_field, $this->order_position);
+		return $this->db->get();
+			
+	}
+	
 	function load($id) {
         $this->db->from($this->table); 
         $this->db->where($this->id, $id);

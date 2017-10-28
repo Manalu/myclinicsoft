@@ -39,12 +39,12 @@ Locations.prototype.getLocation = function (_data_id, id) {
 
 
 
-Locations.prototype.getStates = function (parent_id, selectedState) {
+Locations.prototype.getStates = function (country_id, selectedState) {
 
-    $.ajax({
+    /* $.ajax({
         url: BASE_URL + 'locations/get_locations/json',
         data: {
-            id: parent_id,
+            id: country_id,
             selected_id: ((selectedState != '') ? selectedState : ''),
             location_type: 1
         },
@@ -85,12 +85,55 @@ Locations.prototype.getStates = function (parent_id, selectedState) {
             
         }
 
+    }); */
+	$.ajax({
+        url: BASE_URL + 'locations/populate_states',
+        data: {
+            id: country_id
+        },
+        type: "POST",
+        beforeSend: function () {
+            $("#state").html('<option selected="selected">loading...</option>');
+        },
+        success: function (e) {
+            var response = $.parseJSON(e);
+
+            var option = '';
+            if (response.length)
+            {
+                var locationsObj = new Locations();
+                for (r in response)
+                {
+                    var id = response[r].id;
+                    var name = response[r].name;
+                    var citySelected = $("#cityselected").val();
+                    if (id == selectedState)
+                    {
+                        option += '<option selected="selected" value="' + id + '">' + name + '</option>';
+                        locationsObj.getCities(id, citySelected);
+
+                    }
+                    else
+                    {
+                        option += '<option value="' + id + '">' + name + '</option>';
+
+                        if (r == 0)
+                            locationsObj.getCities(id, citySelected);
+                    }
+
+                }
+            }
+
+            $('#state').html(option);
+            
+        }
+
     });
 };
 
-Locations.prototype.getCities = function (parent_id, selectedCity) {
+Locations.prototype.getCities = function (state_id, selectedCity) {
 
-    $.ajax({
+    /* $.ajax({
         url: BASE_URL + 'locations/get_locations/json',
         data: {
             id: parent_id,
@@ -120,6 +163,35 @@ Locations.prototype.getCities = function (parent_id, selectedCity) {
             
         }
 
+    }); */
+	$.ajax({
+        url: BASE_URL + 'locations/populate_cities',
+        data: {
+            id: state_id
+        },
+        type: "POST",
+        beforeSend: function () {
+            $("#city").html('<option selected="selected">loading...</option>');
+        },
+        success: function (e) {
+            var response = $.parseJSON(e);
+
+            var option = '';
+            for (r in response)
+            {
+                var id = response[r].id;
+                var name = response[r].name;
+                if (id == selectedCity) {
+                    option += '<option selected="selected" value="' + id + '">' + name + '</option>';
+                } else {
+                    option += '<option value="' + id + '">' + name + '</option>';
+                }
+            }
+
+            $('#city').html(option);
+            
+        }
+
     });
 };
 
@@ -127,11 +199,10 @@ Locations.prototype.getCities = function (parent_id, selectedCity) {
 $(function () {
 //    console.log('hh');
     
-    if (countrySelected)
+    /* if (countrySelected)
     {
         
         var locationsObj = new Locations();
-        //locationsObj.getStates(countrySelected,state);
         locationsObj.getStates(countrySelected, stateSelected);
     }
 
@@ -139,8 +210,9 @@ $(function () {
     {
         var locationsObj = new Locations();
         locationsObj.getCities(stateSelected, citySelected);
-    }
+    } */
 
+	
     $(document).on("change", "#country", function () {
         var obj = $(this);
         var id = obj.val();

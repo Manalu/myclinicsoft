@@ -140,5 +140,11 @@ class Role extends CI_Model
         $this->db->order_by('module', 'asc');
         return $this->db->get();
     }
+	
+	function populate_role(){
+		$this->ci->db->select('role_id as value, role_name as text');
+        $this->ci->db->from('users_role');
+        return $this->ci->db->get();
+	}
 }
 ?>

@@ -1,3 +1,13 @@
+<style>
+a.btn.btn-primary i {
+    position: relative;
+    left: -24px;
+    display: inline-block;
+    padding: 7px 10px;
+    background: rgba(0,0,0,.15);
+    border-radius: 3px 0 0 3px;
+}
+</style>
 <?php
 $login = array(
 	'name'	=> 'login',
@@ -25,47 +35,49 @@ $remember = array(
 			<div class="well no-padding">
 				<?php echo form_open('auth/doLogin', 'id="login-form" class="smart-form client-form"'); ?>
 					<header>
-						Sign In
+						<?php echo $this->lang->line('__signin');?>
 					</header>
 
 					<fieldset>
 						
 						<section>
-							<label class="label">E-mail</label>
+							<label class="label"><?php echo $this->lang->line('__email');?></label>
 							<label class="input"> <i class="icon-append fa fa-user"></i>
 								<?php echo form_input($login); ?>
-								<b class="tooltip tooltip-top-right"><i class="fa fa-user txt-color-teal"></i> Please enter email address/username</b></label>
+								<b class="tooltip tooltip-top-right"><i class="fa fa-user txt-color-teal"></i> <?php echo $this->lang->line('__enter_email_username');?></b></label>
 						</section>
 
 						<section>
-							<label class="label">Password</label>
+							<label class="label"><?php echo $this->lang->line('__password');?></label>
 							<label class="input"> <i class="icon-append fa fa-lock"></i>
 								<td><?php echo form_password($password); ?></td>
-								<b class="tooltip tooltip-top-right"><i class="fa fa-lock txt-color-teal"></i> Enter your password</b> </label>
+								<b class="tooltip tooltip-top-right"><i class="fa fa-lock txt-color-teal"></i> <?php echo $this->lang->line('__enter_password');?></b> </label>
 							<div class="note">
-								<a href="<?php echo site_url('auth/forgot_password');?>">Forgot password?</a>
+								<a href="<?php echo site_url('auth/forgot_password');?>"><?php echo $this->lang->line('__forgot_password');?></a>
 							</div>
 						</section>
 
 						<section>
 							<label class="checkbox">
 								<?php echo form_checkbox($remember); ?>
-								<i></i>Stay signed in</label>
+								<i></i><?php echo $this->lang->line('__stay_signed_in');?></label>
 						</section>
 					</fieldset>
 					<footer>
+						<a href="<?php echo $loginUrl;?>" class="btn btn-primary"> <i class="fa fa-facebook"></i> Register </a>
 						<button type="submit" id="submit" class="btn btn-primary">
-							Sign in
+							<?php echo $this->lang->line('__signin');?> 
 						</button>
+							
 					</footer>
 				</form>
 				
 			</div>
-			<h5 class="text-center"> - Or sign in using -</h5>
-															
-			<ul class="list-inline text-center">
+			<h5 class="hidden text-center"> - Or sign in using -</h5>
+														
+			<ul class="hidden list-inline text-center">
 				<li>
-					<a href="<?php echo $loginUrl;?>" class="btn btn-primary btn-circle"><i class="fa fa-facebook"></i></a>
+					<a href="<?php //echo $loginUrl;?>" class="btn btn-primary btn-circle"><i class="fa fa-facebook"></i></a>
 				</li>
 				<li>
 					<a href="javascript:void(0);" class="btn btn-info btn-circle"><i class="fa fa-twitter"></i></a>
@@ -101,11 +113,13 @@ $remember = array(
 			// Messages for form validation
 			messages : {
 				login : {
-					required : '<i class="fa fa-times-circle"></i> Please enter your email address',
-					email : '<i class="fa fa-times-circle"></i> Please enter a VALID email address'
+					required : '<i class="fa fa-exclamation-circle"></i> <?php echo sprintf($this->lang->line('__validate_required'), 'email');?>',
+					email : '<i class="fa fa-exclamation-circle"></i> <?php echo $this->lang->line('__validate_email');?>'
 				},
-				password : {
-					required : '<i class="fa fa-times-circle"></i> Please enter your password'
+				password : { 
+					required : '<i class="fa fa-exclamation-circle"></i> <?php echo sprintf($this->lang->line('__validate_required'), 'password');?>',
+					minlength : '<i class="fa fa-exclamation-circle"></i> <?php echo sprintf($this->lang->line('__validate_minlength'), 3);?>',
+					maxlength : '<i class="fa fa-exclamation-circle"></i> <?php echo sprintf($this->lang->line('__validate_maxlength'), 20);?>'
 				}
 			},
 
@@ -129,7 +143,7 @@ $remember = array(
 				
 				$(form).ajaxSubmit({
 					beforeSend: function () {
-						$('#submit').html('<i class="fa fa-spinner fa-pulse fa-fw"></i> Please wait...');
+						$('#submit').html('<i class="fa fa-spinner fa-pulse fa-fw"></i> <?php echo $this->lang->line('__common_please_wait');?>');
 						$('#submit').attr("disabled", "disabled");
 					},
 					success:function(response)
@@ -144,7 +158,7 @@ $remember = array(
 								iconSmall : "fa fa-check",
 								timeout : 3000
 							});
-							$('#submit').html('<i class="fa fa-spinner fa-pulse fa-fw"></i> Redirecting...');
+							$('#submit').html('<i class="fa fa-spinner fa-pulse fa-fw"></i> <?php echo $this->lang->line('__common_redirecting');?>');
 							setTimeout(function () {
 								window.location.href = BASE_URL+'dashboard/';
 							}, 5000);
@@ -152,10 +166,10 @@ $remember = array(
 						else
 						{
 							var res = [];
-				                        $.each( response.message, function( key, value ) {
-				                            console.log( key + ": " + value );
-				                            res = value;
-				                        });
+							$.each( response.message, function( key, value ) {
+								console.log( key + ": " + value );
+								res = value;
+							});
 							$.smallBox({
 								title : "Error",
 								content : res,
@@ -163,7 +177,7 @@ $remember = array(
 								iconSmall : "fa fa-warning shake animated",
 								timeout : 3000
 							});
-							$('#submit').text('Submit');
+							$('#submit').text('<?php echo $this->lang->line('__common_submit');?>');
 							$('#submit').removeAttr("disabled");
 						}                   
 						

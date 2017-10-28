@@ -2,9 +2,10 @@
 <html lang="en-us">
 	
 	<head>
-<link type="text/css" rel="stylesheet" id="arrowchat_css" media="all" href="/arrowchat/external.php?type=css" charset="utf-8" />
-<script type="text/javascript" src="/arrowchat/includes/js/jquery.js"></script>
-<script type="text/javascript" src="/arrowchat/includes/js/jquery-ui.js"></script>
+		<script language="JavaScript" src="http://www.geoplugin.net/javascript.gp" type="text/javascript"></script>
+		<link type="text/css" rel="stylesheet" id="arrowchat_css" media="all" href="/arrowchat/external.php?type=css" charset="utf-8" />
+		<script type="text/javascript" src="/arrowchat/includes/js/jquery.js"></script>
+		<script type="text/javascript" src="/arrowchat/includes/js/jquery-ui.js"></script>
 		<meta charset="utf-8">
 		<title><?php echo $title; ?></title>
 		<meta name="google-site-verification" content="rWQKdkTjUlQrUfn2u19c2VIi8j8mcVFi7P3YUd_JqA4" />
@@ -41,20 +42,12 @@
 		<link rel="stylesheet" type="text/css" media="screen" href="<?php echo base_url(); ?>css/smartadmin-production.min.css">
 		<link rel="stylesheet" type="text/css" media="screen" href="<?php echo base_url(); ?>css/smartadmin-skins.min.css">
 
-		<!-- DEV links : turn this on when you like to develop directly -->
-		<!--<link rel="stylesheet" type="text/css" media="screen" href="../Source_UNMINIFIED_CSS/smartadmin-production.css">-->
-		<!--<link rel="stylesheet" type="text/css" media="screen" href="../Source_UNMINIFIED_CSS/smartadmin-skins.css">-->
-
 		<!-- SmartAdmin RTL Support -->
 		<link rel="stylesheet" type="text/css" media="screen" href="<?php echo base_url(); ?>css/smartadmin-rtl.min.css"> 
 
-		<!-- We recommend you use "your_style.css" to override SmartAdmin
-		     specific styles this will also ensure you retrain your customization with each SmartAdmin update.
-		<link rel="stylesheet" type="text/css" media="screen" href="css/your_style.css"> -->
-
 		<!-- Demo purpose only: goes with demo.js, you can delete this css when designing your own WebApp -->
 		<link rel="stylesheet" type="text/css" media="screen" href="<?php echo base_url(); ?>css/demo.min.css">
-
+		<link rel="stylesheet" type="text/css" media="screen" href="<?php echo base_url(); ?>css/your_style.css">
 		<!-- #FAVICONS -->
 		<link rel="shortcut icon" href="<?php echo base_url(); ?>img/favicon/favicon.ico" type="image/x-icon">
 		<link rel="icon" href="<?php echo base_url(); ?>img/favicon/favicon.ico" type="image/x-icon">
@@ -74,89 +67,23 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		
+		<script src="https://use.fontawesome.com/bbf18deec2.js"></script>
+		
 		<!-- Startup image for web apps -->
 		<link rel="apple-touch-startup-image" href="<?php echo base_url(); ?>img/splash/ipad-landscape.png" media="screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:landscape)">
 		<link rel="apple-touch-startup-image" href="<?php echo base_url(); ?>img/splash/ipad-portrait.png" media="screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:portrait)">
 		<link rel="apple-touch-startup-image" href="<?php echo base_url(); ?>img/splash/iphone.png" media="screen and (max-device-width: 320px)">
 		<style type="text/css">
 
-			.user {
-			    width: 45% !important;
-			}
-			div#future-updates {
-			    opacity: .2;
-			    cursor: help;
-			}
-			div#empty-content {
-				text-align: center;
-				    padding: 10%;
-			}
-			div#details-bottom {
-				background: #fafafa;
-				margin: 10px auto;
-				padding: 18px 0px 0px 0px;
-				border: 1px solid #c2c2c2;
-			}
-			div#details-top img {
-				margin-right: 10px;
-			}
-			div#details-top h1 {
-				margin-bottom: 10px;
-			}
-			div#details-top span {
-				color: darkred;
-				font-size: 22px;
-			}
-			li.list-group-item label.medicine,
-			li.list-group-item label.prep,
-			li.list-group-item label.sig{
-				width: 31%;
-				margin: 0px !important;
-			}
-			.table>tbody>tr>td:last-child, .table>tbody>tr>th:last-child, .table>thead>tr>td:last-child, .table>thead>tr>th:last-child {
-				text-align: right;
-			}
-			#table-patients>thead, #table-role>thead, #table-appointment>thead, #table-templates>thead{
-				display: none;
-			}
-			.table {
-				width: 100%;
-			}
-			.dt-toolbar .dataTables_length {
-				float: right;
-			}
-			.dataTables_wrapper .dataTables_processing {
-				position: absolute;
-				top: 100%;
-				left: 50%;
-				width: 30%;
-				height: 65px;
-				margin-left: -20%;
-				margin-top: -25px;
-				padding-top: 20px;
-				text-align: center;
-				font-size: 1.2em;
-				background: #3a3633;
-				color: #fff;
-			}
-			td.dataTables_empty {
-			    text-align: center !important;
-			}
-			.profile-pic a {
-			    visibility: hidden;
-			    position: absolute;
-			    top: -24px;
-			    right: 9px;
-			    z-index: 4;
-			    background: white;
-			    padding: 1px 4px;
-			}
-			.profile-pic:hover a {
-			    visibility: visible;
-			}
 		</style>
 
-
+		<script type="text/javascript">
+			BASE_URL = '<?php echo base_url();?>';
+			ROLE_ID = '<?php echo $this->role_id;?>';
+			LICENSE_ID = '<?php echo $this->license_id;?>';
+			IS_LOGIN = '<?php echo $this->is_login;?>';
+			UID = '<?php echo $this->user_id;?>';
+		</script>
 	</head>
 
 	<!--
@@ -203,7 +130,7 @@
 		* 'container'         - boxed layout mode (non-responsive: will not work with fixed-navigation & fixed-ribbon)
 	-->
 	<body class="smart-style-0">
-
+		<div class="fb-follow" data-href="https://business.facebook.com/myclinicsoftware" data-layout="button_count" data-size="small" data-show-faces="true"></div>
 		<!-- #HEADER -->
 		<?php echo $this->load->get_section('header'); ?>
 		
@@ -243,7 +170,15 @@
 		<?php echo $this->load->get_section('shortcut'); ?>
 		
 		<!-- END SHORTCUT AREA -->
-
+		
+		<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.10&appId=224864781343525";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
 		<!--================================================== -->
 		<script type="text/javascript">
 		var BASE_URL = '<?php echo base_url();?>';
@@ -269,7 +204,14 @@
 				document.write('<script src="<?php echo base_url(); ?>js/libs/jquery-ui-1.10.3.min.js"><\/script>');
 			}
 		</script>
-
+		
+		<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.3/moment.js"></script>
+        <script>
+            if (!window.moment) { 
+                document.write('<script src="<?php echo base_url();?>js/plugin/moment/moment.min.js"><\/script>');
+            }
+        </script>
+		
 		<!-- IMPORTANT: APP CONFIG -->
 		<script src="<?php echo base_url(); ?>js/app.config.js"></script>
 
@@ -285,9 +227,6 @@
 		<!-- JARVIS WIDGETS -->
 		<script src="<?php echo base_url(); ?>js/smartwidgets/jarvis.widget.min.js"></script>
 
-		<!-- EASY PIE CHARTS -->
-		<script src="<?php echo base_url(); ?>js/plugin/easy-pie-chart/jquery.easy-pie-chart.min.js"></script>
-
 		<!-- SPARKLINES -->
 		<script src="<?php echo base_url(); ?>js/plugin/sparkline/jquery.sparkline.min.js"></script>
 
@@ -299,9 +238,6 @@
 
 		<!-- JQUERY SELECT2 INPUT -->
 		<script src="<?php echo base_url(); ?>js/plugin/select2/select2.min.js"></script>
-
-		<!-- JQUERY UI + Bootstrap Slider -->
-		<script src="<?php echo base_url(); ?>js/plugin/bootstrap-slider/bootstrap-slider.min.js"></script>
 
 		<!-- browser msie issue fix -->
 		<script src="<?php echo base_url(); ?>js/plugin/msie-fix/jquery.mb.browser.min.js"></script>
@@ -319,9 +255,12 @@
 		<!-- MAIN APP JS FILE -->
 		<script src="<?php echo base_url(); ?>js/app.min.js"></script>
 
-		<!-- MAIN APP JS FILE -->
+		<!-- AJAX NAV APP JS FILE -->
 		<script src="<?php echo base_url(); ?>js/ajaxnav.js"></script>
-		<script src="<?php echo base_url(); ?>js/locations.js"></script>
+		
+		<!-- GLOBAL APP JS FILE -->
+		<script src="<?php echo base_url(); ?>js/global.js"></script>
+		
 		<!-- ENHANCEMENT PLUGINS : NOT A REQUIREMENT -->
 		<!-- Voice command : plugin -->
 		<script src="<?php echo base_url(); ?>js/speech/voicecommand.min.js"></script>
@@ -329,6 +268,7 @@
 		<!-- SmartChat UI : plugin -->
 		<script src="<?php echo base_url(); ?>js/smart-chat-ui/smart.chat.ui.min.js"></script>
 		<script src="<?php echo base_url(); ?>js/smart-chat-ui/smart.chat.manager.min.js"></script>
+		
 		<?php foreach($js as $file){
 			echo "\n\t\t";
 			?><script src="<?php echo $file; ?>"></script>
@@ -336,70 +276,29 @@
 		<!-- Your GOOGLE ANALYTICS CODE Below -->
 
 		<script type="text/javascript">
-			BASE_URL = '<?php echo base_url();?>';
 			
-			que_counts();
-			que_get();
-			
-			setInterval(function(){
-				var counts = $('span#que-counts').html();
-				var xcounts = $('span#running-que-counts').html();
-				$.ajax({
-					url: BASE_URL+'queing/get_counts',
-					type: 'post',   
-					dataType: 'json',
-					success: function (res) {
-						$('#running-que-counts').html(res.counts);
-					}
-				});
+			$(document).ready(function() {
+ 
+				mcs.init();
 
-				if(counts != xcounts){
-					que_get();
-					$('span#que-counts').text($('#running-que-counts').html());
-				}
-				
-			},3000);
+			});
 			
-			function que_counts(){
-				$.ajax({
-					url: BASE_URL+'queing/get_counts',
-					type: 'post',   
-					dataType: 'json',
-					success: function (res) {
-						$('#que-counts').html(res.counts);
-					}
-				});
-			}
-			
-			function que_get(){
-				$.ajax({
-					url: BASE_URL+'queing/get_in',
-					type: 'post',   
-					dataType: 'html',
-					beforeSend: function () {
-						$('.project-context').find('ul.dropdown-menu').remove();
-					},
-					success: function (response) {
-						$(response).appendTo( $( ".project-context" ) );
-					}
-				});
-			}
 			
 		</script>
 		
 		<script type="text/javascript" src="/arrowchat/external.php?type=djs" charset="utf-8"></script>
-<script type="text/javascript" src="/arrowchat/external.php?type=js" charset="utf-8"></script>
+		<script type="text/javascript" src="/arrowchat/external.php?type=js" charset="utf-8"></script>
 
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+		<script>
+		  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
-  ga('create', 'UA-97921472-1', 'auto');
-  ga('send', 'pageview');
+		  ga('create', 'UA-97921472-1', 'auto');
+		  ga('send', 'pageview');
 
-</script>
+		</script>
 	</body>
 
 </html>

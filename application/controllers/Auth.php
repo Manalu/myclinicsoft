@@ -50,10 +50,10 @@ class Auth extends CI_Controller
 			
 			$fb = $this->fb_init();
 
-            		$helper = $fb->getRedirectLoginHelper();
-           
-            		$permissions = ['public_profile','email']; // Optional permissions
-            		$data['loginUrl'] = $helper->getLoginUrl(site_url().'auth/doFbLogin', $permissions);
+			$helper = $fb->getRedirectLoginHelper();
+   
+			$permissions = ['public_profile','email']; // Optional permissions
+			$data['loginUrl'] = $helper->getLoginUrl(site_url().'auth/doFbLogin', $permissions);
             
 			$data['option'] = 'login';
 			$this->output->set_template('auth');
@@ -75,11 +75,11 @@ class Auth extends CI_Controller
 			$data['error'] = array();  
 			$errors = $this->tank_auth->get_error_message();
 			                                                   // fail
-	            	foreach ($errors as $k => $v) {
-	                	$data['error'][$k] = $this->lang->line($v);
-	            	}
-	            
-	            	echo json_encode(array('success' => false, 'message' => $data['error']));
+			foreach ($errors as $k => $v) {
+				$data['error'][$k] = $this->lang->line($v);
+			}
+		
+			echo json_encode(array('success' => false, 'message' => $data['error']));
 			//exit();
 		}
 	}
@@ -143,16 +143,11 @@ class Auth extends CI_Controller
 	        * false register it
 	        */ 
 	        if(!$this->tank_auth->is_email_available($user['email'])){
-	        
-			$data['login_by_username'] = ($this->config->item('login_by_username', 'tank_auth') AND
-					$this->config->item('use_username', 'tank_auth'));
-			$data['login_by_email'] = $this->config->item('login_by_email', 'tank_auth');
 			
-	            	$this->tank_auth->login($user['email'], '', '', $data['login_by_username'], $data['login_by_email'], true);       // success
-	            
-		                
-		        redirect('dashboard');
-		                
+	            $this->tank_auth->login($user['email'], '', '', true);     // success
+       
+					redirect('dashboard');
+				
 	        }else{
 	
 	            $this->session->set_userdata(array(
@@ -940,10 +935,11 @@ class Auth extends CI_Controller
 		
 		$config['upload_path'] = getcwd() . '/uploads/'.$this->tank_auth->get_license_key().'/profile-picture/';
 		$config['allowed_types'] = 'gif|jpg|png';
-		$config['max_size'] = '1024';
-		$config['max_width'] = '800';
-		$config['max_height'] = '680';
-				
+		//$config['max_size'] = '1024';
+		//$config['max_width'] = '800';
+		//$config['max_height'] = '680';
+		$config['encrypt_name'] = TRUE;
+		
 		$this->load->library('upload', $config);
 
 		if(!is_dir($config['upload_path']))
@@ -951,35 +947,42 @@ class Auth extends CI_Controller
 			mkdir($config['upload_path'], 0755, TRUE);
 		}
 
-		if ($this->upload->do_upload('profile_picture'))
+		if (!$this->upload->do_upload('profile_picture'))
 		{
+			echo json_encode(array('success'=>false,'message'=>$this->upload->display_errors()));
+
+		}else{
 			
 			$upload_data = $this->upload->data();
-			
+					
 			if (!empty($upload_data['orig_name']))
 			{
 				
 				$pic = $upload_data['raw_name'] . $upload_data['file_ext'];
 				
 			}
-		
+			
+			$this->Person->save_picture($pic, $id);
+
+			echo json_encode(array('success'=>true,'message'=>$this->lang->line('config_saved_successfully')));
 		}
 
-		$this->Person->save_picture($pic, $id);
-
-		echo json_encode(array('success'=>true,'message'=>$this->lang->line('config_saved_successfully')));
-		
 	}
 	
-	function switch_advance($option){
-			
-		$batch_save_data=array(
-			'show_advance_form_input'=> $option
-		);
-		$this->Appconfig->batch_save($this->tank_auth->get_license_key(), $batch_save_data );
+	function get_switch_advance(){
+		
+        if (!$this->session->userdata('option'))
+            $this->set_seach(1);
 
-		echo json_encode(array('success'=>true));
+        return $this->session->userdata('option');
+        
 	}
+	
+	function switch_advance($option) {
+		if($this->session->set_userdata('option', $option)){
+			echo json_encode(array('success'=>true));
+		}
+    }
 	
 	function update_templates(){
 			

@@ -15,7 +15,7 @@
 			<button type="button" class="btn btn-primary">Update</button>
 			-->
 			<?php if(($this->admin_role_id != $this->role_id) ? $this->Module->has_permission('templates', $this->role_id, 'create',   $this->license_id) : true) { ?>
-			<button type="button" class="create btn btn-primary btn-sm"><i class="fa fa-plus"></i> Create</button>
+			<button type="button" data-original-title="<?php echo $this->lang->line('__common_create_new');?>" class="create btn btn-primary btn-sm"><i class="fa fa-plus"></i> <?php echo $this->lang->line('__common_create');?></button>
 			<?php } ?>
 		</div>
 	</div>
@@ -71,16 +71,17 @@ the <section></section> and you can use wells or panels instead
 	console.log(can_delete);
 	console.log(can_update);
 	$(".create").click(function (e) {
+		var title = $(this).attr('data-original-title');
 		e.preventDefault();
 			$.ajax({
 				url: BASE_URL+'templates/view/-1',
 				onError: function () {
-					bootbox.alert('Some network problem try again later.');
+					bootbox.alert('<?php echo $this->lang->line('__bootbox_error');?>');
 				},
 				success: function (response)
 				{
 					var dialog = bootbox.dialog({
-						title: 'Create new',
+						title: title,
 						message: '<p class="text-center"><img src="'+BASE_URL+'img/ajax-loader.gif"/></p>'
 					});
 					dialog.init(function(){
@@ -237,8 +238,16 @@ the <section></section> and you can use wells or panels instead
 		        },
 				"oLanguage": {
 					"sSearch": '<span class="input-group-addon"><i class="fa fa-search"></i></span>',
-					"sProcessing": '<i class="fa fa-spinner fa-pulse fa-fw"></i> Loading. Please wait...' //add a loading image,simply putting <img src="/img/ajax-loader.gif" /> tag.
-		        },	
+					"sProcessing": '<i class="fa fa-spinner fa-pulse fa-fw"></i> <?php echo $this->lang->line('__dt_sLoadingRecords');?>', //add a loading image,simply putting <img src="/img/ajax-loader.gif" /> tag.
+					"sInfo": '<?php echo $this->lang->line('__dt_sInfo');?>',
+					"sEmptyTable": '<?php echo $this->lang->line('__dt_sEmptyTable');?>',
+					"sInfoEmpty": '<?php echo $this->lang->line('__dt_sInfoEmpty');?>',
+					"sInfoFiltered": '<?php echo $this->lang->line('__dt_sInfoFiltered');?>',
+					"sLengthMenu": '<?php echo $this->lang->line('__dt_sLengthMenu');?>',
+					"sLoadingRecords": '<?php echo $this->lang->line('__dt_sLoadingRecords');?>',
+					"sProcessing": '<?php echo $this->lang->line('__dt_sProcessing');?>',
+					"sZeroRecords": '<?php echo $this->lang->line('__dt_sZeroRecords');?>'
+				},	
 				"autoWidth" : true,
 				"preDrawCallback" : function() {
 					// Initialize the responsive datatables helper once.
@@ -260,7 +269,7 @@ the <section></section> and you can use wells or panels instead
 					   	$.ajax({
 			                url: $(this).attr('href'),
 			                onError: function () {
-			                    bootbox.alert('Some network problem try again later.');
+			                    bootbox.alert('<?php echo $this->lang->line('__bootbox_error');?>');
 			                },
 			                success: function (response)
 			                {
@@ -366,7 +375,7 @@ the <section></section> and you can use wells or panels instead
 		                //row['statuses'] != 0
 		                "render": function (data, type, row) {
 
-		                    newData = '<a rel="tooltip" data-placement="bottom" data-original-title="Preview" href="'+BASE_URL+'templates/details/'+row['id']+'" class="bootbox link">'+row['name']+'</a>';
+		                    newData = '<a rel="tooltip" data-placement="bottom" data-original-title="<?php echo $this->lang->line('__common_preview');?> - '+row['name']+'" href="'+BASE_URL+'templates/details/'+row['id']+'" class="bootbox link">'+row['name']+'</a>';
 		                    return newData;
 
 		                },
@@ -393,9 +402,9 @@ the <section></section> and you can use wells or panels instead
 		                "render": function (data, type, row) {
 		                    newData = "";
 							if(row['status'] == 1){
-								s = '<span class="label label-success">Enabled</span>';
+								s = '<span class="label label-success"><?php echo $this->lang->line('__common_enabled');?></span>';
 							}else{
-								s = '<span class="label label-danger">Disabled</span>';
+								s = '<span class="label label-danger"><?php echo $this->lang->line('__common_disabled');?></span>';
 							}
 							
 		                    newData  = s;
@@ -427,13 +436,13 @@ the <section></section> and you can use wells or panels instead
 		                    newData = "";
 		                    if(row['license'] != 'system'){
 								if(can_delete){
-									newData = '<a rel="tooltip" data-placement="bottom" data-original-title="Delete" href="'+BASE_URL+'templates/delete/'+row['id']+'" class="delete btn btn-danger btn-xs"><i class="fa fa-trash-o"></i></a>&nbsp;';
+									newData = '<a rel="tooltip" data-placement="bottom" data-original-title="<?php echo $this->lang->line('__common_delete');?>" href="'+BASE_URL+'templates/delete/'+row['id']+'" class="delete btn btn-danger btn-xs"><i class="fa fa-trash-o"></i></a>&nbsp;';
 								}
 								if(can_update){
-									newData += '<a rel="tooltip" data-placement="bottom" data-original-title="Update"  href="'+BASE_URL+'templates/view/'+row['id']+'/" class="bootbox btn btn-primary btn-xs"><i class="fa fa-pencil"></i></a>';
+									newData += '<a rel="tooltip" data-placement="bottom" data-original-title="<?php echo $this->lang->line('__common_update');?>"  href="'+BASE_URL+'templates/view/'+row['id']+'/" class="bootbox btn btn-primary btn-xs"><i class="fa fa-pencil"></i></a>';
 								}
 							}else{
-								newData +='<span class="badge badge-default">Default</span>';
+								newData +='<span class="badge badge-default"><?php echo $this->lang->line('__common_default');?></span>';
 							}
 							return newData;
 		                },

@@ -313,7 +313,7 @@
 		$history_length = $chatroom_history_length * 60;
 		
 		$result = $db->execute("
-			SELECT id, username, message, sent, user_id, global_message, is_mod, is_admin
+			SELECT id, username, message, sent, user_id, license_key, global_message, is_mod, is_admin
 			FROM arrowchat_chatroom_messages
 			WHERE (chatroom_id = '" . $db->escape_string($chatroom_id) . "'
 				AND sent + " . $history_length . " > " . $time . "
@@ -346,7 +346,8 @@
 				$sql = get_user_details($fetchid);
 				$result2 = $db->execute($sql);
 				$user = $db->fetch_array($result2);
-				$avatar	= get_avatar($user['avatar'], $fetchid);
+				//$avatar	= get_avatar($user['avatar'], $fetchid);//license
+				$avatar	= get_avatar($user['avatar'], $user['license']);
 				$user_cache[$fetchid] = $avatar;
 			}
 			

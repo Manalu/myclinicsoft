@@ -1,26 +1,39 @@
 <!-- Bread crumb is created dynamically -->
 <!-- row -->
-
+<style>
+.complaints-row{
+	position:relative;
+}
+div#complain-table .btn-group {
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+</style>
 <div class="row" id="details-top">
 
 	<!-- col -->
-	<div class="col-xs-12 col-sm-12 col-md-10 col-lg-10">
-		<?php if($info->avatar){
-			echo '<img src="'.$info->avatar.'" class="img-responsive pull-left" >';
-		}else{
-			echo '<img src="' . $this->gravatar->get($info->email) . '" class="img-responsive pull-left" />';
-		}?>
+	<div class="col-xs-12 col-sm-12 col-md-9 col-lg-9">
+		<?php if($info->avatar != '')
+		{
+			$img = base_url().'uploads/'.$info->license_key.'/profile-picture/'.$info->avatar;
+		}
+		else
+		{ 
+			$img = base_url().'img/avatars/blank.png';
+		} ?>
+		<img src="<?php echo $img;?>" class="img-responsive pull-left" >
 	
 		<h1 class="page-title txt-color-blueDark"><!-- PAGE HEADER --><?php echo $info->firstname.', '.$info->lastname. ' [ '.ucfirst(str_replace('_', ' ', $type)).' Record ]';?> </h1>
 		<span><?php if($this->Que->exists($info->id, $this->license_id)){ echo 'QUE # : '. $this->Que->get_info($info->id, $this->license_id)->que_id.'</span>'; }?>
 	</div>
-	<div class="col-xs-12 col-sm-12 col-md-2 col-lg-2">
+	<div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
 		<?php if(!$this->Que->exists($info->id, $this->license_id)){ ?>
-			<a href="<?php echo site_url('queing/move_in/'.$info->id);?>" class="move-in btn btn-primary btn-block">Move in to waiting list!</a>
+			<a href="<?php echo site_url('queing/move_in/'.$info->id);?>" class="move-in btn btn-primary"><i class="fa fa-sign-in fa-fw"></i> Move in to waiting list!</a>
 		<?php }else{ ?>
-			<a href="javascript:;" id="<?php echo $info->id;?>" class="move-out btn btn-danger btn-block">Move out to waiting list!</a>
+			<a href="javascript:;" id="<?php echo $info->id;?>" class="move-out btn btn-danger"><i class="fa fa-sign-out fa-fw"></i> Move out to waiting list!</a>
 		<?php } ?>
-		
+			<a href="<?php echo site_url('records/docs/'.$info->id);?>" id="<?php echo $info->id;?>" title="Print Form" class="hidden bootbox btn btn-success"><i class="fa fa-print fa-fw"></i>Print</a>
 	</div>
 	<!-- end col -->
 
@@ -61,72 +74,173 @@
 		</address>
 	</div>
 </div>
+<div class="jarviswidget" id="wid-id-pulse" data-widget-togglebutton="true" data-widget-collapsed="false">
+	<!-- widget options:
+		usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
+		
+		data-widget-colorbutton="false"	
+		data-widget-editbutton="false"
+		data-widget-togglebutton="false"
+		data-widget-deletebutton="false"
+		data-widget-fullscreenbutton="false"
+		data-widget-custombutton="false"
+		data-widget-collapsed="true" 
+		data-widget-sortable="false"
+		
+	-->
+	<header>
+	<div class="jarviswidget-ctrls" role="menu">  
+	<a href="javascript:void(0);" class="button-icon jarviswidget-toggle-btn" rel="tooltip" title="" data-placement="bottom" data-original-title="Collapse"><i class="fa fa-minus "></i></a>  
+	</div>
+		<h2><strong>Record</strong></h2>				
+		
+	</header>
 
-<div class="row" id="details-bottom">
+	<!-- widget div-->
+	<div>
+		
+		<!-- widget edit box -->
+		<div class="jarviswidget-editbox">
+			<!-- This area used as dropdown edit box -->
+			<input class="form-control" type="text">
+			<span class="note"><i class="fa fa-check text-success"></i> Change title to update and save instantly!</span>
+			
+		</div>
+		<!-- end widget edit box -->
+		
+		<!-- widget content -->
+		<div class="widget-body">
+			<div class="row">
+				<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+					<div class="record-item">
+						<span class="record-icon"><i class="fa fa-tachometer"></i></span>
+						<div class="record-details">
+							<span class="record-title">Weight</span>
+							<p>
+							<?php 
+							$weight = $this->Record->get_xeditval('weight', $info->id, date('Y-m-d'));
+							if(($this->admin_role_id != $this->role_id) ? $this->Module->has_permission('weight', $this->role_id, 'view',   $this->license_id) : true) { ?>
+								<a href="#" class="editable_text" rel="tooltip" data-placement="top" data-original-title="Add weight" data-placeholder="Required" data-url="<?php echo site_url('records/save/-1/weight/');?>" data-type="text" data-pk="<?php echo ($weight->id) ? $weight->id : 0;?>" data-value="<?php echo ($weight->weight) ? preg_replace("/[^0-9]/","",$weight->weight) : '';?>" data-name="weight" id="<?php echo $info->id;?>" data-original-title="Enter weight"></a>
+							<?php }else{
+								echo ($weight->weight) ? preg_replace("/[^0-9]/","",$weight->weight) : '';
+							}?>
+							kg
+							</p>
+							<label>Previous record : <?php echo $this->Record->get_xeditval('weight', $info->id, null)->weight;?><label>
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+					<div class="record-item">
+						<span class="record-icon"><i class="fa fa-outdent"></i></span>
+						<div class="record-details">
+							<span class="record-title">Height</span>
+							<p>
+							<?php $height = $this->Record->get_xeditval('height', $info->id, date('Y-m-d')); 
+							if(($this->admin_role_id != $this->role_id) ? $this->Module->has_permission('height', $this->role_id, 'view',   $this->license_id) : true) { ?>
+							<a href="#" class="editable_text" rel="tooltip" data-placement="top" data-original-title="Add height" data-url="<?php echo site_url('records/save/-1/height/');?>" data-type="text" data-pk="<?php echo ($height->id) ? $height->id : 0;?>" data-value="<?php echo ($height->height) ? preg_replace("/[^0-9]/","",$height->height) : '';?>" data-name="height" id="<?php echo $info->id;?>" data-original-title="Enter height"></a>
+							<?php }else{
+								echo ($height->height) ? preg_replace("/[^0-9]/","",$height->height) : '--';
+							}?>
+							cm
+							</p>
+							<label>Previous record : <?php echo $this->Record->get_xeditval('height', $info->id, null)->height;?><label>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+					<div class="record-item">
+						<span class="record-icon"><i class="fa fa-thermometer-full"></i></span>
+						<div class="record-details">
+							<span class="record-title">Temperature</span>
+							<p>
+							<?php $temperature = $this->Record->get_xeditval('temperature', $info->id, date('Y-m-d')); 
+							if(($this->admin_role_id != $this->role_id) ? $this->Module->has_permission('temperature', $this->role_id, 'view',   $this->license_id) : true) { ?>
+								<a href="#" class="editable_text" rel="tooltip" data-placement="top" data-original-title="Add temperature"  data-url="<?php echo site_url('records/save/-1/temperature/');?>" data-type="text" data-pk="<?php echo ($temperature->id) ? $temperature->id : 0;?>" data-value="<?php echo ($temperature->temperature) ? preg_replace("/[^0-9]/","",$temperature->temperature) : '';?>" data-name="temperature" id="<?php echo $info->id;?>" data-original-title="Enter temperature"></a>
+							<?php } else {
+								echo ($temperature->temperature) ? preg_replace("/[^0-9]/","",$temperature->temperature) : '--';
+							}?>
+							(&deg;C) </dd>
+							</p>
+							<label>Previous record : <?php echo $this->Record->get_xeditval('temperature', $info->id, null)->temperature;?><label>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-xs-12 col-sm-12 col-md-5 col-lg-5">
+					<div class="record-item">
+						<span class="record-icon"><i class="fa fa-tint"></i></span>
+						<div class="record-details">
+							<span class="record-title">Blood Glucose</span>
+							<p>
+							<?php $blood_glucose = $this->Record->get_xeditval('blood_glucose', $info->id, date('Y-m-d')); 
+							if(($this->admin_role_id != $this->role_id) ? $this->Module->has_permission('bloodglucose', $this->role_id, 'view',   $this->license_id) : true) { ?>
+							<a href="#" class="editable_custom" rel="tooltip" data-placement="top" data-original-title="Add measurement"  data-url="<?php echo site_url('records/custom_save/blood_glucose/measurement/');?>" data-type="text" data-value="<?php echo ($blood_glucose->measurement) ? preg_replace("/[^0-9]/","",$blood_glucose->measurement) : '';?>" data-pk="<?php echo ($blood_glucose->id) ? $blood_glucose->id : 0;?>" data-name="measurement" data-table="blood_glucose" id="<?php echo $info->id;?>" data-original-title="Enter mesurement"></a>
+							<?php }else{
+								echo ($blood_glucose->measurement) ? preg_replace("/[^0-9]/","",$blood_glucose->measurement) : '--';
+							} ?>
+							mmol/L [
+							<?php if(($this->admin_role_id != $this->role_id) ? $this->Module->has_permission('bloodglucose', $this->role_id, 'view',   $this->license_id) : true) { ?>
+							<a href="#" class="editable_custom" rel="tooltip" data-placement="top" data-original-title="Add type"  data-url="<?php echo site_url('records/custom_save/blood_glucose/type/');?>" data-type="text"  data-value="<?php echo ($blood_glucose->type) ? $blood_glucose->type : '';?>" data-pk="<?php echo ($blood_glucose->id) ? $blood_glucose->id : 0;?>" data-name="type" data-table="blood_glucose" id="<?php echo $info->id;?>" data-original-title="Enter type"></a>
+							<?php }else{
+								echo ($blood_glucose->type) ? $blood_glucose->type : '--';
+							} ?>
+							]
+							</p> 
+							<label>Previous record : <?php echo $this->Record->get_xeditval('blood_glucose', $info->id, null)->measurement;?> mmol/L [ <?php echo $this->Record->get_xeditval('blood_glucose', $info->id, null)->type;?> ]<label>
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-12 col-md-7 col-lg-7">
+					<div class="record-item">
+						<span class="record-icon"><i class="fa fa-heartbeat"></i></span>
+						<div class="record-details">
+							<span class="record-title">Blood Pressure</span>
+							<p>
+							<?php $blood_pressure = $this->Record->get_xeditval('blood_pressure', $info->id, date('Y-m-d')); 
+							if(($this->admin_role_id != $this->role_id) ? $this->Module->has_permission('bloodpressure', $this->role_id, 'view',   $this->license_id) : true) { ?>
+								<a href="#" class="editable_custom" rel="tooltip" data-placement="top" data-original-title="Add systolic"  data-url="<?php echo site_url('records/custom_save/blood_pressure/systolic/');?>" data-type="text" data-value="<?php echo ($blood_pressure->systolic) ? preg_replace("/[^0-9]/","",$blood_pressure->systolic) : '';?>" data-pk="<?php echo ($blood_pressure->id) ? $blood_pressure->id : 0;?>" data-name="systolic" data-table="blood_pressure" id="<?php echo $info->id;?>" data-original-title="Enter systolic"></a>
+							<?php }else{
+								echo ($blood_pressure->systolic) ? preg_replace("/[^0-9]/","",$blood_pressure->systolic) : '--';
+							}?>
+							mmHg
+							<?php if(($this->admin_role_id != $this->role_id) ? $this->Module->has_permission('bloodpressure', $this->role_id, 'view',   $this->license_id) : true) { ?>
+								<a href="#" class="editable_custom" rel="tooltip" data-placement="top" data-original-title="Add diastolic"  data-url="<?php echo site_url('records/custom_save/blood_pressure/diastolic/');?>" data-type="text" data-value="<?php echo ($blood_pressure->diastolic) ? preg_replace("/[^0-9]/","",$blood_pressure->diastolic) : '';?>" data-pk="<?php echo ($blood_pressure->id) ? $blood_pressure->id : 0;?>" data-name="diastolic" data-table="blood_pressure" id="<?php echo $info->id;?>" data-original-title="Enter diastolic"></a>
+							<?php } else{
+								echo ($blood_pressure->diastolic) ? preg_replace("/[^0-9]/","",$blood_pressure->diastolic) : '--';
+							}?>
+							mmHg
+							[
+							<?php if(($this->admin_role_id != $this->role_id) ? $this->Module->has_permission('bloodpressure', $this->role_id, 'view',   $this->license_id) : true) { ?>
+								<a href="#" class="editable_custom" rel="tooltip" data-placement="top" data-original-title="Add heart rate"  data-url="<?php echo site_url('records/custom_save/blood_pressure/heart_rate/');?>" data-type="text"  data-value="<?php echo ($blood_pressure->heart_rate) ? $blood_pressure->heart_rate : '';?>" data-pk="<?php echo ($blood_pressure->id) ? $blood_pressure->id : 0;?>" data-name="heart_rate" data-table="blood_pressure" id="<?php echo $info->id;?>" data-original-title="Enter heart rate"></a>
+							<?php }else{
+								echo ($blood_pressure->heart_rate) ? $blood_pressure->heart_rate : '--';
+							}?>
+							]
+							</p> 
+							<label>Previous record : <?php echo $this->Record->get_xeditval('blood_pressure', $info->id, null)->systolic;?> mmHg <?php echo $this->Record->get_xeditval('blood_pressure', $info->id, null)->diastolic;?> mmHg [ <?php echo $this->Record->get_xeditval('blood_pressure', $info->id, null)->heart_rate;?> ]<label>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+		</div>
+		<!-- end widget content -->
+		
+	</div>
+	<!-- end widget div -->
+	
+</div>
+<!-- end widget -->
+							
+
+
+<div class="row hidden" id="details-bottom">
 	<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
 	
-		<dl class="dl-horizontal">
-			<dt>Weight :</dt>
-			<dd> <?php 
-			$weight = $this->Record->get_xeditval('weight', $info->id, date('Y-m-d'));
-			if(($this->admin_role_id != $this->role_id) ? $this->Module->has_permission('weight', $this->role_id, 'view',   $this->license_id) : true) { ?>
-				<a href="#" class="editable_text" rel="tooltip" data-placement="top" data-original-title="Add weight" data-placeholder="Required" data-url="<?php echo site_url('records/save/-1/weight/');?>" data-type="text" data-pk="<?php echo ($weight->id) ? $weight->id : 0;?>" data-value="<?php echo ($weight->weight) ? preg_replace("/[^0-9]/","",$weight->weight) : '';?>" data-name="weight" id="<?php echo $info->id;?>" data-original-title="Enter weight"></a>
-			<?php }else{
-				echo ($weight->weight) ? preg_replace("/[^0-9]/","",$weight->weight) : '';
-			}?>
-			kg</dd>
-			<dt>Height :</dt>
-			<dd>
-			<?php $height = $this->Record->get_xeditval('height', $info->id, date('Y-m-d')); 
-			if(($this->admin_role_id != $this->role_id) ? $this->Module->has_permission('height', $this->role_id, 'view',   $this->license_id) : true) { ?>
-			<a href="#" class="editable_text" rel="tooltip" data-placement="top" data-original-title="Add height" data-url="<?php echo site_url('records/save/-1/height/');?>" data-type="text" data-pk="<?php echo ($height->id) ? $height->id : 0;?>" data-value="<?php echo ($height->height) ? preg_replace("/[^0-9]/","",$height->height) : '';?>" data-name="height" id="<?php echo $info->id;?>" data-original-title="Enter height"></a>
-			<?php }else{
-				echo ($height->height) ? preg_replace("/[^0-9]/","",$height->height) : '--';
-			}?>
-			cm
-			</dd>
-			
-			<dt>Blood Glucose :</dt>
-			<dd>
-			<?php $blood_glucose = $this->Record->get_xeditval('blood_glucose', $info->id, date('Y-m-d')); 
-			if(($this->admin_role_id != $this->role_id) ? $this->Module->has_permission('bloodglucose', $this->role_id, 'view',   $this->license_id) : true) { ?>
-			<a href="#" class="editable_custom" rel="tooltip" data-placement="top" data-original-title="Add measurement"  data-url="<?php echo site_url('records/custom_save/blood_glucose/measurement/');?>" data-type="text" data-value="<?php echo ($blood_glucose->measurement) ? preg_replace("/[^0-9]/","",$blood_glucose->measurement) : '';?>" data-pk="<?php echo ($blood_glucose->id) ? $blood_glucose->id : 0;?>" data-name="measurement" data-table="blood_glucose" id="<?php echo $info->id;?>" data-original-title="Enter mesurement"></a>
-			<?php }else{
-				echo ($blood_glucose->measurement) ? preg_replace("/[^0-9]/","",$blood_glucose->measurement) : '--';
-			} ?>
-			mmol/L [
-			<?php if(($this->admin_role_id != $this->role_id) ? $this->Module->has_permission('bloodglucose', $this->role_id, 'view',   $this->license_id) : true) { ?>
-			<a href="#" class="editable_custom" rel="tooltip" data-placement="top" data-original-title="Add type"  data-url="<?php echo site_url('records/custom_save/blood_glucose/type/');?>" data-type="text"  data-value="<?php echo ($blood_glucose->type) ? $blood_glucose->type : '';?>" data-pk="<?php echo ($blood_glucose->id) ? $blood_glucose->id : 0;?>" data-name="type" data-table="blood_glucose" id="<?php echo $info->id;?>" data-original-title="Enter type"></a>
-			<?php }else{
-				echo ($blood_glucose->type) ? $blood_glucose->type : '--';
-			} ?>
-			]
-			</dd>
-			
-			<dt>Blood Pressure :</dt>
-			<dd>
-			<?php $blood_pressure = $this->Record->get_xeditval('blood_pressure', $info->id, date('Y-m-d')); 
-			if(($this->admin_role_id != $this->role_id) ? $this->Module->has_permission('bloodpressure', $this->role_id, 'view',   $this->license_id) : true) { ?>
-				<a href="#" class="editable_custom" rel="tooltip" data-placement="top" data-original-title="Add systolic"  data-url="<?php echo site_url('records/custom_save/blood_pressure/systolic/');?>" data-type="text" data-value="<?php echo ($blood_pressure->systolic) ? preg_replace("/[^0-9]/","",$blood_pressure->systolic) : '';?>" data-pk="<?php echo ($blood_pressure->id) ? $blood_pressure->id : 0;?>" data-name="systolic" data-table="blood_pressure" id="<?php echo $info->id;?>" data-original-title="Enter systolic"></a>
-			<?php }else{
-				echo ($blood_pressure->systolic) ? preg_replace("/[^0-9]/","",$blood_pressure->systolic) : '--';
-			}?>
-			mmHg
-			<?php if(($this->admin_role_id != $this->role_id) ? $this->Module->has_permission('bloodpressure', $this->role_id, 'view',   $this->license_id) : true) { ?>
-				<a href="#" class="editable_custom" rel="tooltip" data-placement="top" data-original-title="Add diastolic"  data-url="<?php echo site_url('records/custom_save/blood_pressure/diastolic/');?>" data-type="text" data-value="<?php echo ($blood_pressure->diastolic) ? preg_replace("/[^0-9]/","",$blood_pressure->diastolic) : '';?>" data-pk="<?php echo ($blood_pressure->id) ? $blood_pressure->id : 0;?>" data-name="diastolic" data-table="blood_pressure" id="<?php echo $info->id;?>" data-original-title="Enter diastolic"></a>
-			<?php } else{
-				echo ($blood_pressure->diastolic) ? preg_replace("/[^0-9]/","",$blood_pressure->diastolic) : '--';
-			}?>
-			mmHg
-			[
-			<?php if(($this->admin_role_id != $this->role_id) ? $this->Module->has_permission('bloodpressure', $this->role_id, 'view',   $this->license_id) : true) { ?>
-				<a href="#" class="editable_custom" rel="tooltip" data-placement="top" data-original-title="Add heart rate"  data-url="<?php echo site_url('records/custom_save/blood_pressure/heart_rate/');?>" data-type="text"  data-value="<?php echo ($blood_pressure->heart_rate) ? $blood_pressure->heart_rate : '';?>" data-pk="<?php echo ($blood_pressure->id) ? $blood_pressure->id : 0;?>" data-name="heart_rate" data-table="blood_pressure" id="<?php echo $info->id;?>" data-original-title="Enter heart rate"></a>
-			<?php }else{
-				echo ($blood_pressure->heart_rate) ? $blood_pressure->heart_rate : '--';
-			}?>
-			]
-			</dd>
-		</dl>
 	</div>
 	<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
 		<dl class="dl-horizontal">
@@ -176,15 +290,7 @@
 	</div>
 	<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
 		<dl class="dl-horizontal">
-			<dt>Temperature :</dt>
-			<dd>
-			<?php $temperature = $this->Record->get_xeditval('temperature', $info->id, date('Y-m-d')); 
-			if(($this->admin_role_id != $this->role_id) ? $this->Module->has_permission('temperature', $this->role_id, 'view',   $this->license_id) : true) { ?>
-				<a href="#" class="editable_text" rel="tooltip" data-placement="top" data-original-title="Add temperature"  data-url="<?php echo site_url('records/save/-1/temperature/');?>" data-type="text" data-pk="<?php echo ($temperature->id) ? $temperature->id : 0;?>" data-value="<?php echo ($temperature->temperature) ? preg_replace("/[^0-9]/","",$temperature->temperature) : '';?>" data-name="temperature" id="<?php echo $info->id;?>" data-original-title="Enter temperature"></a>
-			<?php } else {
-				echo ($temperature->temperature) ? preg_replace("/[^0-9]/","",$temperature->temperature) : '--';
-			}?>
-			(&deg;C) </dd>
+			
 			<dt>Next Visit :</dt>
 			<dd>
 			<?php $next_visit = $this->Record->get_xeditval('next_visit', $info->id, date('Y-m-d')); 
@@ -192,15 +298,6 @@
 				<a href="#" class="editable_date" rel="tooltip" data-placement="top" data-original-title="Add next visit"  data-url="<?php echo site_url('records/save/-1/next_visit/');?>" data-viewformat="yyyy-mm-dd" data-original-title="When you want schedule the next visit?" data-type="date" data-value="<?php echo ($next_visit->next_visit) ? $next_visit->next_visit : '';?>" data-pk="<?php echo ($next_visit->id) ? $next_visit->id : 0;?>" data-name="next_visit" id="<?php echo $info->id;?>" data-original-title="Enter next visit"></a>
 			<?php }else{
 				echo ($next_visit->next_visit) ? $next_visit->next_visit : '--';
-			}?>
-			</dd>
-			<dt>Conditions :</dt>
-			<dd>
-			<?php $conditions = $this->Record->get_xeditval('conditions', $info->id, date('Y-m-d')); 
-			if(($this->admin_role_id != $this->role_id) ? $this->Module->has_permission('conditions', $this->role_id, 'view',   $this->license_id) : true) { ?>
-				<a href="#" class="editable_text" rel="tooltip" data-placement="top" data-original-title="Add conditions"  data-url="<?php echo site_url('records/save/-1/conditions/');?>" data-type="text" data-value="<?php echo ($conditions->conditions) ? $conditions->conditions : '';?>" data-pk="<?php echo ($conditions->id) ? $conditions->id : 0;?>" data-name="conditions" id="<?php echo $info->id;?>" data-original-title="Enter conditions"></a>
-			<?php }else{
-				echo ($conditions->conditions) ? $conditions->conditions : '--';
 			}?>
 			</dd>
 			<dt>Lab test result :</dt>
@@ -253,10 +350,31 @@ the <section></section> and you can use wells or panels instead
 	data-widget-sortable="false"
 
 	-->
+	
 	<header role="heading">
 		<h2>Doctors Access </h2>
-		
-	<span class="jarviswidget-loader"><i class="fa fa-refresh fa-spin"></i></span></header>
+		<ul id="widget-tab-1" class="nav nav-tabs pull-right">
+			<li class="active">
+				<a data-toggle="tab" href="#hr1"> <span class="hidden-mobile hidden-tablet"> Complaint </span> </a>
+			</li>
+			<li>
+				<a data-toggle="tab" href="#hr2"> <span class="hidden-mobile hidden-tablet"> Lab test </span></a>
+			</li>
+			<li>
+				<a data-toggle="tab" href="#hr3"> <span class="hidden-mobile hidden-tablet"> Endorsement </span></a>
+			</li>
+			<li>
+				<a data-toggle="tab" href="#hr4"> <span class="hidden-mobile hidden-tablet"> Family Histories </span></a>
+			</li>
+			<li>
+				<a data-toggle="tab" href="#hr5"> <span class="hidden-mobile hidden-tablet"> Allergies </span></a>
+			</li>
+			<li>
+				<a data-toggle="tab" href="#hr6"> <span class="hidden-mobile hidden-tablet"> Immunisation </span></a>
+			</li>
+		</ul>
+		<span class="jarviswidget-loader"><i class="fa fa-refresh fa-spin"></i></span>
+	</header>
 
 	<!-- widget div-->
 	<div role="content">
@@ -270,36 +388,242 @@ the <section></section> and you can use wells or panels instead
 
 		<!-- widget content -->
 		<div class="widget-body">
+			<div class="tab-content padding-10">
+				<div class="tab-pane fade active in" id="hr1">
+					<div id="complaints"><div id="empty-block-condition" class="text-center"><i class="fa fa-plus fa-2x"></i> <span>Add Complaint</span></div></div>
 
-			
-				<!--<ul class="nav nav-tabs tabs-left" id="demo-pill-nav">
-					<?php //foreach($this->Record->get_all()->result_array() as $row) { ?> 
-						<li <?php //if($type == strtolower(str_replace(' ', '_', $row['name']))) echo 'class="active"';?>>
-							<a href="<?php //echo site_url('patients/records/'.strtolower(str_replace(' ', '_', $row['name'])).'/'.$this->encrypt->encode($info->id));?>" class="ajaxSoft"><span class="badge bg-color-blue txt-color-white">0</span> <?php //echo $row['name'];?></a>
-						</li>
-					<?php //} ?>
-				</ul>-->
-				<div class="tab-content" id="record">
-					<?php if($type == 'summary'){ ?>
-						<div id="empty-content">
-							<i class="fa fa-list fa-5x"></i>
-							<h1>Select Records on left to get started!</h1>
-						</div>
-					<?php }else{ ?>
+					<div class="hidden tab-content" id="record">
+						
 						<div id="empty-content">
 							<i class="fa fa-spin fa-spinner fa-5x"></i>
 							<h1>Loading...</h1>
 						</div>
+
+					</div>
+				</div>
+				<div class="tab-pane fade" id="hr2">
+					
+						<table class="table" id="lab-test-record">
+							<thead>
+								<tr>
+									<th>Date</th>
+									<th>Test</th>
+									<th>Specimen</th>
+									<th>Conventional units</th>
+									<th>Si units</th>
+									<th>
+										<div class="btn-group  pull-right">
+											<a title="Add new <?php echo strtolower(str_replace('_', ' ', 'lab_test_results'));?>" href="<?php echo site_url('records/create/lab_test_results/'.$info->id);?>" class="bootbox btn btn-success btn-xs">
+												<i class="fa fa-plus"></i> <?php echo $this->lang->line('common_add_new');?>
+											</a>
+											
+											<a title="Request Lab Test" href="<?php echo site_url('records/view_test');?>" class="bootbox btn btn-primary btn-xs">
+												<i class="fa fa-print"></i> Request Lab Test
+											</a>
+										</div>
+									</th>
+								</tr>
+							</thead>
+							<tbody>
+							<?php 
+							$lab_result = $this->Record->get_all_data('lab_test_results', $info->id);
+							if(count($lab_result) > 0) { ?>
+								<?php foreach($lab_result as $row) { ?>
+									<tr id="row-lab-<?php echo $row['id'];?>">
+										<td><?php echo date($this->config->item('dateformat'), strtotime($row['date']));?></td>
+										<td><?php echo $row['test'];?></td>
+										<td><?php echo $row['specimen'];?></td>
+										<td><?php echo $row['conventional_units'] ;?></td>
+										<td><?php echo $row['si_units'];?></td>
+										<td class="text-right">
+											<a href="<?php echo site_url('records/delete/'.$row['id'].'/lab_test_results');?>" id="lab-<?php echo $row['id'];?>" class="delete_record btn btn-danger btn-xs"><i class="fa fa-trash-o"></i></a>
+										</td>
+									</tr>
+								<?php } ?>
+							<?php }else{?>
+								<tr id="empty-content-lab">
+									<td colspan="6" class="text-center">
+										<i class="fa fa-list fa-2x"></i> 
+										<p>No <?php echo ucfirst(str_replace('_', ' ', 'lab_test_results'));?> found! 
+											<a title="Add new" href="<?php echo site_url('records/create/lab_test_results/'.$info->id);?>" class="bootbox">
+												Create new
+											</a>
+										</p>
+									</td>
+								</tr>
+							<?php } ?>	
+							</tbody>
+						</table>
+					
+					<form id="dpz" action="<?php echo site_url('records/save/-1/files'); ?>" class="hidden dropzone needsclick dz-clickable">
+						<input type="hidden" name="user_id" id="user_id" value="<?php echo $info->id;?>"/>
+						<div class="dz-message needsclick">
+							Drop files here or click to upload.<br>
+							<!-- <span class="note needsclick">()</span> -->
+						  </div>
+					</form>
+				</div>
+				<div class="tab-pane fade" id="hr3">
+					
+					<?php 
+					$endorsemet = $this->Record->get_all_data('endorsement', $info->id);
+					if(count($endorsemet) > 0) { ?>
+						<table class="table">
+							<thead>
+								<tr>
+									<th><p><?php echo ucfirst('endorsement');?></p></th>
+									<th>
+										<a title="Add new" href="<?php echo site_url('records/create/endorsement/'.$info->id);?>" class="bootbox pull-right btn btn-success btn-xs">
+											<i class="fa fa-plus"></i> <?php echo $this->lang->line('common_add_new');?>
+										</a>
+									</th>
+								</tr>
+							</thead>
+							<tbody>
+								<?php foreach($endorsemet as $row) { ?>
+									<tr id="row-<?php echo $row['id'];?>">
+										<td>
+											<strong id="history-<?php echo $row['id'];?>"><?php echo $row['endorsement'] ;?></strong></br>
+											<span class="text-muted"><?php echo date($this->config->item('dateformat'), strtotime($row['date']));?></span>
+											
+										</td>
+										<td class="text-right">
+											<a href="<?php echo site_url('records/delete/'.$row['id'].'/endorsement');?>" id="<?php echo $row['id'];?>" class="delete_record btn btn-danger btn-xs"><i class="fa fa-trash-o"></i></a>
+										</td>
+									</tr>
+								<?php } ?>
+							</tbody>
+						</table>
+					<?php }else{?>
+					<div id="empty-content">
+							<i class="fa fa-list fa-5x"></i> 
+							<h1>No <?php echo ucfirst(str_replace('_', ' ', 'endorsement'));?> found! <a title="Add new" href="<?php echo site_url('records/create/endorsement/'.$info->id);?>" class="bootbox">
+											Create new
+										</a></h1>
+						</div>
+					<?php } ?>				
+				</div>
+				<div class="tab-pane fade" id="hr4">
+					<?php 
+					$fh = $this->Record->get_all_data('family_history', $info->id);
+					if(count($fh) > 0) { ?>
+					<table class="table">
+						<thead>
+							<tr>
+								<th><p><?php echo ucfirst(str_replace('_', ' ', 'family_history'));?></p></th>
+								<th>
+									<a title="Add new <?php echo strtolower(str_replace('_', ' ', 'family_history'));?>" href="<?php echo site_url('records/create/family_history/'.$info->id);?>" class="bootbox pull-right btn btn-success btn-xs">
+										<i class="fa fa-plus"></i> <?php echo $this->lang->line('common_add_new');?>
+									</a>
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+							<?php foreach($fh as $row) { ?>
+								<tr id="row-<?php echo $row['id'];?>">
+									<td>
+										<strong id="history-<?php echo $row['id'];?>"><?php echo $row['family_history'] ;?></strong></br>
+										<span class="text-muted"><?php echo date($this->config->item('dateformat'), strtotime($row['date']));?></span>
+										
+									</td>
+									<td class="text-right">
+										<a href="<?php echo site_url('records/delete/'.$row['id'].'/family_history');?>" id="<?php echo $row['id'];?>" class="delete_record btn btn-danger btn-xs"><i class="fa fa-trash-o"></i></a>
+									</td>
+								</tr>
+							<?php } ?>
+						</tbody>
+					</table>
+				<?php }else{?>
+				<div id="empty-content">
+						<i class="fa fa-list fa-5x"></i> 
+						<h1>No <?php echo ucfirst(str_replace('_', ' ', 'family_history'));?> found! <a title="Add new" href="<?php echo site_url('records/create/family_history/'.$info->id);?>" class="bootbox">
+										Create new
+									</a></h1>
+					</div>
+				<?php } ?>		
+				</div>
+				<div class="tab-pane fade" id="hr5">
+					<?php 
+					$allergies = $this->Record->get_all_data('allergies', $info->id);
+					if(count($allergies) > 0) { ?>
+						<table class="table">
+							<thead>
+								<tr>
+									<th><p><?php echo ucfirst('allergies');?></p></th>
+									<th>
+										<a title="Add new" href="<?php echo site_url('records/create/allergies/'.$info->id);?>" class="bootbox pull-right btn btn-success btn-xs">
+											<i class="fa fa-plus"></i> <?php echo $this->lang->line('common_add_new');?>
+										</a>
+									</th>
+								</tr>
+							</thead>
+							<tbody>
+								<?php foreach($allergies as $row) { ?>
+									<tr id="row-<?php echo $row['id'];?>">
+										<td>
+											<strong id="history-<?php echo $row['id'];?>"><?php echo $row['allergies'] ;?></strong></br>
+											<span class="text-muted"><?php echo date($this->config->item('dateformat'), strtotime($row['date']));?></span>
+											
+										</td>
+										<td class="text-right">
+											<a href="<?php echo site_url('records/delete/'.$row['id'].'/allergies');?>" id="<?php echo $row['id'];?>" class="delete_record btn btn-danger btn-xs"><i class="fa fa-trash-o"></i></a>
+										</td>
+									</tr>
+								<?php } ?>
+							</tbody>
+						</table>
+					<?php }else{?>
+					<div id="empty-content">
+							<i class="fa fa-list fa-5x"></i> 
+							<h1>No <?php echo ucfirst(str_replace('_', ' ', 'allergies'));?> found! <a title="Add new" href="<?php echo site_url('records/create/allergies/'.$info->id);?>" class="bootbox">
+											Create new
+										</a></h1>
+						</div>
 					<?php } ?>
 				</div>
-			
-				<form id="dpz" action="<?php echo site_url('records/save/-1/files'); ?>" class="hidden dropzone needsclick dz-clickable">
-					<input type="hidden" name="user_id" id="user_id" value="<?php echo $info->id;?>"/>
-					<div class="dz-message needsclick">
-						Drop files here or click to upload.<br>
-						<!-- <span class="note needsclick">()</span> -->
-					  </div>
-				</form>
+				<div class="tab-pane fade" id="hr6">
+					<?php 
+					$immunisation = $this->Record->get_all_data('immunisation', $info->id);
+					if(count($immunisation) > 0) { ?>
+						<table class="table">
+							<thead>
+								<tr>
+									<th><p><?php echo ucfirst('immunisation');?></p></th>
+									<th>
+										<a title="Add new" href="<?php echo site_url('records/create/immunisation/'.$info->id);?>" class="bootbox pull-right btn btn-success btn-xs">
+											<i class="fa fa-plus"></i> <?php echo $this->lang->line('common_add_new');?>
+										</a>
+									</th>
+								</tr>
+							</thead>
+							<tbody>
+							
+							
+								<?php foreach($immunisation as $row) { ?>
+									<tr id="row-<?php echo $row['id'];?>">
+										<td>
+											<strong id="history-<?php echo $row['id'];?>"><?php echo $row['immunisation'] .' / ' .$row['doses'];?></strong></br>
+											<span class="text-muted"><?php echo date($this->config->item('dateformat'), strtotime($row['date']));?></span>
+											
+										</td>
+										<td class="text-right">
+											<a href="<?php echo site_url('records/delete/'.$row['id'].'/immunisation');?>" id="<?php echo $row['id'];?>" class="delete_record btn btn-danger btn-xs"><i class="fa fa-trash-o"></i></a>
+										</td>
+									</tr>
+								<?php } ?>
+
+							</tbody>
+						</table>
+					<?php }else{?>
+						<div id="empty-content">
+							<i class="fa fa-list fa-5x"></i>
+							<h1>No <?php echo ucfirst('immunisation');?> found! <a title="Add new" href="<?php echo site_url('records/create/immunisation/'.$info->id);?>" class="bootbox">
+											Create new
+										</a></h1>
+						</div>
+					<?php } ?>	
+				</div>
+			</div>
 		</div>
 		<!-- end widget content -->
 
@@ -313,6 +637,7 @@ the <section></section> and you can use wells or panels instead
 <script type="text/javascript">
 	var BASE_URL = '<?php echo base_url();?>';
 	var type = '<?php echo $type;?>';
+	var active_user_id = '<?php echo $info->id;?>';
 	var lic = '<?php echo $this->license_id;?>';
 	/* DO NOT REMOVE : GLOBAL FUNCTIONS!
 	 *
@@ -428,6 +753,100 @@ the <section></section> and you can use wells or panels instead
 		});
 	}
 	
+	var enc_id = '<?php echo $this->uri->segment(4);?>';
+
+	//mcs.init_records(enc_id);
+ 
+
+	load_complaints(enc_id);
+	
+	function load_complaints(enc_id){
+		$.ajax({
+			url: BASE_URL+'records/get_all_complaints',
+			type: 'post', 
+			data: {
+				id : enc_id
+			},               
+			dataType: 'json',
+			success: function (response) {
+
+					var items = [];
+					
+					$(response).each(function( index, val ) {
+						var _condition = val.conditions;
+						if(_condition.length > 150) _condition = _condition.substring(0,150)+'...';
+						console.log(val.date);
+						items += '<div class="complaints-row group-'+val.date+'">'+
+									'<p><strong>'+_condition+'</strong></p>'+
+									'<div class="btn-group  pull-right">'+
+										'<a href="'+BASE_URL+'records/delete/'+val.id+'/conditions" id="'+val.id+'" class="delete btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> Delete</a> '+
+										'<a title="Add Medication" href="'+BASE_URL+'records/create/medications/'+val.user_id+'/'+val.date+'" class="bootbox pull-right btn btn-success btn-xs"><i class="fa fa-plus"></i> Add Medication</a>'+
+									'</div>'+			
+									'<div id="complaints-'+val.date+'"></div>'+
+								'</div>';
+						//retrieve any medications
+						load_medications(val.user_id, val.date);
+					});
+				
+				
+				//$('#complaints').after('<div id="complain-table"><h3>Complaint(s)</h3>'+items+'</div>');
+				$('<div id="complain-table">'+items+'</div>').appendTo('#complaints');
+			}
+		});
+	}
+	
+	function load_medications(user_id, date){
+		$.ajax({
+			url: BASE_URL+'records/get_all_medications',
+			type: 'post', 
+			data: {
+				user_id : user_id,
+				complaint_date : date
+			},               
+			dataType: 'json',
+			success: function (res) {
+				console.log(res);
+				if (res.length === 0) {
+					
+					$('<div class="alert alert-info text-center empty-post">Add prescription.</div>').appendTo('#complaints-'+date);
+					
+				}else{
+					var item = [];
+					var xnum = 1;
+					var ynum = 1;
+					item += '<ul class="list-group medication_block">';
+					$(res).each(function( i, v ) {
+						
+						if(v.is_mainteinable === 'yes'){
+							item += '<li class="list-group-item maintainable">'+
+										'<label class="num">'+ ynum++ +'. </label> '+
+										'<label class="medicine">'+v.medicine+'</label>'+
+										'<label class="prep">'+v.preparation+'</label> '+
+										'<label class="sig">'+v.sig+'</label>'+
+										'<label class="qty"># '+v.qty+'</span></label>'+
+										'<label class="print-action"><a title="Rx Preview" href="'+BASE_URL+'queing/preview/'+ user_id +'/'+v.date+'/yes" class="ajax-btn btn btn-success btn-xs" ><i class="fa fa-eye"></i> Rx Preview</a></label>'+
+									'</li>';
+						}else{
+							item += '<li class="list-group-item onece">'+
+										'<label class="num">'+ xnum++ +'. </label> '+
+										'<label class="medicine">'+v.medicine+'</label>'+
+										'<label class="prep">'+v.preparation+'</label> '+
+										'<label class="sig">'+v.sig+'</label>'+
+										'<label class="qty"># '+v.qty+'</span></label>'+
+										'<label class="print-action"><a title="Rx Preview" href="'+BASE_URL+'queing/preview/'+ user_id +'/'+v.date+'/no" class="ajax-btn btn btn-success btn-xs" ><i class="fa fa-eye"></i> Rx Preview</a></label>'+
+									'</li>';
+						}
+						
+					});
+					
+					item += '</ul>';
+					//$('#complaints-'+date).append(item);
+					$('#complaints-'+date).before( item );
+				}
+			}
+		});
+	} 
+	
 	$('.move-out').click(function(e) {
 		
 		bootbox.confirm({
@@ -491,6 +910,135 @@ the <section></section> and you can use wells or panels instead
 		
 	});
 	
+	$(document).on('click', '.delete_record', function (e) {
+		
+		var url	= $(this).attr('href');
+		var id	= $(this).attr('id');
+
+		$.ajax({
+			url: url,
+			type: 'POST',
+			success: function(response) {
+
+				if(response)
+				{
+					
+					$.smallBox({
+						title : "Success",
+						content : response.message,
+						color : "#739E73",
+						iconSmall : "fa fa-check",
+						timeout : 3000
+					});
+					$('#row-'+id).fadeOut();
+				}
+				else
+				{
+					$.smallBox({
+						title : "Error",
+						content : response.message,
+						color : "#C46A69",
+						iconSmall : "fa fa-warning shake animated",
+						timeout : 3000
+					});
+				} 
+
+			}
+		});
+		e.preventDefault();
+		
+	});
+	
+	$(document).on('click', '.delete', function (e) {
+		
+		var url	= $(this).attr('href');
+		var id	= $(this).attr('id');
+
+		$.ajax({
+			url: url,
+			type: 'POST',
+			success: function(response) {
+
+				if(response)
+				{
+					
+					$.smallBox({
+						title : "Success",
+						content : response.message,
+						color : "#739E73",
+						iconSmall : "fa fa-check",
+						timeout : 3000
+					});
+					
+					checkURL();
+				}
+				else
+				{
+					$.smallBox({
+						title : "Error",
+						content : response.message,
+						color : "#C46A69",
+						iconSmall : "fa fa-warning shake animated",
+						timeout : 3000
+					});
+				} 
+
+			}
+		});
+		e.preventDefault();
+		
+	});
+	
+	$(document).on('click', '#empty-block-condition', function (e) {
+		var title = $(this).attr('title');
+		e.preventDefault();
+		$.ajax({
+			url: BASE_URL+'records/create/conditions/'+active_user_id,
+			onError: function () {
+				bootbox.alert('Some network problem try again later.');
+			},
+			success: function (response)
+			{
+				var dialog = bootbox.dialog({
+					title: 'Add Conditions',
+					className: "modal70",
+					message: '<p class="text-center"><img src="'+BASE_URL+'img/ajax-loader.gif"/></p>'
+				});
+				dialog.init(function(){
+					setTimeout(function(){
+						dialog.find('.bootbox-body').html(response);
+					}, 3000);
+				});
+			}
+		});
+		return false;  
+	});
+	
+	$(document).on('click', '.ajax-btn', function (e) {
+		var title = $(this).attr('title');
+		e.preventDefault();
+		$.ajax({
+			url: $(this).attr('href'),
+			onError: function () {
+				bootbox.alert('Some network problem try again later.');
+			},
+			success: function (response)
+			{
+				var dialog = bootbox.dialog({
+					title: title,
+					className: "modal70",
+					message: '<p class="text-center"><img src="'+BASE_URL+'img/ajax-loader.gif"/></p>'
+				});
+				dialog.init(function(){
+					setTimeout(function(){
+						dialog.find('.bootbox-body').html(response);
+					}, 3000);
+				});
+			}
+		});
+		return false;  
+	});
+		
 	$('.move-in').click(function(e) { 
 
 		$.ajax({
@@ -531,6 +1079,56 @@ the <section></section> and you can use wells or panels instead
 		e.preventDefault();
 		
 	});
+	
+	$(document).on('click', '.print-docs', function (e) {
+		var title = $(this).attr('title');
+		e.preventDefault();
+		$.ajax({
+			url: $(this).attr('href'),
+			onError: function () {
+				bootbox.alert('Some network problem try again later.');
+			},
+			success: function (response)
+			{
+				var dialog = bootbox.dialog({
+					title: title,
+					message: '<p class="text-center"><img src="'+BASE_URL+'img/ajax-loader.gif"/></p>'
+				});
+				dialog.init(function(){
+					setTimeout(function(){
+						dialog.find('.bootbox-body').html(response);
+					}, 3000);
+				});
+			}
+		});
+		return false;  
+	});
+		
+	$(document).on('click', '.bootbox1', function (e) {
+		var title = $(this).attr('title');
+		e.preventDefault();
+		$.ajax({
+			url: $(this).attr('href'),
+			onError: function () {
+				bootbox.alert('Some network problem try again later.');
+			},
+			success: function (response)
+			{
+				var dialog = bootbox.dialog({
+					title: title,
+					message: '<p class="text-center"><img src="'+BASE_URL+'img/ajax-loader.gif"/></p>'
+				});
+				dialog.init(function(){
+					setTimeout(function(){
+						dialog.find('.bootbox-body').html(response);
+					}, 3000);
+				});
+			}
+		});
+		return false;  
+	});
+		
+		
 	//get_value();
 	
 		

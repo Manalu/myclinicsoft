@@ -67,6 +67,8 @@
 	define('DB_USERTABLE_USERID','id'); 
 	define('DB_USERTABLE_AVATAR','avatar'); 
 	
+	define('DB_USERTABLE_LIC','license_key');
+	
 	define('DB_FRIENDSTABLE',''); 
 	define('DB_FRIENDSTABLE_USERID', ''); 
 	define('DB_FRIENDSTABLE_FRIENDID', ''); 

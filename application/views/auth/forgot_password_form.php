@@ -8,26 +8,26 @@
 				<div class="well no-padding">
 					<?php echo form_open('auth/doForgot','id="login-form" class="smart-form client-form"'); ?>
 						<header>
-							Forgot Password
+							<?php echo $this->lang->line('__forgot_password');?>
 						</header>
 
 						<fieldset>
 							
 							
 							<section>
-								<label class="label">Enter your email</label>
+								<label class="label"><?php echo $this->lang->line('__forgot_password');?></label>
 								<label class="input"> <i class="icon-append fa fa-user"></i>
 									<input type="email" name="email" id="email" value="<?php echo set_value('email');?>">
-									<b class="tooltip tooltip-top-right"><i class="fa fa-user txt-color-teal"></i> Enter your email</b> </label>
+									<b class="tooltip tooltip-top-right"><i class="fa fa-user txt-color-teal"></i> <?php echo $this->lang->line('__enter_email');?></b> </label>
 								<div class="note">
-									<a href="<?php echo site_url('auth/login');?>">I remembered my password!</a>
+									<a href="<?php echo site_url('auth/login');?>"><?php echo $this->lang->line('__remember_my_password');?></a>
 								</div>
 							</section>
 
 						</fieldset>
 						<footer>
 							<button type="submit" id="submit" class="btn btn-primary">
-								<i class="fa fa-refresh"></i> Reset Password
+								<i class="fa fa-refresh"></i> <?php echo $this->lang->line('__reset_password');?>
 							</button>
 						</footer>
 					</form>
@@ -66,9 +66,9 @@
 			// Messages for form validation
 			messages : {
 				email : {
-					required : '<i class="fa fa-times-circle"></i> Please enter your email address',
-					email : '<i class="fa fa-times-circle"></i> Please enter a VALID email address',
-					remote: '<i class="fa fa-times-circle"></i> Email is not found in our system'
+					required : '<i class="fa fa-exclamation-circle"></i> <?php echo sprintf($this->lang->line('__validate_required'), 'email');?>',
+					email : '<i class="fa fa-exclamation-circle"></i> <?php echo sprintf($this->lang->line('__validate_email'), 'email');?>',
+					remote: '<i class="fa fa-exclamation-circle"></i> <?php echo sprintf($this->lang->line('__validate_remote'), 'email');?>'
 				}
 			},
 
@@ -92,7 +92,7 @@
 				
 				$(form).ajaxSubmit({
 					beforeSend: function () {
-						$('#submit').html('<i class="fa fa-spinner fa-pulse fa-fw"></i> Please wait...');
+						$('#submit').html('<i class="fa fa-spinner fa-pulse fa-fw"></i> <?php echo $this->lang->line('__common_please_wait');?>');
 						$('#submit').attr("disabled", "disabled");
 					},
 					success:function(response)
@@ -106,7 +106,7 @@
 								iconSmall : "fa fa-check",
 								timeout : 3000
 							});
-							$('#submit').html('<i class="fa fa-spinner fa-pulse fa-fw"></i> Redirecting...');
+							$('#submit').html('<i class="fa fa-spinner fa-pulse fa-fw"></i> <?php echo $this->lang->line('__common_redirecting');?>');
 							setTimeout(function () {
 								window.location.href = BASE_URL+'auth/login';
 							}, 5000);
@@ -120,7 +120,7 @@
 								iconSmall : "fa fa-warning shake animated",
 								timeout : 3000
 							});
-							$('#submit').text('Submit');
+							$('#submit').text('<?php echo $this->lang->line('__common_submit');?>');
 							$('#submit').removeAttr("disabled");
 						}                   
 						

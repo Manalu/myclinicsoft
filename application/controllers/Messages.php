@@ -47,5 +47,10 @@ class Messages extends Secure {
 			$this->_init();
 		}
 	}
+	
+	function get(){
 
+		$this->load->view('ajax/messages-list');
+		
+    }
 }

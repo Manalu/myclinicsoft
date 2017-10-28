@@ -4,8 +4,12 @@
 		<section>
 			<label class="label">Upload profile picture</label>
 			<div class="input input-file">
-				<span class="button"><input type="file" id="profile_picture" name="profile_picture" onchange="this.parentNode.nextSibling.value = this.value">Browse</span><input type="text" readonly="">
+				<span class="button">
+				<input type="file" id="profile_picture" name="profile_picture" onchange="this.parentNode.nextSibling.value = this.value">Browse
+				</span>
+				<input type="text" readonly="">
 			</div>
+			<div class="note">Max size : 1024, Max width : 800px, Max height : 680</div>
 		</section>
 	</section>
 									
@@ -61,25 +65,13 @@ var validatefunction = function() {
                     {
                         if(response.success)
                         {
-                            $.smallBox({
-                                title : "Success",
-                                content : response.message,
-                                color : "#739E73",
-                                iconSmall : "fa fa-check",
-                                timeout : 3000
-                            });
-                            $('.bootbox-close-button').trigger('click');
-                            checkURL();
+                            alert(response.message);
+                            //$('.bootbox-close-button').trigger('click');
+                            //checkURL();
                         }
                         else
                         {
-                            $.smallBox({
-                                title : "Error",
-                                content : response.message,
-                                color : "#C46A69",
-                                iconSmall : "fa fa-warning shake animated",
-                                timeout : 3000
-                            });
+                           alert(response.message);
                             
                         }                   
                         $('#submit').text('Submit');

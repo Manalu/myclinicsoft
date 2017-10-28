@@ -123,47 +123,51 @@ the <section></section> and you can use wells or panels instead
 										</label>
 									</section>
 									
-									<section>
-										<label class="label"><?php echo $this->lang->line('config_business_phone'); ?></label>
-										<label class="input">
-											<input type="text" name="business_phone" id="business_phone" value="<?php echo $this->config->item('business_phone');?>" class="form-control"/>
-										</label>
-									</section>
+									<div class="row">
+										<section class="col col-4">
+											<label class="label"><?php echo $this->lang->line('config_business_phone'); ?></label>
+											<label class="input">
+												<input type="text" name="business_phone" id="business_phone" value="<?php echo $this->config->item('business_phone');?>" class="form-control"/>
+											</label>
+										</section>
+										
+										<section class="col col-4">
+											<label class="label"><?php echo $this->lang->line('config_business_email'); ?></label>
+											<label class="input">
+												<input type="text" name="business_email" id="business_email" value="<?php echo $this->config->item('business_email');?>" class="form-control"/>
+											</label>
+										</section>
+										
+										<section class="col col-4">
+											<label class="label"><?php echo $this->lang->line('config_business_fax'); ?></label>
+											<label class="input">
+												<input type="text" name="business_fax" id="business_fax" value="<?php echo $this->config->item('business_fax');?>" class="form-control"/>
+											</label>
+										</section>
+									</div>
 									
-									<section>
-										<label class="label"><?php echo $this->lang->line('config_business_email'); ?></label>
-										<label class="input">
-											<input type="text" name="business_email" id="business_email" value="<?php echo $this->config->item('business_email');?>" class="form-control"/>
-										</label>
-									</section>
-									
-									<section>
-										<label class="label"><?php echo $this->lang->line('config_business_fax'); ?></label>
-										<label class="input">
-											<input type="text" name="business_fax" id="business_fax" value="<?php echo $this->config->item('business_fax');?>" class="form-control"/>
-										</label>
-									</section>
-									
-									<section>
-										<label class="label"><?php echo $this->lang->line('config_prc'); ?></label>
-										<label class="input">
-											<input type="text" name="prc" id="prc" value="<?php echo $this->config->item('prc');?>" class="form-control"/>
-										</label>
-									</section>
-									
-									<section>
-										<label class="label"><?php echo $this->lang->line('config_ptr'); ?></label>
-										<label class="input">
-											<input type="text" name="ptr" id="ptr" value="<?php echo $this->config->item('ptr');?>" class="form-control"/>
-										</label>
-									</section>
-									
-									<section>
-										<label class="label"><?php echo $this->lang->line('config_s2'); ?></label>
-										<label class="input">
-											<input type="text" name="s2" id="s2" value="<?php echo $this->config->item('s2');?>" class="form-control"/>
-										</label>
-									</section>
+									<div class="row">
+										<section class="col col-4">
+											<label class="label"><?php echo $this->lang->line('config_prc'); ?></label>
+											<label class="input">
+												<input type="text" name="prc" id="prc" value="<?php echo $this->config->item('prc');?>" class="form-control"/>
+											</label>
+										</section>
+										
+										<section class="col col-4">
+											<label class="label"><?php echo $this->lang->line('config_ptr'); ?></label>
+											<label class="input">
+												<input type="text" name="ptr" id="ptr" value="<?php echo $this->config->item('ptr');?>" class="form-control"/>
+											</label>
+										</section>
+										
+										<section class="col col-4">
+											<label class="label"><?php echo $this->lang->line('config_s2'); ?></label>
+											<label class="input">
+												<input type="text" name="s2" id="s2" value="<?php echo $this->config->item('s2');?>" class="form-control"/>
+											</label>
+										</section>
+									</div>
 									
 									<section class="hidden">
 										<label class="label"><?php echo $this->lang->line('config_lines_per_page'); ?></label>
@@ -220,143 +224,120 @@ the <section></section> and you can use wells or panels instead
 								</fieldset>
 								<legend><?php echo $this->lang->line('config_locale_configuration'); ?></legend>
 								<fieldset>
+									<div class="row">
+										<section class="col col-6">
+											<label class="label"><?php echo $this->lang->line('config_language'); ?></label>
+											<label class="select">
+												<?php echo form_dropdown('language', array(
+												'english' => $this->lang->line('common_english')
+												),
+												$this->config->item('language'),'class="form-control" id="language"');
+												?><i></i>
+											</label>
+										</section>
+										
+										<section class="col col-6">
+											<label class="label"><?php echo $this->lang->line('config_timezone'); ?></label>
+											<label class="select">
+												<?php echo form_dropdown('timezone', 
+											 array(
+												'Pacific/Midway'=>'(GMT-11:00) Midway Island, Samoa',
+												'America/Adak'=>'(GMT-10:00) Hawaii-Aleutian',
+												'Etc/GMT+10'=>'(GMT-10:00) Hawaii',
+												'Pacific/Marquesas'=>'(GMT-09:30) Marquesas Islands',
+												'Pacific/Gambier'=>'(GMT-09:00) Gambier Islands',
+												'America/Anchorage'=>'(GMT-09:00) Alaska',
+												'America/Ensenada'=>'(GMT-08:00) Tijuana, Baja California',
+												'Etc/GMT+8'=>'(GMT-08:00) Pitcairn Islands',
+												'America/Los_Angeles'=>'(GMT-08:00) Pacific Time (US & Canada)',
+												'America/Denver'=>'(GMT-07:00) Mountain Time (US & Canada)',
+												'America/Chihuahua'=>'(GMT-07:00) Chihuahua, La Paz, Mazatlan',
+												'America/Dawson_Creek'=>'(GMT-07:00) Arizona',
+												'America/Belize'=>'(GMT-06:00) Saskatchewan, Central America',
+												'America/Cancun'=>'(GMT-06:00) Guadalajara, Mexico City, Monterrey',
+												'Chile/EasterIsland'=>'(GMT-06:00) Easter Island',
+												'America/Chicago'=>'(GMT-06:00) Central Time (US & Canada)',
+												'America/New_York'=>'(GMT-05:00) Eastern Time (US & Canada)',
+												'America/Havana'=>'(GMT-05:00) Cuba',
+												'America/Bogota'=>'(GMT-05:00) Bogota, Lima, Quito, Rio Branco',
+												'America/Caracas'=>'(GMT-04:30) Caracas',
+												'America/Santiago'=>'(GMT-04:00) Santiago',
+												'America/La_Paz'=>'(GMT-04:00) La Paz',
+												'Atlantic/Stanley'=>'(GMT-04:00) Faukland Islands',
+												'America/Campo_Grande'=>'(GMT-04:00) Brazil',
+												'America/Goose_Bay'=>'(GMT-04:00) Atlantic Time (Goose Bay)',
+												'America/Glace_Bay'=>'(GMT-04:00) Atlantic Time (Canada)',
+												'America/St_Johns'=>'(GMT-03:30) Newfoundland',
+												'America/Araguaina'=>'(GMT-03:00) UTC-3',
+												'America/Montevideo'=>'(GMT-03:00) Montevideo',
+												'America/Miquelon'=>'(GMT-03:00) Miquelon, St. Pierre',
+												'America/Godthab'=>'(GMT-03:00) Greenland',
+												'America/Argentina/Buenos_Aires'=>'(GMT-03:00) Buenos Aires',
+												'America/Sao_Paulo'=>'(GMT-03:00) Brasilia',
+												'America/Noronha'=>'(GMT-02:00) Mid-Atlantic',
+												'Atlantic/Cape_Verde'=>'(GMT-01:00) Cape Verde Is.',
+												'Atlantic/Azores'=>'(GMT-01:00) Azores',
+												'Europe/Belfast'=>'(GMT) Greenwich Mean Time : Belfast',
+												'Europe/Dublin'=>'(GMT) Greenwich Mean Time : Dublin',
+												'Europe/Lisbon'=>'(GMT) Greenwich Mean Time : Lisbon',
+												'Europe/London'=>'(GMT) Greenwich Mean Time : London',
+												'Africa/Abidjan'=>'(GMT) Monrovia, Reykjavik',
+												'Europe/Amsterdam'=>'(GMT+01:00) Amsterdam, Berlin, Bern, Rome, Stockholm, Vienna',
+												'Europe/Belgrade'=>'(GMT+01:00) Belgrade, Bratislava, Budapest, Ljubljana, Prague',
+												'Europe/Brussels'=>'(GMT+01:00) Brussels, Copenhagen, Madrid, Paris',
+												'Africa/Algiers'=>'(GMT+01:00) West Central Africa',
+												'Africa/Windhoek'=>'(GMT+01:00) Windhoek',
+												'Asia/Beirut'=>'(GMT+02:00) Beirut',
+												'Africa/Cairo'=>'(GMT+02:00) Cairo',
+												'Asia/Gaza'=>'(GMT+02:00) Gaza',
+												'Africa/Blantyre'=>'(GMT+02:00) Harare, Pretoria',
+												'Asia/Jerusalem'=>'(GMT+02:00) Jerusalem',
+												'Europe/Minsk'=>'(GMT+02:00) Minsk',
+												'Asia/Damascus'=>'(GMT+02:00) Syria',
+												'Europe/Moscow'=>'(GMT+03:00) Moscow, St. Petersburg, Volgograd',
+												'Africa/Addis_Ababa'=>'(GMT+03:00) Nairobi',
+												'Asia/Tehran'=>'(GMT+03:30) Tehran',
+												'Asia/Dubai'=>'(GMT+04:00) Abu Dhabi, Muscat',
+												'Asia/Yerevan'=>'(GMT+04:00) Yerevan',
+												'Asia/Kabul'=>'(GMT+04:30) Kabul',
+												'Asia/Baku'=>'(GMT+05:00) Baku',
+												'Asia/Yekaterinburg'=>'(GMT+05:00) Ekaterinburg',
+												'Asia/Tashkent'=>'(GMT+05:00) Tashkent',
+												'Asia/Kolkata'=>'(GMT+05:30) Chennai, Kolkata, Mumbai, New Delhi',
+												'Asia/Katmandu'=>'(GMT+05:45) Kathmandu',
+												'Asia/Dhaka'=>'(GMT+06:00) Astana, Dhaka',
+												'Asia/Novosibirsk'=>'(GMT+06:00) Novosibirsk',
+												'Asia/Rangoon'=>'(GMT+06:30) Yangon (Rangoon)',
+												'Asia/Bangkok'=>'(GMT+07:00) Bangkok, Hanoi, Jakarta',
+												'Asia/Krasnoyarsk'=>'(GMT+07:00) Krasnoyarsk',
+												'Asia/Hong_Kong'=>'(GMT+08:00) Beijing, Chongqing, Hong Kong, Urumqi',
+												'Asia/Irkutsk'=>'(GMT+08:00) Irkutsk, Ulaan Bataar',
+												'Australia/Perth'=>'(GMT+08:00) Perth',
+												'Australia/Eucla'=>'(GMT+08:45) Eucla',
+												'Asia/Tokyo'=>'(GMT+09:00) Osaka, Sapporo, Tokyo',
+												'Asia/Seoul'=>'(GMT+09:00) Seoul',
+												'Asia/Yakutsk'=>'(GMT+09:00) Yakutsk',
+												'Australia/Adelaide'=>'(GMT+09:30) Adelaide',
+												'Australia/Darwin'=>'(GMT+09:30) Darwin',
+												'Australia/Brisbane'=>'(GMT+10:00) Brisbane',
+												'Australia/Hobart'=>'(GMT+10:00) Hobart',
+												'Asia/Vladivostok'=>'(GMT+10:00) Vladivostok',
+												'Australia/Lord_Howe'=>'(GMT+10:30) Lord Howe Island',
+												'Etc/GMT-11'=>'(GMT+11:00) Solomon Is., New Caledonia',
+												'Asia/Magadan'=>'(GMT+11:00) Magadan',
+												'Pacific/Norfolk'=>'(GMT+11:30) Norfolk Island',
+												'Asia/Anadyr'=>'(GMT+12:00) Anadyr, Kamchatka',
+												'Pacific/Auckland'=>'(GMT+12:00) Auckland, Wellington',
+												'Etc/GMT-12'=>'(GMT+12:00) Fiji, Kamchatka, Marshall Is.',
+												'Pacific/Chatham'=>'(GMT+12:45) Chatham Islands',
+												'Pacific/Tongatapu'=>'(GMT+13:00) Nuku\'alofa',
+												'Pacific/Kiritimati'=>'(GMT+14:00) Kiritimati'
+												), $this->config->item('timezone') ? $this->config->item('timezone') : date_default_timezone_get(), 'class="form-control" id="timezone" disabled');
+												?><i></i>
+											</label>
+										</section>
+									</div>
 								
-									<section>
-										<label class="label"><?php echo $this->lang->line('config_language'); ?></label>
-										<label class="select">
-											<?php echo form_dropdown('language', array(
-		'english' => $this->lang->line('common_english')
-		),
-		$this->config->item('language'),'class="form-control" id="language"');
-		?><i></i>
-										</label>
-									</section>
-									
-									<section>
-										<label class="label"><?php echo $this->lang->line('config_timezone'); ?></label>
-										<label class="select">
-											<?php echo form_dropdown('timezone', 
-	 array(
-		'Pacific/Midway'=>'(GMT-11:00) Midway Island, Samoa',
-		'America/Adak'=>'(GMT-10:00) Hawaii-Aleutian',
-		'Etc/GMT+10'=>'(GMT-10:00) Hawaii',
-		'Pacific/Marquesas'=>'(GMT-09:30) Marquesas Islands',
-		'Pacific/Gambier'=>'(GMT-09:00) Gambier Islands',
-		'America/Anchorage'=>'(GMT-09:00) Alaska',
-		'America/Ensenada'=>'(GMT-08:00) Tijuana, Baja California',
-		'Etc/GMT+8'=>'(GMT-08:00) Pitcairn Islands',
-		'America/Los_Angeles'=>'(GMT-08:00) Pacific Time (US & Canada)',
-		'America/Denver'=>'(GMT-07:00) Mountain Time (US & Canada)',
-		'America/Chihuahua'=>'(GMT-07:00) Chihuahua, La Paz, Mazatlan',
-		'America/Dawson_Creek'=>'(GMT-07:00) Arizona',
-		'America/Belize'=>'(GMT-06:00) Saskatchewan, Central America',
-		'America/Cancun'=>'(GMT-06:00) Guadalajara, Mexico City, Monterrey',
-		'Chile/EasterIsland'=>'(GMT-06:00) Easter Island',
-		'America/Chicago'=>'(GMT-06:00) Central Time (US & Canada)',
-		'America/New_York'=>'(GMT-05:00) Eastern Time (US & Canada)',
-		'America/Havana'=>'(GMT-05:00) Cuba',
-		'America/Bogota'=>'(GMT-05:00) Bogota, Lima, Quito, Rio Branco',
-		'America/Caracas'=>'(GMT-04:30) Caracas',
-		'America/Santiago'=>'(GMT-04:00) Santiago',
-		'America/La_Paz'=>'(GMT-04:00) La Paz',
-		'Atlantic/Stanley'=>'(GMT-04:00) Faukland Islands',
-		'America/Campo_Grande'=>'(GMT-04:00) Brazil',
-		'America/Goose_Bay'=>'(GMT-04:00) Atlantic Time (Goose Bay)',
-		'America/Glace_Bay'=>'(GMT-04:00) Atlantic Time (Canada)',
-		'America/St_Johns'=>'(GMT-03:30) Newfoundland',
-		'America/Araguaina'=>'(GMT-03:00) UTC-3',
-		'America/Montevideo'=>'(GMT-03:00) Montevideo',
-		'America/Miquelon'=>'(GMT-03:00) Miquelon, St. Pierre',
-		'America/Godthab'=>'(GMT-03:00) Greenland',
-		'America/Argentina/Buenos_Aires'=>'(GMT-03:00) Buenos Aires',
-		'America/Sao_Paulo'=>'(GMT-03:00) Brasilia',
-		'America/Noronha'=>'(GMT-02:00) Mid-Atlantic',
-		'Atlantic/Cape_Verde'=>'(GMT-01:00) Cape Verde Is.',
-		'Atlantic/Azores'=>'(GMT-01:00) Azores',
-		'Europe/Belfast'=>'(GMT) Greenwich Mean Time : Belfast',
-		'Europe/Dublin'=>'(GMT) Greenwich Mean Time : Dublin',
-		'Europe/Lisbon'=>'(GMT) Greenwich Mean Time : Lisbon',
-		'Europe/London'=>'(GMT) Greenwich Mean Time : London',
-		'Africa/Abidjan'=>'(GMT) Monrovia, Reykjavik',
-		'Europe/Amsterdam'=>'(GMT+01:00) Amsterdam, Berlin, Bern, Rome, Stockholm, Vienna',
-		'Europe/Belgrade'=>'(GMT+01:00) Belgrade, Bratislava, Budapest, Ljubljana, Prague',
-		'Europe/Brussels'=>'(GMT+01:00) Brussels, Copenhagen, Madrid, Paris',
-		'Africa/Algiers'=>'(GMT+01:00) West Central Africa',
-		'Africa/Windhoek'=>'(GMT+01:00) Windhoek',
-		'Asia/Beirut'=>'(GMT+02:00) Beirut',
-		'Africa/Cairo'=>'(GMT+02:00) Cairo',
-		'Asia/Gaza'=>'(GMT+02:00) Gaza',
-		'Africa/Blantyre'=>'(GMT+02:00) Harare, Pretoria',
-		'Asia/Jerusalem'=>'(GMT+02:00) Jerusalem',
-		'Europe/Minsk'=>'(GMT+02:00) Minsk',
-		'Asia/Damascus'=>'(GMT+02:00) Syria',
-		'Europe/Moscow'=>'(GMT+03:00) Moscow, St. Petersburg, Volgograd',
-		'Africa/Addis_Ababa'=>'(GMT+03:00) Nairobi',
-		'Asia/Tehran'=>'(GMT+03:30) Tehran',
-		'Asia/Dubai'=>'(GMT+04:00) Abu Dhabi, Muscat',
-		'Asia/Yerevan'=>'(GMT+04:00) Yerevan',
-		'Asia/Kabul'=>'(GMT+04:30) Kabul',
-	 	'Asia/Baku'=>'(GMT+05:00) Baku',
-	 	'Asia/Yekaterinburg'=>'(GMT+05:00) Ekaterinburg',
-		'Asia/Tashkent'=>'(GMT+05:00) Tashkent',
-		'Asia/Kolkata'=>'(GMT+05:30) Chennai, Kolkata, Mumbai, New Delhi',
-		'Asia/Katmandu'=>'(GMT+05:45) Kathmandu',
-		'Asia/Dhaka'=>'(GMT+06:00) Astana, Dhaka',
-		'Asia/Novosibirsk'=>'(GMT+06:00) Novosibirsk',
-		'Asia/Rangoon'=>'(GMT+06:30) Yangon (Rangoon)',
-		'Asia/Bangkok'=>'(GMT+07:00) Bangkok, Hanoi, Jakarta',
-		'Asia/Krasnoyarsk'=>'(GMT+07:00) Krasnoyarsk',
-		'Asia/Hong_Kong'=>'(GMT+08:00) Beijing, Chongqing, Hong Kong, Urumqi',
-		'Asia/Irkutsk'=>'(GMT+08:00) Irkutsk, Ulaan Bataar',
-		'Australia/Perth'=>'(GMT+08:00) Perth',
-		'Australia/Eucla'=>'(GMT+08:45) Eucla',
-		'Asia/Tokyo'=>'(GMT+09:00) Osaka, Sapporo, Tokyo',
-		'Asia/Seoul'=>'(GMT+09:00) Seoul',
-		'Asia/Yakutsk'=>'(GMT+09:00) Yakutsk',
-		'Australia/Adelaide'=>'(GMT+09:30) Adelaide',
-		'Australia/Darwin'=>'(GMT+09:30) Darwin',
-		'Australia/Brisbane'=>'(GMT+10:00) Brisbane',
-		'Australia/Hobart'=>'(GMT+10:00) Hobart',
-		'Asia/Vladivostok'=>'(GMT+10:00) Vladivostok',
-		'Australia/Lord_Howe'=>'(GMT+10:30) Lord Howe Island',
-		'Etc/GMT-11'=>'(GMT+11:00) Solomon Is., New Caledonia',
-		'Asia/Magadan'=>'(GMT+11:00) Magadan',
-		'Pacific/Norfolk'=>'(GMT+11:30) Norfolk Island',
-		'Asia/Anadyr'=>'(GMT+12:00) Anadyr, Kamchatka',
-		'Pacific/Auckland'=>'(GMT+12:00) Auckland, Wellington',
-		'Etc/GMT-12'=>'(GMT+12:00) Fiji, Kamchatka, Marshall Is.',
-		'Pacific/Chatham'=>'(GMT+12:45) Chatham Islands',
-		'Pacific/Tongatapu'=>'(GMT+13:00) Nuku\'alofa',
-		'Pacific/Kiritimati'=>'(GMT+14:00) Kiritimati'
-		), $this->config->item('timezone') ? $this->config->item('timezone') : date_default_timezone_get(), 'class="form-control" id="timezone" disabled');
-		?><i></i>
-										</label>
-									</section>
-									
-									<section>
-										<label class="label"><?php echo $this->lang->line('config_default_country'); ?></label>
-										<label class="select">
-											<?php echo form_dropdown('default_country', $this->location_lib->populate(), $this->config->item('default_country'),'data-id="1/state" class="form-control" tabindex="" id="country"');?> 
-											<i></i>
-										</label>
-									</section>
-									
-									<section>
-										<label class="label"><?php echo $this->lang->line('config_default_state'); ?></label>
-										<label class="select">
-											<?php echo form_dropdown('default_state','', '','data-id="2/city" class="form-control" tabindex="" id="state"'); ?>
-											<i></i>
-										</label>
-									</section>
-									
-									<section>
-										<label class="label"><?php echo $this->lang->line('config_default_city'); ?></label>
-										<label class="select">
-											<?php echo form_dropdown('default_city','', '','tabindex="" class="form-control" id="city"'); ?>
-											<i></i>
-										</label>
-									</section>
-									
 									<footer>
 										
 										<button type="submit" id="general-submit" class="btn btn-primary btn-sm"><?php echo $this->lang->line('common_update');?></button>
@@ -380,7 +361,7 @@ the <section></section> and you can use wells or panels instead
 											<i></i><?php echo $this->lang->line('config_new_updates');?>
 										</label>
 									
-										<legend>
+										<!--<legend>
 											<?php echo $this->lang->line('config_message');?>
 										</legend>
 										<label class="checkbox">
@@ -398,7 +379,7 @@ the <section></section> and you can use wells or panels instead
 										<label class="checkbox">
 											<input type="checkbox" name="notifications[]" value="friends_sends" <?php if($this->Common->has_permission('friends_sends', $this->user_id)) echo 'checked';?>>
 											<i></i><?php echo $this->lang->line('config_sends_friend_request');?>
-										</label>
+										</label>-->
 
 									
 										<legend>
@@ -413,7 +394,7 @@ the <section></section> and you can use wells or panels instead
 											<i></i><?php echo $this->lang->line('config_cancel_appointments');?>
 										</label>
 									
-										<legend>
+										<!--<legend>
 											<?php echo $this->lang->line('config_group');?>
 										</legend>
 										<label class="checkbox">
@@ -451,7 +432,7 @@ the <section></section> and you can use wells or panels instead
 										<label class="checkbox">
 											<input type="checkbox" name="notifications[]" value="like_photo" <?php if($this->Common->has_permission('like_photo', $this->user_id)) echo 'checked';?>>
 											<i></i>Like Photo
-										</label>
+										</label>-->
 									
 
 										<button type="submit" id="notif-submit" class="btn btn-primary btn-sm"><?php echo $this->lang->line('common_update');?></button>
@@ -571,12 +552,38 @@ the <section></section> and you can use wells or panels instead
 		e.preventDefault();
 		get_tab();
 	});	*/
+	$(".new").click(function (e) {
+		var title = $(this).attr('data-original-title');
+		var link = $(this).attr('href');
+		e.preventDefault();
+			$.ajax({
+				url: link,
+				onError: function () {
+					bootbox.alert('<?php echo $this->lang->line('__bootbox_error');?>');
+				},
+				success: function (response)
+				{
+					var dialog = bootbox.dialog({
+						title: title,
+						message: '<p class="text-center"><img src="'+BASE_URL+'img/ajax-loader.gif"/></p>'
+					});
+					dialog.init(function(){
+						setTimeout(function(){
+							dialog.find('.bootbox-body').html(response);
+						}, 3000);
+					});
+				}
+			});
+		return false;
+	});
+	
+	loadScript(BASE_URL+"js/bootbox.min.js");
 	
 	$("#delete-account").click(function (e) {
 	   e.preventDefault();
 
 	   if(confirm("Are you sure?")){           
-		   	var _password = prompt("Please enter your password", "");
+		   	var _password = prompt("<?php echo $this->lang->line('__common_please_enter_password');?>", "");
 		   	
 		   	if (_password != null) {
 			    
@@ -690,151 +697,6 @@ the <section></section> and you can use wells or panels instead
 		$('.timepicker').timepicker();
 	}
 	
-	var countrySelected = '<?php echo $this->config->item('default_country');?>';
-	var stateSelected = '<?php echo $this->config->item('default_state');?>';
-	var citySelected = '<?php echo $this->config->item('default_city');?>';
-	
-	if (countrySelected)
-    {
-        getStates(countrySelected, stateSelected);
-    }
-
-    if (stateSelected)
-    {
-        getCities(stateSelected, citySelected);
-    }
-	
-    $(document).on("change", "#country", function () {
-
-        var id = $(this).val();
-        getStates(id, stateSelected);
-		
-    });
-
-    $(document).on("change", "#state", function () {
-
-        var id = $(this).val();
-        getCities(id, citySelected);
-		
-    });
-	
-	function getLocation(_data_id, id){
-		var _data_id_arr = _data_id.split('/');
-		var location_type = _data_id_arr[0];
-		var target = _data_id_arr[1];
-
-		$.ajax({
-			url: BASE_URL + 'locations/get_location_type/',
-			data: {
-				id: id,
-				type: location_type
-			},
-			type: "POST",
-			beforeSend: function () {
-				$("#" + target).html('<option selected="selected">loading...</option>');
-
-				//  If you are changing counrty, make the state and city fields blank
-				if (target == 'state') {
-					$('#city').html('');
-					$('#state').html('');
-				}
-
-				//  If you are changing state, make the city fields blank
-				if (target == 'city') {
-					$('#city').html('');
-				}
-			},
-			success: function (data) {
-
-				$('#' + target).html(data);
-
-			}
-
-		});
-	}
-	
-	function getStates(parent_id, selectedState){
-		$.ajax({
-			url: BASE_URL + 'locations/get_locations/json',
-			data: {
-				id: parent_id,
-				selected_id: ((selectedState != '') ? selectedState : ''),
-				location_type: 1
-			},
-			type: "POST",
-			beforeSend: function () {
-				$("#state").html('<option selected="selected">loading...</option>');
-			},
-			success: function (e) {
-				var response = $.parseJSON(e);
-				console.log(response);
-				var option = '';
-				if (response.length)
-				{
-
-					for (r in response)
-					{
-						var id = response[r].location_id;
-						var name = response[r].name;
-						//var citySelected = $("#cityselected").val();
-						if (id == selectedState)
-						{
-							option += '<option selected="selected" value="' + id + '">' + name + '</option>';
-							getCities(id, citySelected);
-
-						}
-						else
-						{
-							option += '<option value="' + id + '">' + name + '</option>';
-
-							if (r == 0)
-								getCities(id, citySelected);
-						}
-
-					}
-				}
-
-				$('#state').html(option);
-				
-			}
-
-		});
-	}
-	
-	function getCities(parent_id, selectedCity){
-		$.ajax({
-			url: BASE_URL + 'locations/get_locations/json',
-			data: {
-				id: parent_id,
-				selected_id: ((selectedCity != '') ? selectedCity : ''),
-				location_type: 2
-			},
-			type: "POST",
-			beforeSend: function () {
-				$("#city").html('<option selected="selected">loading...</option>');
-			},
-			success: function (e) {
-				var response = $.parseJSON(e);
-
-				var option = '';
-				for (r in response)
-				{
-					var id = response[r].location_id;
-					var name = response[r].name;
-					if (id == selectedCity) {
-						option += '<option selected="selected" value="' + id + '">' + name + '</option>';
-					} else {
-						option += '<option value="' + id + '">' + name + '</option>';
-					}
-				}
-
-				$('#city').html(option);
-				
-			}
-
-		});
-	}
-	
 	var validatefunction = function() {
 		$("#profile_update").validate({
 		
@@ -843,7 +705,7 @@ the <section></section> and you can use wells or panels instead
 				
 				$(form).ajaxSubmit({
 					beforeSend: function () {
-						$('#profile-submit').html('Please wait...');
+						$('#profile-submit').html('<?php echo $this->lang->line('__common_please_wait');?>');
 						$('#profile-submit').attr("disabled", "disabled");
 					},
 					success:function(response)
@@ -858,7 +720,7 @@ the <section></section> and you can use wells or panels instead
 						});
 							
 						            
-						$('#profile-submit').text('Update');
+						$('#profile-submit').text('<?php echo $this->lang->line('__common_update');?>');
 						$('#profile-submit').removeAttr("disabled");
 					},
 					dataType:'json'
@@ -873,7 +735,7 @@ the <section></section> and you can use wells or panels instead
 				
 				$(form).ajaxSubmit({
 					beforeSend: function () {
-						$('#notif-submit').html('Please wait...');
+						$('#notif-submit').html('<?php echo $this->lang->line('__common_please_wait');?>');
 						$('#notif-submit').attr("disabled", "disabled");
 					},
 					success:function(response)
@@ -900,7 +762,7 @@ the <section></section> and you can use wells or panels instead
 							});
 							
 						}                   
-						$('#notif-submit').text('Update');
+						$('#notif-submit').text('<?php echo $this->lang->line('__common_update');?>');
 						$('#notif-submit').removeAttr("disabled");
 					},
 					dataType:'json'
@@ -972,62 +834,58 @@ the <section></section> and you can use wells or panels instead
             // Messages for form validation
             messages : {
                 business_name : {
-                    required : '<span class="text-danger"><i class="fa fa-times-circle"></i> Please add business name</span>',
-                    maxlength: '<span class="text-danger"><i class="fa fa-times-circle"></i> The business name can not exceed 300 characters in length.</span>'
+                    required : '<i class="fa fa-exclamation-circle"></i> <?php echo sprintf($this->lang->line('__validate_required'), 'business name');?>',
+                    maxlength: '<i class="fa fa-exclamation-circle"></i> <?php echo sprintf($this->lang->line('__validate_maxlength'), 50);?></span>'
                 },
                 business_owner : {
-                    required : '<span class="text-danger"><i class="fa fa-times-circle"></i> Please add business owner name</span>',
-                    maxlength: '<span class="text-danger"><i class="fa fa-times-circle"></i> The business owner name can not exceed 300 characters in length.</span>'
+                    required : '<i class="fa fa-exclamation-circle"></i> <?php echo sprintf($this->lang->line('__validate_required'), 'owner name');?>',
+                    maxlength: '<i class="fa fa-exclamation-circle"></i> <?php echo sprintf($this->lang->line('__validate_maxlength'), 50);?></span>'
                 },
 				business_address : {
-                    required : '<span class="text-danger"><i class="fa fa-times-circle"></i> Please add business address</span>',
-                    maxlength: '<span class="text-danger"><i class="fa fa-times-circle"></i> The business address can not exceed 1000 characters in length.</span>'
+                    required : '<i class="fa fa-exclamation-circle"></i><?php echo sprintf($this->lang->line('__validate_required'), 'address');?>',
+                    maxlength: '<i class="fa fa-exclamation-circle"></i> <?php echo sprintf($this->lang->line('__validate_maxlength'), 150);?>'
                 },
 				business_phone : {
-                    required : '<span class="text-danger"><i class="fa fa-times-circle"></i> Please add business phone</span>',
-                    maxlength: '<span class="text-danger"><i class="fa fa-times-circle"></i> The business phone can not exceed 12 characters in length.</span>'
+                    required : '<i class="fa fa-exclamation-circle"></i> <?php echo sprintf($this->lang->line('__validate_required'), 'phone');?>',
+                    maxlength: '<i class="fa fa-exclamation-circle"></i> <?php echo sprintf($this->lang->line('__validate_maxlength'), 12);?>'
                 },
                 business_email : {
-                    required : '<span class="text-danger"><i class="fa fa-times-circle"></i> Please add business email</span>',
-                    maxlength: '<span class="text-danger"><i class="fa fa-times-circle"></i> The business email can not exceed 300 characters in length.</span>'
+                    required : '<i class="fa fa-exclamation-circle"></i> Please add business email</span>',
+                    maxlength: '<i class="fa fa-exclamation-circle"></i> <?php echo sprintf($this->lang->line('__validate_maxlength'), 50);?>'
                 },
 				business_fax : {
-                    required : '<span class="text-danger"><i class="fa fa-times-circle"></i> Please add business fax</span>',
-                    maxlength: '<span class="text-danger"><i class="fa fa-times-circle"></i> The business fax can not exceed 12 characters in length.</span>'
+                    required : '<i class="fa fa-exclamation-circle"></i> <?php echo sprintf($this->lang->line('__validate_required'), 'fax');?>',
+                    maxlength: '<i class="fa fa-exclamation-circle"></i> <?php echo sprintf($this->lang->line('__validate_maxlength'), 12);?>'
                 },
 				prc : {
-                    maxlength: '<span class="text-danger"><i class="fa fa-times-circle"></i> The prc can not exceed 15 characters in length.</span>'
+                    maxlength: '<i class="fa fa-exclamation-circle"></i> <?php echo sprintf($this->lang->line('__validate_maxlength'), 15);?>'
                 },
                 ptr : {
-                    maxlength: '<span class="text-danger"><i class="fa fa-times-circle"></i> The ptr name can not exceed 15 characters in length.</span>'
+                    maxlength: '<i class="fa fa-exclamation-circle"></i> <?php echo sprintf($this->lang->line('__validate_maxlength'), 15);?>'
                 },
 				s2 : {
-                    maxlength: '<span class="text-danger"><i class="fa fa-times-circle"></i> The s2 can not exceed 15 characters in length.</span>'
+                    maxlength: '<i class="fa fa-exclamation-circle"></i> <?php echo sprintf($this->lang->line('__validate_maxlength'), 15);?>'
                 },
-				/* lines_per_page : {
-                    required : '<span class="text-danger"><i class="fa fa-times-circle"></i> Please add line per page</span>',
-                    maxlength: '<span class="text-danger"><i class="fa fa-times-circle"></i> The line per page can not exceed 2 characters in length.</span>'
-                }, */
                 morning_open_time : {
-                    required : '<span class="text-danger"><i class="fa fa-times-circle"></i> Please select morning open time</span>'
+                    required : '<i class="fa fa-exclamation-circle"></i> <?php echo sprintf($this->lang->line('__validate_required'), 'morning open time');?>'
                 },
 				morning_close_time : {
-                    required : '<span class="text-danger"><i class="fa fa-times-circle"></i> Please select morning open time</span>'
+                    required : '<i class="fa fa-exclamation-circle"></i> <?php echo sprintf($this->lang->line('__validate_required'), 'morning close time');?>'
                 },
 				afternoon_open_time : {
-                    required : '<span class="text-danger"><i class="fa fa-times-circle"></i> Please select afternoon open time</span>'
+                    required : '<i class="fa fa-exclamation-circle"></i> <?php echo sprintf($this->lang->line('__validate_required'), 'afternoon open time');?>'
                 },
                 afternoon_close_time : {
-                    required : '<span class="text-danger"><i class="fa fa-times-circle"></i> Please select afternoon open time</span>'
+                    required : '<i class="fa fa-exclamation-circle"></i> <?php echo sprintf($this->lang->line('__validate_required'), 'afternoon close time');?>'
                 },
 				week_end_open_time : {
-                    required : '<span class="text-danger"><i class="fa fa-times-circle"></i> Please select week end open time</span>'
+                    required : '<i class="fa fa-exclamation-circle"></i> <?php echo sprintf($this->lang->line('__validate_required'), 'week end open time');?>'
                 },
 				week_end_close_time : {
-                    required : '<span class="text-danger"><i class="fa fa-times-circle"></i> Please select week end open time</span>'
+                    required : '<i class="fa fa-exclamation-circle"></i> <?php echo sprintf($this->lang->line('__validate_required'), 'week end close time');?>'
                 },
                 default_country : {
-                    required : '<span class="text-danger"><i class="fa fa-times-circle"></i> Please select default country</span>'
+                    required : '<i class="fa fa-exclamation-circle"></i> <?php echo sprintf($this->lang->line('__validate_required'), 'country');?>'
                 }
             },
             highlight: function(element) {
@@ -1050,7 +908,7 @@ the <section></section> and you can use wells or panels instead
 				
 				$(form).ajaxSubmit({
 					beforeSend: function () {
-						$('#general-submit').html('Please wait...');
+						$('#general-submit').html('<?php echo $this->lang->line('__common_please_wait');?>');
 						$('#general-submit').attr("disabled", "disabled");
 					},
 					success:function(response)
@@ -1077,7 +935,7 @@ the <section></section> and you can use wells or panels instead
 							});
 							
 						}                   
-						$('#general-submit').text('Update');
+						$('#general-submit').text('<?php echo $this->lang->line('__common_update');?>');
 						$('#general-submit').removeAttr("disabled");
 					},
 					dataType:'json'
@@ -1092,7 +950,7 @@ the <section></section> and you can use wells or panels instead
 				
 				$(form).ajaxSubmit({
 					beforeSend: function () {
-						$('#template-submit').html('Please wait...');
+						$('#template-submit').html('<?php echo $this->lang->line('__common_please_wait');?>');
 						$('#template-submit').attr("disabled", "disabled");
 					},
 					success:function(response)
@@ -1119,7 +977,7 @@ the <section></section> and you can use wells or panels instead
 							});
 							
 						}                   
-						$('#template-submit').text('Update');
+						$('#template-submit').text('<?php echo $this->lang->line('__common_update');?>');
 						$('#template-submit').removeAttr("disabled");
 					},
 					dataType:'json'

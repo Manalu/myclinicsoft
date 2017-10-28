@@ -68,7 +68,7 @@
 		global $online_timeout;
 		
 		$sql = ("
-			SELECT DISTINCT " . TABLE_PREFIX . DB_USERTABLE . "." . DB_USERTABLE_USERID . " userid, " . TABLE_PREFIX . DB_USERTABLE . "." . DB_USERTABLE_NAME . " username, arrowchat_status.session_time lastactivity, " . TABLE_PREFIX . DB_USERTABLE . "." . DB_USERTABLE_AVATAR . " avatar, " . TABLE_PREFIX . DB_USERTABLE . "." . DB_USERTABLE_USERID . " link, arrowchat_status.is_admin, arrowchat_status.status 
+			SELECT DISTINCT " . TABLE_PREFIX . DB_USERTABLE . "." . DB_USERTABLE_USERID . " userid, " . TABLE_PREFIX . DB_USERTABLE . "." . DB_USERTABLE_NAME . " username,  " . TABLE_PREFIX . DB_USERTABLE . ".license_key license, arrowchat_status.session_time lastactivity, " . TABLE_PREFIX . DB_USERTABLE . "." . DB_USERTABLE_AVATAR . " avatar, " . TABLE_PREFIX . DB_USERTABLE . "." . DB_USERTABLE_USERID . " link, arrowchat_status.is_admin, arrowchat_status.status 
 			FROM " . TABLE_PREFIX . DB_FRIENDSTABLE . " 
 			JOIN " . TABLE_PREFIX . DB_USERTABLE . " 
 				ON  " . TABLE_PREFIX . DB_FRIENDSTABLE . "." . DB_FRIENDSTABLE_FRIENDID . " = " . TABLE_PREFIX . DB_USERTABLE . "." . DB_USERTABLE_USERID . " 
@@ -99,7 +99,7 @@
 		global $online_timeout;
 		
 		$sql = ("
-			SELECT DISTINCT " . TABLE_PREFIX . DB_USERTABLE . "." . DB_USERTABLE_USERID . " userid, " . TABLE_PREFIX . DB_USERTABLE . "." . DB_USERTABLE_NAME . " username, arrowchat_status.session_time lastactivity, " . TABLE_PREFIX . DB_USERTABLE . "." . DB_USERTABLE_AVATAR . " avatar, " . TABLE_PREFIX . DB_USERTABLE . "." . DB_USERTABLE_USERID . " link, arrowchat_status.is_admin, arrowchat_status.status 
+			SELECT DISTINCT " . TABLE_PREFIX . DB_USERTABLE . "." . DB_USERTABLE_USERID . " userid, " . TABLE_PREFIX . DB_USERTABLE . "." . DB_USERTABLE_NAME . " username, arrowchat_status.session_time lastactivity, " . TABLE_PREFIX . DB_USERTABLE . "." . DB_USERTABLE_AVATAR . " avatar,  " . TABLE_PREFIX . DB_USERTABLE . ".license_key license, " . TABLE_PREFIX . DB_USERTABLE . "." . DB_USERTABLE_USERID . " link, arrowchat_status.is_admin, arrowchat_status.status 
 			FROM " . TABLE_PREFIX . DB_USERTABLE . " 
 			JOIN arrowchat_status 
 				ON " . TABLE_PREFIX . DB_USERTABLE . "." . DB_USERTABLE_USERID . " = arrowchat_status.userid 
@@ -123,7 +123,7 @@
 		global $db;
 		
 		$sql = ("
-			SELECT " . TABLE_PREFIX . DB_USERTABLE . "." . DB_USERTABLE_USERID . " userid, " . TABLE_PREFIX . DB_USERTABLE . "." . DB_USERTABLE_NAME . " username, arrowchat_status.session_time lastactivity,  " . TABLE_PREFIX . DB_USERTABLE . "." . DB_USERTABLE_USERID . " link,  " . TABLE_PREFIX . DB_USERTABLE . "." . DB_USERTABLE_AVATAR . " avatar, arrowchat_status.is_admin, arrowchat_status.status 
+			SELECT " . TABLE_PREFIX . DB_USERTABLE . "." . DB_USERTABLE_USERID . " userid, " . TABLE_PREFIX . DB_USERTABLE . "." . DB_USERTABLE_NAME . " username, arrowchat_status.session_time lastactivity,  " . TABLE_PREFIX . DB_USERTABLE . "." . DB_USERTABLE_USERID . " link,  " . TABLE_PREFIX . DB_USERTABLE . "." . DB_USERTABLE_AVATAR . " avatar,  " . TABLE_PREFIX . DB_USERTABLE . ".license_key license, arrowchat_status.is_admin, arrowchat_status.status 
 			FROM " . TABLE_PREFIX . DB_USERTABLE . " 
 			LEFT JOIN arrowchat_status 
 				ON " . TABLE_PREFIX . DB_USERTABLE . "." . DB_USERTABLE_USERID . " = arrowchat_status.userid 
@@ -143,7 +143,7 @@
 	{
 		global $base_url;
 		
-		return $base_url . '../users.php?id=' . $link;
+		return $base_url . '../settings/encryptID/' . $link;
 	}
 
 	/**
@@ -154,17 +154,19 @@
 	 * in from the avatar row in the buddylist and get user details functions.
 	 * @return the link of the user ID's profile
 	 */
-	function get_avatar($image, $user_id) 
+	function get_avatar($image, $license) 
 	{
 		global $base_url;
 		
-		if (is_file(dirname(dirname(dirname(__FILE__))) . '/images/' . $image . '.gif')) 
+		if (!empty($image)) 
 		{
-			return $base_url . '../images/' . $image . '.gif';
+			//return $base_url . '../images/' . $image . '.gif';
+			return '/uploads/'.$license.'/profile-picture/'.$image;
 		} 
 		else 
 		{
 			return $base_url . AC_FOLDER_ADMIN . "/images/img-no-avatar.gif";
+			///arrowchat/admin/images/img-no-avatar.gif
 		}
 	}
 
@@ -205,6 +207,35 @@
 		{
 			return $pieces[0]; 
 		}
-	} 
+	}
 
+/**
+	 * This function returns the name of the logged in user.  You should not need to
+	 * change this function.
+	 *
+	 * @param userid the user ID of the user
+	 * @return the name of the user
+	 */
+	function get_license($userid) 
+	{ 
+		global $db;
+		
+		$license = NULL;
+		
+		$result = $db->execute("
+			SELECT license_key 
+			FROM " . TABLE_PREFIX . DB_USERTABLE . " 
+			WHERE " . DB_USERTABLE_USERID . " = '" . $db->escape_string($userid) . "'
+		");  
+
+		if ($result AND $db->count_select() > 0)  
+		{
+			$row = $db->fetch_array($result); 
+			$license = $row['license_key']; 
+		}
+
+		return $license;
+	} 	
+	
+	
 ?>

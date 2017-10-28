@@ -2,12 +2,12 @@
 	<div id="logo-group">
 
 		<!-- PLACE YOUR LOGO HERE -->
-		<span id="logo"> MyClinicSoft <span id="running-que-counts" class="hidden"></span></span>
+		<span id="logo"> <?php echo $this->config->item('app_name');?> <span id="running-que-counts" class="hidden"></span></span>
 		<!-- END LOGO PLACEHOLDER -->
 
 		<!-- Note: The activity badge color changes when clicked and resets the number to 0
 			 Suggestion: You may want to set a flag when this happens to tick off all checked messages / notifications -->
-		<span id="activity" class="hidden activity-dropdown"> <i class="fa fa-user"></i> <b class="badge"> 21 </b> </span>
+		<span id="activity" class="activity-dropdown"> <i class="fa fa-user"></i> <b class="badge"> 0 </b> </span>
 
 		<!-- AJAX-DROPDOWN : control this dropdown height, look and feel from the LESS variable file -->
 		<div class="ajax-dropdown">
@@ -15,11 +15,13 @@
 			<!-- the ID links are fetched via AJAX to the ajax container "ajax-notifications" -->
 			<div class="btn-group btn-group-justified" data-toggle="buttons">
 				<label class="btn btn-default">
-					<input type="radio" name="activity" id="<?php echo base_url(); ?>ajax/notify/mail.html">
-					Msgs (14) </label>
+					<input type="radio" name="activity" id="<?php echo site_url('messages/get');?>">
+					Msgs (0) 
+				</label>
 				<label class="btn btn-default">
-					<input type="radio" name="activity" id="<?php echo base_url(); ?>ajax/notify/notifications.html">
-					notify (3) </label>
+					<input type="radio" name="activity" id="<?php echo site_url('notifications/get');?>">
+					notify (0)
+				</label>
 			</div>
 
 			<!-- notification content -->
@@ -51,7 +53,9 @@
 
 		
 		<span class="label" id="que-counts"></span>
-		<span class="project-selector dropdown-toggle" data-toggle="dropdown">Waiting lists <i class="fa fa-angle-down"></i></span>
+		<span class="project-selector dropdown-toggle" data-toggle="dropdown">
+			<?php echo $this->lang->line('__waiting_lists');?> <i class="fa fa-angle-down"></i>
+		</span>
 
 		<!--waiting list-->
 
@@ -73,7 +77,7 @@
 		<ul id="mobile-profile-img" class="header-dropdown-list hidden-xs padding-5">
 			<li class="">
 				<a href="#" class="dropdown-toggle no-margin userdropdown" data-toggle="dropdown"> 
-					<?php if($user_info->avatar)
+					<?php if(!empty($user_info->avatar))
 					{
 						$img = base_url().'/uploads/'.$this->license_id.'/profile-picture/'.$user_info->avatar;
 					}
@@ -83,53 +87,31 @@
 					} ?>
 					<img src="<?php echo $img;?>" alt="<?php echo $user_info->username;?>" class="online">
 				</a>
-				<ul class="dropdown-menu pull-right">
-					<li>
-						<a href="javascript:void(0);" class="padding-10 padding-top-0 padding-bottom-0"><i class="fa fa-cog"></i> Setting</a>
-					</li>
-					<li class="divider"></li>
-					<li>
-						<a href="#ajax/profile.html" class="padding-10 padding-top-0 padding-bottom-0"> <i class="fa fa-user"></i> <u>P</u>rofile</a>
-					</li>
-					<li class="divider"></li>
-					<li>
-						<a href="javascript:void(0);" class="padding-10 padding-top-0 padding-bottom-0" data-action="toggleShortcut"><i class="fa fa-arrow-down"></i> <u>S</u>hortcut</a>
-					</li>
-					<li class="divider"></li>
-					<li>
-						<a href="javascript:void(0);" class="padding-10 padding-top-0 padding-bottom-0" data-action="launchFullscreen"><i class="fa fa-arrows-alt"></i> Full <u>S</u>creen</a>
-					</li>
-					<li class="divider"></li>
-					<li>
-						<a href="<?php echo site_url('auth/logout');?>" class="padding-10 padding-top-5 padding-bottom-5" data-action="userLogout"><i class="fa fa-sign-out fa-lg"></i> <strong><u>L</u>ogout</strong></a>
-					</li>
-				</ul>
+
 			</li>
 		</ul>
 
 		<!-- logout button -->
 		<div id="logout" class="btn-header transparent pull-right">
-			<span> <a href="<?php echo site_url('auth/logout');?>" title="Sign Out" data-action="userLogout" data-logout-msg="You can improve your security further after logging out by closing this opened browser"><i class="fa fa-sign-out"></i></a> </span>
+			<span> <a href="<?php echo site_url('auth/logout');?>" title="<?php echo $this->lang->line('__sign_out');?>" data-action="userLogout" data-logout-msg="<?php echo $this->lang->line('__logout_info');?>"><i class="fa fa-sign-out"></i></a> </span>
 		</div>
 		<!-- end logout button -->
 
 		<!-- search mobile button (this is hidden till mobile view port) -->
 		<div id="search-mobile" class="btn-header transparent pull-right">
-			<span> <a href="javascript:void(0)" title="Search"><i class="fa fa-search"></i></a> </span>
+			<span> <a href="javascript:void(0)" title="<?php echo $this->lang->line('__search');?>"><i class="fa fa-search"></i></a> </span>
 		</div>
 		<!-- end search mobile button -->
-		
-		
 
 		<!-- fullscreen button -->
 		<div id="fullscreen" class="btn-header transparent pull-right">
-			<span> <a href="javascript:void(0);" data-action="launchFullscreen" title="Full Screen"><i class="fa fa-arrows-alt"></i></a> </span>
+			<span> <a href="javascript:void(0);" data-action="launchFullscreen" title="<?php echo $this->lang->line('__full_screen');?>"><i class="fa fa-arrows-alt"></i></a> </span>
 		</div>
 		<!-- end fullscreen button -->
 
 		<!-- fullscreen button -->
 		<div id="mini-cart" class="btn-header transparent pull-right">
-			<span> <a href="<?php echo site_url('queing');?>" target="_blank"  title="View Queing"><i class="fa fa-users"></i></a> </span>
+			<span> <a href="<?php echo site_url('queing');?>" target="_blank"  title="<?php echo $this->lang->line('__view_queing');?>"><i class="fa fa-users"></i></a> </span>
 		</div>
 		<!-- end fullscreen button -->
 

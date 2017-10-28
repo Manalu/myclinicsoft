@@ -15,7 +15,7 @@
 			<button type="button" class="btn btn-primary">Update</button>
 			-->
 			<?php if(($this->admin_role_id != $this->role_id) ? $this->Module->has_permission('patient', $this->role_id, 'create',   $this->license_id) : true) { ?>
-			<button type="button" class="create btn btn-primary btn-sm"><i class="fa fa-plus"></i> Create</button>
+			<button type="button" data-original-title="<?php echo $this->lang->line('__common_create_new');?>" class="create btn btn-primary btn-sm"><i class="fa fa-plus"></i> <?php echo $this->lang->line('__common_create');?></button>
 			<?php } ?>
 		</div>
 	</div>
@@ -51,6 +51,7 @@ the <section></section> and you can use wells or panels instead
 						<th>&nbsp;</th>
 						<th>&nbsp;</th>
 						<th>&nbsp;</th>
+						<th>&nbsp;</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -77,16 +78,17 @@ the <section></section> and you can use wells or panels instead
 	console.log(can_delete);
 	console.log(can_update);
 	$(".create").click(function (e) {
+		var title = $(this).attr('data-original-title');
 		e.preventDefault();
 			$.ajax({
 				url: BASE_URL+'patients/view/-1',
 				onError: function () {
-					bootbox.alert('Some network problem try again later.');
+					bootbox.alert('<?php echo $this->lang->line('__bootbox_error');?>');
 				},
 				success: function (response)
 				{
 					var dialog = bootbox.dialog({
-						title: 'Create new',
+						title: title,
 						message: '<p class="text-center"><img src="'+BASE_URL+'img/ajax-loader.gif"/></p>'
 					});
 					dialog.init(function(){
@@ -196,6 +198,7 @@ the <section></section> and you can use wells or panels instead
 	// end destroy
 
 	// run pagefunction
+	var user_link = '<?php echo site_url('settings/encryptID/');?>';
 	
 	var pagefunction = function() {
 		//console.log("cleared");
@@ -246,7 +249,15 @@ the <section></section> and you can use wells or panels instead
 		        },
 				"oLanguage": {
 					"sSearch": '<span class="input-group-addon"><i class="fa fa-search"></i></span>',
-					"sProcessing": '<i class="fa fa-spinner fa-pulse fa-fw"></i> Loading. Please wait...' //add a loading image,simply putting <img src="/img/ajax-loader.gif" /> tag.
+					"sProcessing": '<i class="fa fa-spinner fa-pulse fa-fw"></i> <?php echo $this->lang->line('__dt_sLoadingRecords');?>', //add a loading image,simply putting <img src="/img/ajax-loader.gif" /> tag.
+					"sInfo": '<?php echo $this->lang->line('__dt_sInfo');?>',
+					"sEmptyTable": '<?php echo $this->lang->line('__dt_sEmptyTable');?>',
+					"sInfoEmpty": '<?php echo $this->lang->line('__dt_sInfoEmpty');?>',
+					"sInfoFiltered": '<?php echo $this->lang->line('__dt_sInfoFiltered');?>',
+					"sLengthMenu": '<?php echo $this->lang->line('__dt_sLengthMenu');?>',
+					"sLoadingRecords": '<?php echo $this->lang->line('__dt_sLoadingRecords');?>',
+					"sProcessing": '<?php echo $this->lang->line('__dt_sProcessing');?>',
+					"sZeroRecords": '<?php echo $this->lang->line('__dt_sZeroRecords');?>'
 		        },	
 				"autoWidth" : true,
 				"preDrawCallback" : function() {
@@ -269,7 +280,7 @@ the <section></section> and you can use wells or panels instead
 					   	$.ajax({
 			                url: $(this).attr('href'),
 			                onError: function () {
-			                    bootbox.alert('Some network problem try again later.');
+			                    bootbox.alert('<?php echo $this->lang->line('__bootbox_error');?>');
 			                },
 			                success: function (response)
 			                {
@@ -349,12 +360,13 @@ the <section></section> and you can use wells or panels instead
 					{mData: 'address'},
 					{mData: 'mobile'},
 					{mData: 'last_login'},
+					{mData: 'lic'},
 					{mData: null},
 		        ],
 		        "aoColumnDefs": [
 		            {'bSearchable': true, 'aTargets': [0, 1, 2, 3, 8, 9]},
 		            {
-		                "targets": [7,8,9,10,11],
+		                "targets": [7,8,9,10,11,12],
 		                "visible": false,
 		                "searchable": false,
 		            },
@@ -363,11 +375,10 @@ the <section></section> and you can use wells or panels instead
 		                // `data` option, which defaults to the column being worked with, in
 		                // this case `data: 0`.
 		                "render": function (data, type, row) {
-							var source = '<?php echo $this->gravatar->get("'+row['email']+'");?>';
 							if(row['avatar']){
-								newData =  '<img src="'+BASE_URL+'uploads/'+lic+'/profile-picture/'+row['avatar']+'" alt="'+row['username']+'" class="img-responsive" />';
+								newData =  '<img src="'+BASE_URL+'uploads/'+row['lic']+'/profile-picture/'+row['avatar']+'" alt="'+row['username']+'" class="img-responsive" />';
 							}else{
-								newData =  '<img src="'+source+'" alt="'+row['username']+'" class="img-responsive" />';
+								newData =  '<img src="'+BASE_URL+'img/avatars/blank.png" alt="'+row['username']+'" class="img-responsive" />';
 							}
 							return newData;
 		                },
@@ -385,7 +396,7 @@ the <section></section> and you can use wells or panels instead
 							}else{
 								bday = '--';
 							}
-		                    newData = '<a rel="tooltip" data-placement="top" data-original-title="Details" class="bootbox" href="<?php echo base_url();?>patients/details/'+row['id']+'">'+ row['fullname'] + '</a>';
+		                    newData = '<a rel="tooltip" data-placement="top" data-original-title="<?php echo $this->lang->line('__common_details');?>" href="'+user_link+'/'+row['id']+'">'+ row['fullname'] + '</a>';
 							newData += '<br>'+ row['birthday'];
 		                    
 		                    return newData;
@@ -426,7 +437,7 @@ the <section></section> and you can use wells or panels instead
 								address = '--';
 							}
 		                    newData  = address+'<br>';
-							newData  += '<span rel="tooltip" data-placement="left" data-original-title="Blood Type">'+btype+'</span>';
+							newData  += '<span rel="tooltip" data-placement="left" data-original-title="<?php echo $this->lang->line('__blood_type');?>">'+btype+'</span>';
 							
 		                    return newData;
 
@@ -473,7 +484,7 @@ the <section></section> and you can use wells or panels instead
 							}
 							
 		                    newData = row['created']+'<br>';
-							newData += '<span rel="tooltip" data-placement="left" data-original-title="Last Login">'+ll+'</span>';
+							newData += '<span rel="tooltip" data-placement="left" data-original-title="<?php echo $this->lang->line('__last_login');?>">'+ll+'</span>';
 
 		                    return newData;
 		                },
@@ -485,14 +496,14 @@ the <section></section> and you can use wells or panels instead
 		                // this case `data: 4`.
 		                "render": function (data, type, row) {
 		                    newData = "";
-		                    newData = '<a rel="tooltip" data-placement="left" data-original-title="Reset Password" href="'+BASE_URL+'patients/reset/'+row['id']+'/" class="hidden bootbox btn btn-default btn-xs"><i class="fa fa-key"></i></a>&nbsp;';
+		                    newData = '<a rel="tooltip" data-placement="left" data-original-title="<?php echo $this->lang->line('__common_reset_password');?>" href="'+BASE_URL+'patients/reset/'+row['id']+'/" class="hidden bootbox btn btn-default btn-xs"><i class="fa fa-key"></i></a>&nbsp;';
 		                    if(can_delete){
-								newData += '<a rel="tooltip" data-placement="bottom" data-original-title="Delete" href="'+BASE_URL+'patients/delete/'+row['id']+'/" class="delete btn btn-danger btn-xs"><i class="fa fa-trash-o"></i></a>&nbsp;';
+								newData += '<a rel="tooltip" data-placement="bottom" data-original-title="<?php echo $this->lang->line('__common_delete');?>" href="'+BASE_URL+'patients/delete/'+row['id']+'/" class="delete btn btn-danger btn-xs"><i class="fa fa-trash-o"></i></a>&nbsp;';
 							}
 							if(can_update){
-								newData += '<a rel="tooltip" data-placement="bottom" data-original-title="Update"  href="'+BASE_URL+'patients/view/'+row['id']+'/" class="bootbox btn btn-primary btn-xs"><i class="fa fa-pencil"></i></a>&nbsp;';
+								newData += '<a rel="tooltip" data-placement="bottom" data-original-title="<?php echo $this->lang->line('__common_update');?>"  href="'+BASE_URL+'patients/view/'+row['id']+'/" class="bootbox btn btn-primary btn-xs"><i class="fa fa-pencil"></i></a>&nbsp;';
 		                    }
-							newData += '<a rel="tooltip" data-placement="bottom" data-original-title="Records" href="'+BASE_URL+'patients/decoded/medications/'+row['id']+'/" class="move btn btn-warning btn-xs"><i class="fa fa-list"></i></a>&nbsp;';
+							newData += '<a rel="tooltip" data-placement="bottom" data-original-title="<?php echo $this->lang->line('__common_records');?>" href="'+BASE_URL+'patients/decoded/medications/'+row['id']+'/" class="move btn btn-warning btn-xs"><i class="fa fa-list"></i></a>&nbsp;';
 		                    return newData;
 		                },
 		                "targets": 6

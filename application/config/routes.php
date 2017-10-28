@@ -49,14 +49,22 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | Examples:	my-controller/index	-> my_controller/index
 |		my-controller/my-method	-> my_controller/my_method
 */
+if(!in_array($_SERVER['REMOTE_ADDR'], $this->config->item('maintenance_ips')) && $this->config->item('maintenance_mode')) {
+	
+    $route['default_controller'] = 'Maintenance';
+    $route['(:any)'] = 'Maintenance';
+	
+}else{
+	
+	$route['default_controller'] = 'Welcome';
+	$route['404_override'] = '';
+	$route['translate_uri_dashes'] = FALSE;
 
-$route['default_controller'] = 'Welcome';
-$route['404_override'] = '';
-$route['translate_uri_dashes'] = FALSE;
+	$route['controller/(:any)'] 			= 'controller/index/$1';
+	$route['settings/(:any)'] 				= 'settings/index/$1';
 
-$route['controller/(:any)'] 			= 'controller/index/$1';
-$route['settings/(:any)'] 				= 'settings/index/$1';
-
-$route['my-patients'] 					= 'patients/index';
-$route['my-profile/(:any)'] 					= 'settings/my_profile/$1';
-$route['send-queries'] 					= 'auth/send_queries';
+	$route['my-patients'] 					= 'patients/index';
+	$route['my-profile/(:any)'] 			= 'settings/my_profile/$1';
+	$route['send-queries'] 					= 'auth/send_queries';
+	
+}

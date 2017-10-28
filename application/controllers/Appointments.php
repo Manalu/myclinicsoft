@@ -50,22 +50,24 @@ class Appointments extends Secure {
 		}
 	}
 	
+	function get(){
+		echo json_encode($this->Appointment->get_all($this->license_id)->result_array());
+	}
+	
 	function load_ajax() {
 	
 		if ($this->input->is_ajax_request()) 
 		{	
 			$this->load->library('datatables');
 	       
-	        $this->datatables->select("a.app_id as id,  schedule_date,  schedule_time, CONCAT(IF(up.lastname != '', up.lastname, ''),',',IF(up.firstname != '', up.firstname, '')) as patient_fullname, CONCAT(IF(ups.lastname != '', ups.lastname, ''),',',IF(ups.firstname != '', ups.firstname, '')) as doctor_fullname, title, status, a.license_key as license", false);
+	        $this->datatables->select("a.app_id as id,  schedule_date,  schedule_time, patient_name, CONCAT(IF(ups.lastname != '', ups.lastname, ''),',',IF(ups.firstname != '', ups.firstname, '')) as doctor_fullname, title, status, a.license_key as license", false);
 	        
 			if($this->admin_role_id == $this->role_id){
 				$this->datatables->where('a.license_key', $this->license_id);
 			}else{
 				$this->datatables->where('a.user_id', $this->user_id);
 			}
-			
-			
-	        $this->datatables->join('users_profiles as up', 'a.user_id = up.user_id', 'left', false);
+
 			$this->datatables->join('users_subscriptions_plan as usp', 'a.license_key = usp.license_key', 'left', false);
 			$this->datatables->join('users_profiles as ups', 'usp.user_id = ups.user_id', 'left', false);
 			
@@ -143,7 +145,7 @@ class Appointments extends Secure {
 		{
 	    	$data['info'] = $this->Appointment->get_info($id);
 			$data['client_id'] = $this->Common->get_subscription_info($data['info']->license_key);
-			$data['patient_info'] = $this->Patient->get_info($data['info']->user_id);
+			//$data['patient_info'] = $this->Patient->get_info($data['info']->user_id);
 			$data['client_info'] = $this->Patient->get_info($data['client_id']->user_id);
 			
 	        $this->load->view("ajax/appointments_detail", $data);

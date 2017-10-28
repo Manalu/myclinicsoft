@@ -1,68 +1,90 @@
-<!-- Bread crumb is created dynamically -->
-<!-- row -->
 <div class="row">
-
-	<!-- col -->
-	<div class="col-xs-12 col-sm-7 col-md-7 col-lg-4"> 
-		<h1 class="page-title txt-color-blueDark"><!-- PAGE HEADER --><?php echo $module ;?> <small><?php //echo $this->lang->line('module_patients_desc');?></small></h1>
+	<div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
+		<h1 class="page-title txt-color-blueDark"><i class="fa fa-calendar fa-fw "></i> 
+			<?php echo $module ;?>
+		</h1>
 	</div>
-	<!-- end col -->
-	<div class="col-xs-12 col-sm-5 col-md-5 col-lg-8 text-right">
-		<div class="btn-group">
-			<!--
-			<button type="button" class="btn btn-primary">Record</button>
-			<button type="button" class="btn btn-primary">Delete</button>
-			<button type="button" class="btn btn-primary">Update</button>
-			-->
-			<?php if(($this->admin_role_id != $this->role_id) ? $this->Module->has_permission('appointments', $this->role_id, 'create',   $this->license_id) : true) { ?>
-			<button type="button" class="create btn btn-primary btn-sm"><i class="fa fa-plus"></i> Create</button>
-			<?php } ?>
-		</div>
+	<div class="col-xs-12 col-sm-5 col-md-5 col-lg-8">
+		
 	</div>
 </div>
-<!-- end row -->
+<!-- row -->
 
-<!--
-The ID "widget-grid" will start to initialize all widgets below
-You do not need to use widgets if you dont want to. Simply remove
-the <section></section> and you can use wells or panels instead
--->
+<div class="row">
 
-<!-- widget grid -->
-<section id="widget-grid" class="">
+	<div class="col-sm-12 col-md-12 col-lg-12">
 
+		<!-- new widget -->
+		<div class="jarviswidget jarviswidget-color-blueDark">
 
-	<div class="row">
-	
-		<div class="col-sm-12 col-lg-12">
+			<!-- widget options:
+			usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
 
-			<table class="table table-striped" id="table-appointment">
-				<thead>
-					<tr>
-						<th>&nbsp;</th>
-						<th>Date</th>
-						<th>Time</th>
-						<th>Name</th>
-						<th>&nbsp;</th>
-						<th>&nbsp;</th>
-						<th class="text-right">&nbsp;</th>
-						<th>&nbsp;</th>
-					</tr>
-				</thead>
-				<tbody>
+			data-widget-colorbutton="false"
+			data-widget-editbutton="false"
+			data-widget-togglebutton="false"
+			data-widget-deletebutton="false"
+			data-widget-fullscreenbutton="false"
+			data-widget-custombutton="false"
+			data-widget-collapsed="true"
+			data-widget-sortable="false"
+
+			-->
+			<header>
+				<span class="widget-icon"> <i class="fa fa-calendar"></i> </span>
+				<h2> My Calendar </h2>
+				<div class="widget-toolbar">
+					<!-- add: non-hidden - to disable auto hide -->
+					<div class="btn-group">
+						<button class="btn dropdown-toggle btn-xs btn-default" data-toggle="dropdown">
+							Showing <i class="fa fa-caret-down"></i>
+						</button>
+						<ul class="dropdown-menu js-status-update pull-right">
+							<li>
+								<a href="javascript:void(0);" id="mt">Month</a>
+							</li>
+							<li>
+								<a href="javascript:void(0);" id="ag">Agenda</a>
+							</li>
+							<li>
+								<a href="javascript:void(0);" id="td">Today</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</header>
+
+			<!-- widget div-->
+			<div>
+
+				<div class="widget-body no-padding">
+					<!-- content goes here -->
+					<div class="widget-body-toolbar">
+
+						<div id="calendar-buttons">
+
+							<div class="btn-group">
+								<a href="javascript:void(0)" class="btn btn-default btn-xs" id="btn-prev"><i class="fa fa-chevron-left"></i></a>
+								<a href="javascript:void(0)" class="btn btn-default btn-xs" id="btn-next"><i class="fa fa-chevron-right"></i></a>
+							</div>
+						</div>
+					</div>
 					
-				</tbody>
-			</table>
-		
-			
+					<div id="calendar"></div>
+
+					<!-- end content -->
+				</div>
+
+			</div>
+			<!-- end widget div -->
 		</div>
-		
+		<!-- end widget -->
+
 	</div>
 
-	<!-- end row -->
+</div>
 
-</section>
-<!-- end widget grid -->
+<!-- end row -->
 
 <script type="text/javascript">
 	var BASE_URL = '<?php echo base_url();?>';
@@ -73,29 +95,6 @@ the <section></section> and you can use wells or panels instead
 	console.log(can_update);
 	
 	var isAdmin = '<?php echo ($this->admin_role_id != $this->role_id) ? false : true;?>';
-	
-	$(".create").click(function (e) {
-		e.preventDefault();
-			$.ajax({
-				url: BASE_URL+'appointments/view/-1',
-				onError: function () {
-					bootbox.alert('Some network problem try again later.');
-				},
-				success: function (response)
-				{
-					var dialog = bootbox.dialog({
-						title: 'Create new',
-						message: '<p class="text-center"><img src="'+BASE_URL+'img/ajax-loader.gif"/></p>'
-					});
-					dialog.init(function(){
-						setTimeout(function(){
-							dialog.find('.bootbox-body').html(response);
-						}, 3000);
-					});
-				}
-			});
-		return false;
-	});
 	/* DO NOT REMOVE : GLOBAL FUNCTIONS!
 	 *
 	 * pageSetUp(); WILL CALL THE FOLLOWING FUNCTIONS
@@ -127,362 +126,283 @@ the <section></section> and you can use wells or panels instead
 	 */
 
 	pageSetUp();
-	$('input[type=radio]').on('change', function(e) {
-		var val = $("input[name='option']:checked").val();
-		var url = '<?php echo site_url();?>course/'+val;
-		history.pushState(null, null, url);
-		checkURL();
-
-		var title = $("input[name='option']:checked").parent().text();
-
-		// change page title from global var
-		document.title = (title || document.title);
-		
-		e.preventDefault();
-		
-	});
+	
 	/*
-	* ALL PAGE RELATED SCRIPTS CAN GO BELOW HERE
-	* eg alert("my home function");
-	*
-	* var pagefunction = function() {
-	*   ...
-	* }
-	* loadScript("js/plugin/_PLUGIN_NAME_.js", pagefunction);
-	*
-	* TO LOAD A SCRIPT:
-	* var pagefunction = function (){
-	*  loadScript(".../plugin.js", run_after_loaded);
-	* }
-	*
-	* OR you can load chain scripts by doing
-	*
-	* loadScript(".../plugin.js", function(){
-	* 	 loadScript("../plugin.js", function(){
-	* 	   ...
-	*   })
-	* });
-	*/
+	 * ALL PAGE RELATED SCRIPTS CAN GO BELOW HERE
+	 * eg alert("my home function");
+	 * 
+	 * var pagefunction = function() {
+	 *   ...
+	 * }
+	 * loadScript("js/plugin/_PLUGIN_NAME_.js", pagefunction);
+	 * 
+	 * TO LOAD A SCRIPT:
+	 * var pagefunction = function (){ 
+	 *  loadScript(".../plugin.js", run_after_loaded);	
+	 * }
+	 * 
+	 * OR
+	 * 
+	 * loadScript(".../plugin.js", run_after_loaded);
+	 */
+	
+	// PAGE RELATED SCRIPTS
 
 	// pagefunction
+	
+	var fullviewcalendar;
 
 	var pagefunction = function() {
-		// clears the variable if left blank
+		
+		// full calendar
+		
+		var date = new Date();
+	    var d = date.getDate();
+	    var m = date.getMonth();
+	    var y = date.getFullYear();
+	
+	    var hdr = {
+	        left: 'title',
+	        center: 'month,agendaWeek,agendaDay',
+	        right: 'prev,today,next'
+	    };
+	
+	    var initDrag = function (e) {
+	        // create an Event Object (http://arshaw.com/fullcalendar/docs/event_data/Event_Object/)
+	        // it doesn't need to have a start or end
+	
+	        var eventObject = {
+	            title: $.trim(e.children().text()), // use the element's text as the event title
+	            description: $.trim(e.children('span').attr('data-description')),
+	            icon: $.trim(e.children('span').attr('data-icon')),
+	            className: $.trim(e.children('span').attr('class')) // use the element's children as the event class
+	        };
+	        // store the Event Object in the DOM element so we can get to it later
+	        e.data('eventObject', eventObject);
+	
+	        // make the event draggable using jQuery UI
+	        e.draggable({
+	            zIndex: 999,
+	            revert: true, // will cause the event to go back to its
+	            revertDuration: 0 //  original position after the drag
+	        });
+	    };
+	
+	    var addEvent = function (title, priority, description, icon) {
+	        title = title.length === 0 ? "Untitled Event" : title;
+	        description = description.length === 0 ? "No Description" : description;
+	        icon = icon.length === 0 ? " " : icon;
+	        priority = priority.length === 0 ? "label label-default" : priority;
+	
+	        var html = $('<li><span class="' + priority + '" data-description="' + description + '" data-icon="' +
+	            icon + '">' + title + '</span></li>').prependTo('ul#external-events').hide().fadeIn();
+	
+	        $("#event-container").effect("highlight", 800);
+	
+	        initDrag(html);
+	    };
+	
+	    /* initialize the external events
+		 -----------------------------------------------------------------*/
+	
+	    $('#external-events > li').each(function () {
+	        initDrag($(this));
+	    });
+	
+	    $('#add-event').click(function () {
+			//implement ajax
+	        var title = $('#title').val(),
+	            priority = $('input:radio[name=priority]:checked').val(),
+	            description = $('#description').val(),
+	            icon = $('input:radio[name=iconselect]:checked').val();
+	
+	        addEvent(title, priority, description, icon);
+	    });
+	
+	    /* initialize the calendar
+		 -----------------------------------------------------------------*/
+		var event_collection = function () {
+			var appointments = [];
+			$.ajax({
+				async: false,
+				type: 'POST', 
+				url: BASE_URL +'appointments/get', 
+				data: {}, 
+				success: function (res) { 
+					response = $.parseJSON(res);
+
+					$.each(response, function (index, value) {
+						appointments.push({"id" : value.id, "title" : value.title, "description": value.description, "start": value.start, "allDay": false, "className": '["event", "bg-color-blue"]', "icon": 'fa-clock-o'});
+					});
+					
+				}
+			});
+			return appointments;
+		}();
+		
+	    fullviewcalendar = $('#calendar').fullCalendar({
+	
+					header: hdr,
+			        editable: true,
+			        droppable: true, // this allows things to be dropped onto the calendar !!!
+					eventLimit: true, // allow "more" link when too many events
+			
+			        drop: function (date, allDay) { // this function is called when something is dropped
+			
+			            // retrieve the dropped element's stored Event Object
+			            var originalEventObject = $(this).data('eventObject');
+						
+			            // we need to copy it, so that multiple events don't have a reference to the same object
+			            var copiedEventObject = $.extend({}, originalEventObject);
+			
+			            // assign it the date that was reported
+			            copiedEventObject.start = date;
+			            copiedEventObject.allDay = allDay;
+						
+						console.log(copiedEventObject);
+			            // render the event on the calendar
+			            // the last `true` argument determines if the event "sticks" (http://arshaw.com/fullcalendar/docs/event_rendering/renderEvent/)
+			            $('#calendar').fullCalendar('renderEvent', copiedEventObject, true);
+			
+			            // is the "remove after drop" checkbox checked?
+			            if ($('#drop-remove').is(':checked')) {
+			                // if so, remove the element from the "Draggable Events" list
+			                $(this).remove();
+			            }
+			
+			        },
+			
+			        select: function (start, end, allDay) {
+			            var title = prompt('Event Title:');
+			            if (title) {
+			                calendar.fullCalendar('renderEvent', {
+			                        title: title,
+			                        start: start,
+			                        end: end,
+			                        allDay: allDay
+			                    }, true // make the event "stick"
+			                );
+			            }
+			            calendar.fullCalendar('unselect');
+			        },
+					events: event_collection,
+			        eventRender: function (event, element, icon) {
+			            if (!event.description == "") {
+			                element.find('.fc-title').append("<br/><span class='ultra-light'>" + event.description +
+			                    "</span>");
+			            }
+			            if (!event.icon == "") {
+			                element.find('.fc-title').append("<i class='air air-top-right fa " + event.icon +
+			                    " '></i>");
+			            }
+			        },
+					
+					eventClick: function(calEvent, jsEvent, view) {
+
+						alert('Event: ' + calEvent.title);
+						alert('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
+						alert('View: ' + view.name);
+						//implement ajax
+						//bootbox event details
+						// change the border color just for fun
+						$(this).css('border-color', 'red');
+
+					},
+			        windowResize: function (event, ui) {
+			            $('#calendar').fullCalendar('render');
+			        }
+			    });
+		
+		    /* hide default buttons */
+		    $('.fc-right, .fc-center').hide();
+
+		
+			$('#calendar-buttons #btn-prev').click(function () {
+			    $('.fc-prev-button').click();
+			    return false;
+			});
+			
+			$('#calendar-buttons #btn-next').click(function () {
+			    $('.fc-next-button').click();
+			    return false;
+			});
+			
+			$('#calendar-buttons #btn-today').click(function () {
+			    $('.fc-today-button').click();
+			    return false;
+			});
+			
+			$('#mt').click(function () {
+			    $('#calendar').fullCalendar('changeView', 'month');
+			});
+			
+			$('#ag').click(function () {
+			    $('#calendar').fullCalendar('changeView', 'agendaWeek');
+			});
+			
+			$('#td').click(function () {
+			    $('#calendar').fullCalendar('changeView', 'agendaDay');
+			});	
+					
 		
 	};
-
+	
 	// end pagefunction
+	
+	// destroy generated instances 
 
-	// destroy generated instances
+	// destroy generated instances 
 	// pagedestroy is called automatically before loading a new page
 	// only usable in AJAX version!
 
-	var pagedestroy = function() {
+	var pagedestroy = function(){
 
 		/*
-		 Example below:
+		Example below:
 
-		 $("#calednar").fullCalendar( 'destroy' );
-		 if (debugState){
-		 root.console.log("✔ Calendar destroyed");
-		 }
+		$("#calednar").fullCalendar( 'destroy' );
+		if (debugState){
+			root.console.log("✔ Calendar destroyed");
+		} 
 
-		 For common instances, such as Jarviswidgets, Google maps, and Datatables, are automatically destroyed through the app.js loadURL mechanic
+		For common instances, such as Jarviswidgets, Google maps, and Datatables, are automatically destroyed through the app.js loadURL mechanic
 
-		 */
+		*/
+		
+		fullviewcalendar.fullCalendar( 'destroy' );
+		fullviewcalendar = null;
+		$("#add-event").off();
+		$("#add-event").remove();
+
+		$('#external-events > li').off();
+		$('#external-events > li').remove();
+		$('#add-event').off();
+		$('#add-event').remove();
+		$('#calendar-buttons #btn-prev').off();
+		$('#calendar-buttons #btn-prev').remove();
+		$('#calendar-buttons #btn-next').off();
+		$('#calendar-buttons #btn-next').remove();
+		$('#calendar-buttons #btn-today').off();
+		$('#calendar-buttons #btn-today').remove();
+		$('#mt').off();
+		$('#mt').remove();
+		$('#ag').off();
+		$('#ag').remove();
+		$('#td').off();
+		$('#td').remove();
+
+		if (debugState){
+			root.console.log("✔ Calendar destroyed");
+		} 
 	}
+
 	// end destroy
 
-	// run pagefunction
-	
-	var pagefunction = function() {
-		//console.log("cleared");
-		var module = '<?php echo $module;?>';
-		/* // DOM Position key index //
-		
-			l - Length changing (dropdown)
-			f - Filtering input (search)
-			t - The Table! (datatable)
-			i - Information (records)
-			p - Pagination (paging)
-			r - pRocessing 
-			< and > - div elements
-			<"#id" and > - div with an id
-			<"class" and > - div with a class
-			<"#id.class" and > - div with an id and class
-			
-			Also see: http://legacy.datatables.net/usage/features
-		*/	
-
-		/* BASIC ;*/
-			var responsiveHelper_dt_basic = undefined;
-			var responsiveHelper_datatable_fixed_column = undefined;
-			var responsiveHelper_datatable_col_reorder = undefined;
-			var responsiveHelper_datatable_tabletools = undefined;
-			
-			var breakpointDefinition = {
-				tablet : 1024,
-				phone : 480
-			};
-			
-			$('#table-appointment').dataTable({
-				'destroy': true,
-		        'filter': true,
-		        'processing': true, 
-		        "serverSide": true,        
-		        "paging": true,
-				"bSort" : false,
-		        "sDom": "<'dt-toolbar'<'col-xs-12 col-sm-6'f><'col-sm-6 col-xs-12 hidden-xs'l>r>"+
-						"t"+
-						"<'dt-toolbar-footer'<'col-sm-6 col-xs-12 hidden-xs'i><'col-xs-12 col-sm-6'p>>",
-		        "ajax": {
-		            url: BASE_URL + 'appointments/load_ajax/',
-		            type: 'POST',
-		        },
-				"oLanguage": {
-					"sSearch": '<span class="input-group-addon"><i class="fa fa-search"></i></span>',
-					"sProcessing": '<i class="fa fa-spinner fa-pulse fa-fw"></i> Loading. Please wait...' //add a loading image,simply putting <img src="/img/ajax-loader.gif" /> tag.
-		        },	
-				"autoWidth" : true,
-				"preDrawCallback" : function() {
-					// Initialize the responsive datatables helper once.
-					if (!responsiveHelper_dt_basic) {
-						responsiveHelper_dt_basic = new ResponsiveDatatablesHelper($('#table-appointment'), breakpointDefinition);
-					}
-				},
-				"rowCallback" : function(nRow) {
-					responsiveHelper_dt_basic.createExpandIcon(nRow);
-				},
-				"drawCallback" : function(oSettings) {
-					responsiveHelper_dt_basic.respond();
-					//$('#table-appointment').find('td:first').css('width', '40px');
-					$('#table-appointment').css('width', '100%');
-					
-					$(".bootbox").click(function (e) {
-						var title = $(this).attr('data-original-title');
-					   	e.preventDefault();
-					   	$.ajax({
-			                url: $(this).attr('href'),
-			                onError: function () {
-			                    bootbox.alert('Some network problem try again later.');
-			                },
-			                success: function (response)
-			                {
-			                    var dialog = bootbox.dialog({
-								    title: title,
-								    message: '<p class="text-center"><img src="'+BASE_URL+'img/ajax-loader.gif"/></p>'
-								});
-								dialog.init(function(){
-								    setTimeout(function(){
-								        dialog.find('.bootbox-body').html(response);
-								    }, 3000);
-								});
-			                }
-			            });
-			            return false;  
-					});
-
-					$(".delete").click(function (e) {
-					   	e.preventDefault();
-					   	$.ajax({
-			                url: $(this).attr('href'),
-			                success: function (response)
-			                {
-			                    if(response)
-								{
-									$.smallBox({
-										title : "Success",
-										content : response.message,
-										color : "#739E73",
-										iconSmall : "fa fa-check",
-										timeout : 3000
-									});
-									
-									checkURL();
-								}
-								else
-								{
-									$.smallBox({
-										title : "Error",
-										content : response.message,
-										color : "#C46A69",
-										iconSmall : "fa fa-warning shake animated",
-										timeout : 3000
-									});
-								} 
-			                }
-			            });
-					});
-
-					$("[rel=tooltip]").tooltip();
-				},
-		        //run on first time when datatable create
-		        "initComplete": function () {
-
-		        },
-		        //End
-		        // Internationalisation. For more info refer to http://datatables.net/manual/i18n
-		        
-		        "order": [
-		            [0, 'asc']
-		        ],
-		        "aLengthMenu": [
-		            [10, 20, 30, 40, 50],
-		            [10, 20, 30, 40, 50] // change per page values here
-		        ],
-		        // set the initial value
-		        "pageLength": 10,
-		        //[{"id":"2","schedule_date":"2017-04-20","schedule_time":"8:15 PM","patient_fullname":"try, Patient 3","doctor_fullname":"Guibone, Irma Barbara","title":"try","status":"Pending","license":"KjFh2rEHs5"}]
-		        aoColumns: [
-		            {mData: 'id'}, 
-					{mData: 'schedule_date'},    
-					{mData: 'schedule_time'},    
-					{mData: 'patient_fullname'},  					
-		            {mData: 'doctor_fullname'},         
-		            {mData: 'title'},
-		            {mData: 'status'},
-					{mData: null},
-					{mData: 'license'},
-		        ],
-		        "aoColumnDefs": [
-		            {'bSearchable': false, 'aTargets': [0]},
-					{'bSearchable': true, 'aTargets': [1]},
-		            {
-		                "targets": [0, 4, 8],
-		                "visible": false,
-		                "searchable": false,
-		            },
-		            
-		            {
-		                // The `data` parameter refers to the data for the cell (defined by the
-		                // `data` option, which defaults to the column being worked with, in
-		                // this case `data: 0`.
-		                "render": function (data, type, row) {
-		
-							newData =  row['id'];
-							
-							return newData;
-		                },
-		                "targets": 0
-		            },
-		            {
-		                // The `data` parameter refers to the data for the cell (defined by the
-		                // `data` option, which defaults to the column being worked with, in
-		                // this case `data: 1`.
-		                //row['statuses'] != 0
-		                "render": function (data, type, row) {
-
-		                    newData = '<a rel="tooltip" data-placement="bottom" data-original-title="Details" href="'+BASE_URL+'appointments/details/'+row['id']+'" class="bootbox link">'+row['schedule_date']+'</a>';
-		                    return newData;
-
-		                },
-		                "targets": 1
-		            },
-					{
-		                // The `data` parameter refers to the data for the cell (defined by the
-		                // `data` option, which defaults to the column being worked with, in
-		                // this case `data: 1`.
-		                //row['statuses'] != 0
-		                "render": function (data, type, row) {
-		                    
-		                    newData  = row['schedule_time'];
-		                    return newData;
-
-		                },
-		                "targets": 2
-		            },
-		            {
-		                // The `data` parameter refers to the data for the cell (defined by the
-		                // `data` option, which defaults to the column being worked with, in
-		                // this case `data: 1`.
-		                //row['statuses'] != 0
-		                "render": function (data, type, row) {
-		                    
-		                    newData  = '';
-							
-							if(isAdmin){
-								newData = 'Patient : <strong>'+ row['patient_fullname']+'</strong>';
-							}else{
-								newData = 'Doctor : <strong>'+ row['doctor_fullname']+'</strong>';
-							}
-		                    return newData;
-
-		                },
-		                "targets": 3
-		            },
-					{
-		                // The `data` parameter refers to the data for the cell (defined by the
-		                // `data` option, which defaults to the column being worked with, in
-		                // this case `data: 1`.
-		                //row['statuses'] != 0
-		                "render": function (data, type, row) {
-		                    
-		                    newData  = row['title'];
-		                    return newData;
-
-		                },
-		                "targets": 5
-		            },
-		            {
-		                // The `data` parameter refers to the data for the cell (defined by the
-		                // `data` option, which defaults to the column being worked with, in
-		                // this case `data: 1`.
-		                
-		                "render": function (data, type, row) {
-		                    newData = "";
-							if(row['status'] == 'Cancel'){
-								s = '<span class="label label-danger">Cancel</span>';
-							}else if(row['status'] == 'Pending'){
-								s = '<span class="label label-warning">Pending</span>';
-							}else{
-								s = '<span class="label label-success">Approve</span>';
-							}
-							
-		                    newData  = s;
-							
-		                    return newData;
-
-		                },
-		                "targets": 6
-		            },
-
-		           {
-		                // The `data` parameter refers to the data for the cell (defined by the
-		                // `data` option, which defaults to the column being worked with, in
-		                // this case `data: 4`.
-		                "render": function (data, type, row) {
-		                    newData = "";
-		                   if(row['status'] != 'Approve'){
-							if(can_delete){
-								newData = '<a rel="tooltip" data-placement="bottom" data-original-title="Delete" href="'+BASE_URL+'appointments/delete/'+row['id']+'" class="delete btn btn-danger btn-xs"><i class="fa fa-trash-o"></i></a>&nbsp;';
-							}
-							if(can_update){
-								newData += '<a rel="tooltip" data-placement="bottom" data-original-title="Update"  href="'+BASE_URL+'appointments/view/'+row['id']+'/" class="bootbox btn btn-primary btn-xs"><i class="fa fa-pencil"></i></a>';
-							}
-							}
-							return newData;
-		                },
-		                "targets": 7
-		            },
-		        ],
-		        "createdRow": function (row, data, index)
-		        {
-		            //var temp_split = data['temp_rad'].split(':rad:');
-		           
-		        }
-		    
-			});
-
-		/* END BASIC */
-		
-	};
-
-	loadScript(BASE_URL+"js/bootbox.min.js", function(){
-		loadScript(BASE_URL+"js/plugin/datatables/jquery.dataTables.min.js", function(){
-			loadScript(BASE_URL+"js/plugin/datatables/dataTables.bootstrap.min.js", function(){
-				loadScript(BASE_URL+"js/plugin/datatable-responsive/datatables.responsive.min.js", pagefunction)
-			});
-		});
+	// loadscript and run pagefunction
+	loadScript(BASE_URL+"js/plugin/moment/moment.min.js", function(){
+		loadScript(BASE_URL+"js/plugin/fullcalendar/jquery.fullcalendar.min.js", pagefunction);
 	});
-		
+
+
+
 </script>

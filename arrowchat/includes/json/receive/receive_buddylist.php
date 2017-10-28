@@ -86,7 +86,8 @@
 				}
 				
 				$link = get_link($chat['link'], $chat['userid']);
-				$avatar = get_avatar($chat['avatar'], $chat['userid']);
+				//$avatar = get_avatar($chat['avatar'], $chat['userid']);
+				$avatar = get_avatar($chat['avatar'], $chat['license']);
 				
 				$block_chats_unserialized = unserialize($block_chats);
 				

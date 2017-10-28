@@ -1,7 +1,10 @@
 <?php
 
 require_once ("Secure.php");
-	
+use Dompdf\Dompdf;
+use Dompdf\Options;
+
+
 class Queing extends Secure {
 	
     function __construct() {
@@ -70,7 +73,7 @@ class Queing extends Secure {
 		}
 	}
 	
-	function preview($id, $date){
+	function preview($id, $date, $mainteinable = false){
 		
 		$info = $this->Patient->get_profile_info($id);
 		
@@ -90,20 +93,22 @@ class Queing extends Secure {
 
 		$i = 1;
 		$prescriptions = '';
-	    $prescriptions.='<table style="width:100%"><tbody>';
-		foreach ($this->Record->get_current_data('medications', $id, $date) as $row) {
+	    $prescriptions.='<table id="rx-contents" width="100%"><tbody>';
+		foreach ($this->Record->get_current_data('medications', $id, $date, $mainteinable) as $row) {
 			$prescriptions.="<tr>";
-			$prescriptions.='<td style="vertical-align: top; width:10%; padding-bottom: 5px;"><strong>'. $i .'</strong></td>';
-			$prescriptions.='<td style="vertical-align: top; width:75%; padding-bottom: 5px;"><strong>' .  $row['medicine'].' '.$row['preparation']. '</strong><br> ';
+			$prescriptions.='<td style="font-size: 20px; vertical-align: top; width:10%; padding-bottom: 5px;"><strong>'. $i .'</strong></td>';
+			$prescriptions.='<td style="font-size: 20px; vertical-align: top; width:75%; padding-bottom: 5px;"><strong>' .  $row['medicine'].' '.$row['preparation']. '</strong><br> ';
 			$prescriptions.='<span style="font-weight: normal;font-size: 18px;font-style: italic;padding-left: 30px; padding-bottom: 5px;">Sig: '.$row['sig'].'</span></td>';
-			$prescriptions.='<td style="vertical-align: top; width:5%; padding-bottom: 5px;"><strong>#</strong></td>';
-			$prescriptions.='<td style="vertical-align: top; width:10%; text-align: right; padding-bottom: 5px;"><strong>' . $row['qty'] . '</strong></td>';
+			$prescriptions.='<td style="font-size: 20px; vertical-align: top; width:15%; text-align: right; padding-bottom: 5px;"><strong># ' . $row['qty'] . '</strong></td>';
 			$prescriptions.="</tr>";
 		$i++; 
 		} 
 		$prescriptions.="</tbody></table>";
+
 		//get default rxpad template
-		$tx_template = ($this->config->item('rx_template') != '') ? $this->Template->get_info($this->config->item('rx_template'))->tcontent : $this->Template->get_default('rxpad')->tcontent;
+		//rx_template
+		
+		$tx_template = ($this->config->item('rx_template') != '') ? $this->Template->get_info($this->config->item('rx_template'))->tcontent : $this->Template->get_info(1)->tcontent;
 
 		//Replace variables from the Templates
         $html_ = str_replace(
@@ -151,9 +156,9 @@ class Queing extends Secure {
 				$age, 
 				($info->blood_type) ? $info->blood_type : '--', 
 				($info->address) ? $info->address : '--',
-				($info->country) ? $this->location_lib->get_info($info->country)->name : '--',				
-				($info->city) ? $this->location_lib->get_info($info->city)->name : '--', 
-				($info->state) ? $this->location_lib->get_info($info->state)->name : '--', 
+				($info->country) ? $this->location_lib->info('countries', $info->country)->name : '--',	// $this->location_lib->get_info($info->country)->name : '--',				
+				($info->city) ? $this->location_lib->info('cities', $info->city)->name : '--',	// $this->location_lib->get_info($info->city)->name : '--', 
+				($info->state) ? $this->location_lib->info('states', $info->state)->name : '--',	// $this->location_lib->get_info($info->state)->name : '--', 
 				($info->zip) ? $info->zip : '--',
 				($info->mobile) ? $info->mobile : '--',
 				//preserve details

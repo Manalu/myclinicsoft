@@ -129,23 +129,19 @@ class Locations extends CI_Controller
         $location_type = $this->input->post('location_type', TRUE);
         $location_types = $this->location_lib->get_types($location_type, $id);
         echo json_encode($location_types->result());
-        //$output = null;
-
-
-
-        // if ($type == "json") {
-
-        //     echo json_encode($location_types->result());
-        // } else {
-        //     foreach ($location_types->result() as $row) {
-        //         if ($selected_id == $row->location_id)
-        //             $output .= "<option selected='selected' alt='" . $row->location_id . "'>" . $row->name . "</option>";
-        //         else
-        //             $output .= "<option alt='" . $row->location_id . "'>" . $row->name . "</option>";
-        //     }
-
-        //     echo $output;
-        // }
     }
-
+	
+	
+	
+	function populate_state(){
+		echo json_encode($this->location_lib->populate_states($this->input->post('id'))->result());
+	}
+	
+	function populate_citie(){
+		echo json_encode($this->location_lib->populate_cities($this->input->post('id'))->result());
+	}
+	
+	
+	
+	
 }

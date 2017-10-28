@@ -53,8 +53,9 @@
 			}
 
 			$link = get_link($chat['link'], $fetchid);
-			$avatar = get_avatar($chat['avatar'], $fetchid);
-
+			//$avatar = get_avatar($chat['avatar'], $fetchid);
+			$avatar = get_avatar($chat['avatar'], $chat['license']);
+			
 			$response =  array('id' => $chat['userid'], 'n' => $db->escape_string(strip_tags($chat['username'])), 's' => $chat['status'], 'a' => $avatar, 'l' => $link);
 
 			header('Content-type: application/json; charset=utf-8');

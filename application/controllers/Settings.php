@@ -63,12 +63,15 @@ class Settings extends Secure {
 		}
 	}
 
-	function my_profile($id){
+	function my_profile($enc_id){
+		
+		$id = $this->encrypt->decode($enc_id);
+		
 		if ($this->input->is_ajax_request()) 
 		{
 			$data['module'] = $this->lang->line('common_my_profile');
-			$data['info'] = $this->Patient->get_info($id);
-			
+			$data['info'] = $this->Person->get_profile_info($id);
+
 			$this->load->view('ajax/profile', $data);
         } 
 		else
@@ -78,4 +81,7 @@ class Settings extends Secure {
 		}
 	}
 	
+	function encryptID($user_id){
+		redirect('my-profile/'.$this->encrypt->encode($user_id));
+	}
 }

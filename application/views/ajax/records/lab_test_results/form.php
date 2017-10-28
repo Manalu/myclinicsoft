@@ -58,32 +58,7 @@
 
 $(document).ready(function()
 {
-	
-	
-	
-	/* $("#test").autocomplete("<?php echo site_url('lab_test_results/suggest_test');?>", {
-        	max: 100,
-        	minChars: 0,
-        	delay: 10
-    	});
-    	
-    	$("#specimen").autocomplete("<?php echo site_url('lab_test_results/suggest_specimen');?>", {
-        	max: 100,
-        	minChars: 0,
-        	delay: 10
-    	});
-    	
-    	$("#conventional_units").autocomplete("<?php echo site_url('lab_test_results/suggest_conventional_units');?>", {
-        	max: 100,
-        	minChars: 0,
-        	delay: 10
-    	});
-    	
-    	$("#si_units").autocomplete("<?php echo site_url('lab_test_results/suggest_si_units');?>", {
-        	max: 100,
-        	minChars: 0,
-        	delay: 10
-    	}); */
+
     runAllForms();
 	
 	var validatefunction = function() {	
@@ -121,6 +96,7 @@ $(document).ready(function()
 					success:function(response)
 					{
 				
+						console.log(response.res);
 						
 						if(response.success)
 						{
@@ -134,7 +110,24 @@ $(document).ready(function()
 								timeout : 3000
 							});
 							
-							checkURL();
+							var _date = $('#lab_date').val();
+							var _test = $('#test').val();
+							var _specimen = $('#specimen').val();
+							var _conventional_units = $('#conventional_units').val();
+							var _si_units = $('#si_units').val();
+				
+							var item = '<tr id="row-lab-'+ response.id +'">'+
+								'<td>'+ _date +'</td>'+
+								'<td>'+ _test +'</td>'+
+								'<td>'+ _specimen +'</td>'+
+								'<td>'+ _conventional_units +'</td>'+
+								'<td>'+ _si_units +'</td>'+
+								'<td class="text-right">'+
+									'<a href="'+BASE_URL+'records/delete/'+ response.id +'/lab_test_results" id="lab-'+ response.id +'" class="delete_record btn btn-danger btn-xs"><i class="fa fa-trash-o"></i></a>'+
+								'</td>'+
+							'</tr>';
+							$('#lab-test-record tbody tr').before( item );
+							$('#empty-content-lab').remove();
 						}
 						else
 						{

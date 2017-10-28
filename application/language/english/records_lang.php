@@ -51,3 +51,5 @@ $lang["records_response_success_message"] = "% successfully added";
 $lang["records_response_failed_message"] = "Fail to add %";
 $lang["records_response_delete_success_message"] = "% successfully delete";
 $lang["records_response_delete_failed_message"] = "Fail to delete %";
+
+$lang["records_mainteinable"] = "Maintainable";

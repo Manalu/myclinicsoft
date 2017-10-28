@@ -5,12 +5,7 @@ class Dashboard extends Secure {
 
 	function __construct() {
         parent::__construct();
-       	
-    // if($this->tank_auth->islocked() == TRUE){
-     //        redirect('settings/locked');
-     //        exit();
-     //    }
-		
+
     }
 
     function _remap($method, $params = array()) {

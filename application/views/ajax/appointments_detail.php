@@ -18,7 +18,7 @@
 							}
 							echo $status;?></dd>
 				<dt>Doctor(s) note :<dt><dd><?php echo ($info->doctor_note) ? $info->doctor_note : '--';?></dd>
-				<dt>Patient(s) note :<dt><dd><?php echo ($info->patient_note) ? $info->patient_note : '--';?></dd>
+				<dt>Patient(s) note :<dt><dd><?php echo $info->patient_name;?></dd>
 			</dl>
 		</fieldset>
 		<fieldset>

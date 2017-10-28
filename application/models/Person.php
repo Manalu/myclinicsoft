@@ -166,5 +166,53 @@ class Person extends CI_Model
 		$this->db->where('id', $id);
 		return $this->db->update('users');
 	}
+
+	function get_doctors(){
+		$this->db->select('id, CONCAT(firstname, '.', lastname) AS name', FALSE);
+		$this->db->from('users_extend as ue');
+		$this->db->join('users as u','u.id=ue.user_id');			
+		$this->db->join('users_profiles as up','up.user_id=ue.user_id');
+		$this->db->where('u.role_id',2);		
+		$this->db->order_by('id', 'asc');
+		return $this->db->get();
+	}
+	
+	function get_info_doctor($id)
+	{
+		$this->db->from('users_extend');	
+		$this->db->join('users', 'users.id = users_extend.user_id');
+		$this->db->join('users_profiles', 'users_profiles.user_id = users_extend.user_id');
+	
+		$this->db->join('users_subscriptions_plan', 'users_subscriptions_plan.user_id = users_extend.user_id');
+		$this->db->join('subscriptions', 'subscriptions.subscription_id = users_subscriptions_plan.subscription_id');
+		
+		$this->db->where('users_extend.user_id',$id);
+		return $this->db->get()->row();
+	
+	}
+
+	function get_user_by_token($token)
+	{
+		
+		$this->db->from('users');
+		$this->db->join('users_profiles', 'users_profiles.user_id = users.id');		
+		$this->db->where('token',$token);
+		$query = $this->db->get();
+		
+		if($query->num_rows() == 1)
+		{
+			return $query->row();
+		}
+		else
+		{
+			return false;
+		}
+	}
+	//$tbl users, users_profiles
+	function update($data, $table, $pk){
+		$id = ($table == 'users') ? 'id' : 'user_id';
+		$this->db->where($id, $pk);
+		return $this->db->update($table, $data);
+	}
 }
 ?>

@@ -1,7 +1,0 @@
-payment gateway
-
-https://github.com/thephpleague/omnipay
-
-video
-
-https://twilio/video

@@ -160,4 +160,10 @@ class Secure extends CI_Controller {
 			}
 		}
 	}
+	
+	function setup(){
+		
+		$this->load->view('ajax/setup');
+	}
+	
 }

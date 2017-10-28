@@ -70,6 +70,7 @@ $autoload['libraries'] = array(
 	//'twilio_lib',
 	'location_lib',
 	'gravatar',
+	'encrypt',
 	//'dynamic_menu',
 	//'pass_secured'
 );
@@ -138,7 +139,7 @@ $autoload['config'] = array();
 |
 */
 
-$autoload['language'] = array('tank_auth');
+$autoload['language'] = array('_');
 
 /*
 | -------------------------------------------------------------------
