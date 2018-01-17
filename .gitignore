@@ -3,3 +3,10 @@ composer.lock
 composer.phar
 phpunit.xml
 .idea/*
+application/logs/*
+application/cache/*
+application/config/database.php
+arrowchat
+captcha
+system
+uploads

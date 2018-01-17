@@ -65,7 +65,7 @@
 				</h3>
 				
 				<!-- Nice place to describe your site in a sentence or two -->
-				<p class=""><a href="http://myclinicsoft.com/auth/login" class="btn btn-success btn-lg">Login</a> &nbsp; <a href="http://myclinicsoft.com/auth/register" class="btn btn-default btn-lg">Register</a></p>
+				<p class=""><a href="<?php echo site_url('auth/login');?>" class="btn btn-success btn-lg">Login</a> &nbsp; <a href="<?php echo site_url('auth/register');?>" class="btn btn-default btn-lg">Register</a></p>
 	
 			</div> <!-- /col -->
 		</div> <!-- /row -->
