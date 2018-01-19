@@ -20,7 +20,7 @@
 	<link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet" type="text/css">
 
 	<!-- Custom styles -->
-	<link rel="stylesheet" href="<?php echo site_url();?>assets/css/magister.css">
+	<link rel="stylesheet" href="<?php echo base_url();?>assets/css/magister.css">
 	
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 	<!-- Fonts -->
@@ -142,7 +142,7 @@
 		<div class="row">
 			<div class="col-sm-4 col-sm-offset-2">
 				<div class="thumbnail">
-					<img src="<?php echo site_url();?>assets/images/female-profile-blank.png" alt="">
+					<img src="<?php echo base_url();?>assets/images/female-profile-blank.png" alt="">
 					<div class="caption">
 						<h3>Irma Barbara B. Taganas-Guibone <small>M.D </small></h3>
 						<p>Founder - [ CEO, CFO ]</p>
@@ -151,7 +151,7 @@
 			</div>
 			<div class="col-sm-4">
 				<div class="thumbnail">
-					<img src="<?php echo site_url();?>assets/images/avatar.png" alt="">
+					<img src="<?php echo base_url();?>assets/images/avatar.png" alt="">
 					<div class="caption">
 						<h3>Randy Cagabhion Rebucas <br><small>- Senior Analyst</small></h3>
 						<p>Co-Founder - [ COO, CTO ]</p>

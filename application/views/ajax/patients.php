@@ -70,7 +70,7 @@ the <section></section> and you can use wells or panels instead
 <!-- end widget grid -->
 
 <script type="text/javascript">
-	var BASE_URL = '<?php echo base_url();?>';
+	var BASE_URL = '<?php echo site_url();?>';
 	var lic = '<?php echo $this->license_id;?>';
 	var can_view = 	'<?php echo ($this->admin_role_id != $this->role_id) ? $this->Module->has_permission('patient', $this->role_id, 'view',   $this->license_id) : true;; ?>';
 	var can_update = '<?php echo ($this->admin_role_id != $this->role_id) ? $this->Module->has_permission('patient', $this->role_id, 'update',   $this->license_id) : true;; ?>';
