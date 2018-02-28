@@ -1,8 +1,4 @@
-/vendor
-composer.lock
-composer.phar
-phpunit.xml
-.idea/*
+vendor
 application/logs/*
 application/cache/*
 application/config/config.php
