@@ -1,8 +1,8 @@
-application/logs/*
-application/cache/*
-application/config/config.php
-application/config/database.php
-arrowchat
-captcha
-system
-uploads
+/application/logs/*
+/application/cache/*
+/application/config/config.php
+/application/config/database.php
+/arrowchat
+/captcha
+/system
+/uploads
