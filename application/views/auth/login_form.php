@@ -64,7 +64,8 @@ $remember = array(
 						</section>
 					</fieldset>
 					<footer>
-						<a href="<?php echo $loginUrl;?>" class="btn btn-primary"> <i class="fa fa-facebook"></i> Register </a>
+						<a href="<?php echo $loginUrl;?>" class="btn btn-primary hidden"> <i class="fa fa-facebook"></i> Register </a>
+						<a href="<?php echo site_url('auth/register');?>" class="btn btn-primary"> Register </a>
 						<button type="submit" id="submit" class="btn btn-primary">
 							<?php echo $this->lang->line('__signin');?> 
 						</button>
@@ -143,7 +144,7 @@ $remember = array(
 				
 				$(form).ajaxSubmit({
 					beforeSend: function () {
-						$('#submit').html('<i class="fa fa-spinner fa-pulse fa-fw"></i> <?php echo $this->lang->line('__common_please_wait');?>');
+						$('#submit').html('<?php echo $this->lang->line('__common_please_wait');?>');
 						$('#submit').attr("disabled", "disabled");
 					},
 					success:function(response)
@@ -158,7 +159,7 @@ $remember = array(
 								iconSmall : "fa fa-check",
 								timeout : 3000
 							});
-							$('#submit').html('<i class="fa fa-spinner fa-pulse fa-fw"></i> <?php echo $this->lang->line('__common_redirecting');?>');
+							$('#submit').html('<?php echo $this->lang->line('__common_redirecting');?>');
 							setTimeout(function () {
 								window.location.href = BASE_URL+'dashboard/';
 							}, 5000);

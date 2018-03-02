@@ -59,13 +59,14 @@
 			</form>
 
 		</div>
-		<?php if($this->session->userdata('islogin')){ ?>
 
-			<a href="<?php echo $this->session->userdata('logoutUrl') ;?>">← <?php echo $this->lang->line('__cancel_and_return');?></a>
+		<?php //if($this->session->userdata('islogin')){ ?>
+
+			<!--<a href="<?php //echo $this->session->userdata('logoutUrl') ;?>">← <?php //echo $this->lang->line('__cancel_and_return');?></a>-->
 		    
-		<?php }else{ ?>
-			<a href="<?php echo site_url('auth/login');?>">← Cancel <?php echo $this->lang->line('__cancel_and_return');?></a>
-		<?php } ?>
+		<?php //}else{ ?>
+			<a href="<?php echo site_url('auth/login');?>">← <?php echo sprintf($this->lang->line('__cancel_and_return'), $this->config->item('app_name'));?></a>
+		<?php //} ?>
 	</div>
 </div>
 
@@ -179,7 +180,7 @@
 
 				$(form).ajaxSubmit({
 					beforeSend: function () {
-						$('#submit').html('<i class="fa fa-spinner fa-pulse fa-fw"></i> <?php echo $this->lang->line('__common_please_wait');?>');
+						$('#submit').html('<?php echo $this->lang->line('__common_please_wait');?>');
 						$('#submit').attr("disabled", "disabled");
 					},
 					success:function(response)
@@ -193,7 +194,7 @@
 								iconSmall : "fa fa-check",
 								timeout : 3000
 							});
-							$('#submit').html('<i class="fa fa-spinner fa-pulse fa-fw"></i> <?php echo $this->lang->line('__common_redirecting');?>');
+							$('#submit').html('<?php echo $this->lang->line('__common_redirecting');?>');
 							setTimeout(function () {
 								window.location.href = BASE_URL+'auth/login';
 							}, 5000);
