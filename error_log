@@ -1,0 +1,3 @@
+[26-Feb-2018 19:58:03 Asia/Hong_Kong] PHP Fatal error:  Call to a member function select() on null in /home/myclinicsoft/public_html/application/models/Role.php on line 145
+[26-Feb-2018 19:58:11 Asia/Hong_Kong] PHP Fatal error:  Call to a member function select() on null in /home/myclinicsoft/public_html/application/models/Role.php on line 145
+[26-Feb-2018 20:10:04 Asia/Hong_Kong] PHP Fatal error:  Call to a member function select() on null in /home/myclinicsoft/public_html/application/models/Role.php on line 145

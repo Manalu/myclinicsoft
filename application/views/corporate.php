@@ -26,25 +26,23 @@
 	<!-- Fonts -->
 	<link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 	<link href='http://fonts.googleapis.com/css?family=Wire+One' rel='stylesheet' type='text/css'>
+	<style>
+		* {
+			color: #fff !important;
+		}
+		.bg-blur {
+			background: rgb(39, 59, 66);
+			background: rgba(39, 59, 66, 0.4);
+		}
+		.tagline {
+			margin-bottom: 1em;
+		}
+
+	</style>
 </head>
 
 <!-- use "theme-invert" class on bright backgrounds, also try "text-shadows" class -->
 <body class="theme-invert">
-
-<nav class="mainmenu">
-	<div class="container">
-		<div class="dropdown">
-			<button type="button" class="navbar-toggle" data-toggle="dropdown"><span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
-			<!-- <a data-toggle="dropdown" href="#">Dropdown trigger</a> -->
-			<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-				<li><a href="#head" class="active">Welcome</a></li>
-				<li><a href="#features">Features</a></li>
-				<li><a href="#about">About</a></li>
-				<li><a href="#contact">Get in touch</a></li>
-			</ul>
-		</div>
-	</div>
-</nav>
 
 
 <!-- Main (Home) section -->
@@ -61,7 +59,6 @@
 				<!-- Short introductory (optional) -->
 				<h3 class="tagline">
 					Welcome to myclinicsoft – were doctors are in.<br>
-					Join our mailing list <a href="https://goo.gl/forms/tFesbxqIdBPOh7Gh1" target="_blank">HERE</a>
 				</h3>
 				
 				<!-- Nice place to describe your site in a sentence or two -->
@@ -69,15 +66,6 @@
 	
 			</div> <!-- /col -->
 		</div> <!-- /row -->
-	
-	</div>
-</section>
-
-<!-- Second (About) section -->
-<section class="section" id="features">
-	<div class="container bg-blur">
-	
-		<h2 class="text-center title">Features</h2>
 		<div class="row">
 			<div class="col-sm-4 col-sm-offset-2">    
 				<h5><strong>Other Supports</strong></h5>
@@ -125,55 +113,14 @@
 						<li>Conditions</li>
 						<li>Blood Pressure</li>
 						<li>Blood Glucose</li>
-						<li>Allergies</li>
+						<li>Allergiesw</li>
 					</ul>
 				</div>
 			</div>
 		</div>
-	</div>
-</section>
-
-<!-- Third (Works) section -->
-<section class="section" id="about">
-	<div class="container bg-blur">
-	
-		<h2 class="text-center title">About</h2>
-		<p class="lead text-center"></p>
-		<div class="row">
-			<div class="col-sm-4 col-sm-offset-2">
-				<div class="thumbnail">
-					<img src="<?php echo base_url();?>assets/images/female-profile-blank.png" alt="">
-					<div class="caption">
-						<h3>Irma Barbara B. Taganas-Guibone <small>M.D </small></h3>
-						<p>Founder - [ CEO, CFO ]</p>
-					</div>
-				</div>
-			</div>
-			<div class="col-sm-4">
-				<div class="thumbnail">
-					<img src="<?php echo base_url();?>assets/images/avatar.png" alt="">
-					<div class="caption">
-						<h3>Randy Cagabhion Rebucas <br><small>- Senior Analyst</small></h3>
-						<p>Co-Founder - [ COO, CTO ]</p>
-					</div>
-				</div>
-			</div>
-		</div>
-
-	</div>
-</section>
-
-<!-- Fourth (Contact) section -->
-<section class="section" id="contact">
-	<div class="container bg-blur">
-	
-		<h2 class="text-center title">Get in touch</h2>
-
+		
 		<div class="row">
 			<div class="col-sm-8 col-sm-offset-2 text-center">
-				<p class="lead">Have a question about myclinicsoft, or want to suggest a new feature?</p>
-				<p>Feel free to email us, or message us Facebook!</p>
-				<p><b><a href="mailto:corewen2015@gmail.com">coreweb2015@gmail.com</a></b><br><br></p>
 				<ul class="list-inline list-social">
 					<li class="hidden"><a href="https://twitter.com/serggg" class="btn btn-link"><i class="fa fa-twitter fa-fw"></i> Twitter</a></li>
 					<li class="hidden"><a href="https://github.com/pozhilov" class="btn btn-link"><i class="fa fa-github fa-fw"></i> Github</a></li>
@@ -182,7 +129,6 @@
 				</ul>
 			</div>
 		</div>
-
 	</div>
 </section>
 
@@ -194,15 +140,5 @@
 <!-- Custom template scripts -->
 <script src="assets/js/magister.js"></script>
 
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-  ga('create', 'UA-97921472-1', 'auto');
-  ga('send', 'pageview');
-
-</script>
 </body>
 </html>
