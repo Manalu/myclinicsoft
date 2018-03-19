@@ -230,6 +230,8 @@ class Auth extends CI_Controller
 						if ($this->config->item('email_account_details', 'tank_auth')) {	// send "welcome" email
 
 							$this->_send_email('welcome', $data['email'], $data);
+							//notification to admin
+							
 						}
 						unset($data['password']); // Clear password (just for any case)
 
@@ -237,6 +239,8 @@ class Auth extends CI_Controller
 						echo json_encode(array('success' => true, 'message' => $this->lang->line('auth_message_registration_completed_2')));
 						exit();
 					}
+
+					$this->_send_email('mcs_registration', $this->config->item('dev_email'), $data);
 				} else {
 					
 					$errors = $this->tank_auth->get_error_message();
