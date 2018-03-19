@@ -166,4 +166,25 @@ class Secure extends CI_Controller {
 		$this->load->view('ajax/setup');
 	}
 	
+	/**
+     * Facebook initialize config
+     *
+     * @since       1.0.1 First time this was introduced.
+     * @return      void
+     */
+
+    function fb_init(){
+        
+        $this->fb = new Facebook\Facebook([
+            'app_id' => '224864781343525',
+            'app_secret' => '20498c87e89a9d794df97cdac8542192',
+            'default_graph_version' => 'v2.9',
+        ]);
+
+        return $this->fb;
+        // $fb = $this->fb_init();
+		// $helper = $fb->getRedirectLoginHelper();
+		// $permissions = ['public_profile','email']; // Optional permissions
+		// $data['loginUrl'] = $helper->getLoginUrl(site_url().'auth/doFbLogin', $permissions);
+    }
 }

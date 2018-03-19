@@ -113,7 +113,7 @@
 						<li>Conditions</li>
 						<li>Blood Pressure</li>
 						<li>Blood Glucose</li>
-						<li>Allergies</li>
+						<li>Allergiesw</li>
 					</ul>
 				</div>
 			</div>
