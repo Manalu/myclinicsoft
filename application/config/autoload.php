@@ -66,11 +66,12 @@ $autoload['libraries'] = array(
 	'session',
 	'user_agent', 
 	//'pagination', 
-	'tank_auth',
+	// 'tank_auth',
 	//'twilio_lib',
 	'location_lib',
 	'gravatar',
-	'encrypt',
+	// 'encrypt',
+	'template'
 	//'dynamic_menu',
 	//'pass_secured'
 );
@@ -155,4 +156,17 @@ $autoload['language'] = array('_');
 |	$autoload['model'] = array('first_model' => 'first');
 */
 
-$autoload['model'] = array('Appconfig', 'Person', 'Role', 'Common', 'Patient', 'Record', 'Module', 'Que', 'Medication', 'Template', 'Report', 'Appointment');
+$autoload['model'] = array(
+	'Appconfig', 
+	'Person', 
+	'Role', 
+	'Common', 
+	'Patient', 
+	'Record', 
+	'Module', 
+	'Que', 
+	'Medication', 
+	'Forms', 
+	'Report', 
+	'Appointment'
+);

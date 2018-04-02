@@ -3,6 +3,8 @@
 function load_config()
 {
     $CI =& get_instance();
+
+    $CI->load->library('auth/tank_auth');
     foreach( $CI->Appconfig->get_all($CI->tank_auth->get_license_key())->result() as $app_config )
     {
         $CI->config->set_item( $app_config->key, $app_config->value );

@@ -7,7 +7,7 @@
 			<a href="<?php echo site_url('calendar');?>" class="jarvismetro-tile big-cubes bg-color-orangeDark"> <span class="iconbox"> <i class="fa fa-calendar fa-4x"></i> <span><?php echo $this->lang->line('__calendar');?></span> </span> </a>
 		</li>
 		<li class="">
-			<a href="<?php echo site_url('my-profile/'.$this->encrypt->encode($user_info->id));?>" class="jarvismetro-tile big-cubes selected bg-color-pinkDark"> <span class="iconbox"> <i class="fa fa-user fa-4x"></i> <span><?php echo $this->lang->line('__my_profile');?> </span> </span> </a>
+			<a href="<?php //echo site_url('my-profile/'.$this->encrypt->encode($user_info->id));?>" class="jarvismetro-tile big-cubes selected bg-color-pinkDark"> <span class="iconbox"> <i class="fa fa-user fa-4x"></i> <span><?php echo $this->lang->line('__my_profile');?> </span> </span> </a>
 		</li>
 	</ul>
 </div>

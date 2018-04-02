@@ -7,31 +7,10 @@
 		<script type="text/javascript" src="/arrowchat/includes/js/jquery.js"></script>
 		<script type="text/javascript" src="/arrowchat/includes/js/jquery-ui.js"></script>
 		<meta charset="utf-8">
-		<title><?php echo $title; ?></title>
+		<title><?php echo $template['title']; ?></title>
 		<meta name="google-site-verification" content="rWQKdkTjUlQrUfn2u19c2VIi8j8mcVFi7P3YUd_JqA4" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-		<?php
-		/** -- Copy from here -- */
-		if(!empty($meta))
-		foreach($meta as $name=>$content){
-			echo "\n\t\t";
-			?><meta name="<?php echo $name; ?>" content="<?php echo $content; ?>" /><?php
-				 }
-		echo "\n";
-
-		if(!empty($canonical))
-		{
-			echo "\n\t\t";
-			?><link rel="canonical" href="<?php echo $canonical?>" /><?php
-
-		}
-		echo "\n\t";
-
-		foreach($css as $file){
-		 	echo "\n\t\t";
-			?><link rel="stylesheet" href="<?php echo $file; ?>" type="text/css" /><?php
-		} echo "\n\t";
-		?>
+		<?php echo $template['metadata']; ?>
 		<!-- #CSS Links -->
 		<!-- Basic Styles -->
 		<link rel="stylesheet" type="text/css" media="screen" href="<?php echo base_url(); ?>css/bootstrap.min.css">
@@ -172,13 +151,13 @@
 		<!-- END SHORTCUT AREA -->
 		
 		<div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) return;
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.10&appId=224864781343525";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
+		<script>(function(d, s, id) {
+		  var js, fjs = d.getElementsByTagName(s)[0];
+		  if (d.getElementById(id)) return;
+		  js = d.createElement(s); js.id = id;
+		  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.10&appId=224864781343525";
+		  fjs.parentNode.insertBefore(js, fjs);
+		}(document, 'script', 'facebook-jssdk'));</script>
 		<!--================================================== -->
 		<script type="text/javascript">
 		var BASE_URL = '<?php echo base_url();?>';
